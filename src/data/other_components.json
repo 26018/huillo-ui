@@ -1,0 +1,14 @@
+[
+    {
+        "cname": "jh-location",
+        "title": "位置信息",
+        "description": "点击按钮获取位置信息",
+        "preselectedAnswer": ""
+    },
+
+    {
+        "cname": "jh-rate",
+        "title": "评价题",
+        "preselectedAnswer": 0
+    }
+]

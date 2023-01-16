@@ -1,0 +1,27 @@
+[
+  {
+    "cname": "jh-text-input",
+    "title": "年 龄"
+  },
+  {
+    "cname": "jh-text-input",
+    "title": "性 别"
+  },
+  {
+    "cname": "jh-text-input",
+    "title": "身份证",
+    "description": ""
+  },
+  {
+    "cname": "jh-text-input",
+    "title": "家庭住址",
+    "description": "",
+    "preselectedAnswer": []
+  },
+  {
+    "cname": "jh-upload-file",
+    "title": "文件上传",
+    "options": [],
+    "preselectedAnswer": []
+  }
+]

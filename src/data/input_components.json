@@ -1,0 +1,45 @@
+[
+  {
+    "cname": "jh-date-input",
+    "title": "日 期",
+    "description": ""
+  },
+  {
+    "cname": "jh-text-input",
+    "title": "文本域",
+    "description": ""
+  },
+  {
+    "cname": "jh-text-input",
+    "title": "问 答",
+    "description": ""
+  },
+  {
+    "cname": "jh-radio",
+    "title": "单 选",
+    "options": [],
+    "preselectedAnswer": ""
+  },
+  {
+    "cname": "jh-multi",
+    "title": "多 选",
+    "options": ["多选一","多选二"],
+    "preselectedAnswer": []
+  },
+  {
+    "cname": "jh-radio",
+    "title": "判断题",
+    "options": [
+      "正确",
+      "错误"
+    ],
+    "preselectedAnswer": ""
+  },
+  {
+    "cname": "jh-dropdown-select",
+    "title": "下拉选择",
+    "options": [],
+    "mode": "radio",
+    "preselectedAnswer": []
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "name": "Huillo-UI",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.0.10",
+    "axios": "^1.2.2",
+    "echarts": "^5.4.1",
+    "element-plus": "^2.2.27",
+    "resize-observer-polyfill": "^1.5.1",
+    "vue": "^3.2.45",
+    "vue-router": "^4.0.13",
+    "vue3-json-excel": "^1.0.10-alpha",
+    "vuedraggable": "^4.1.0",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.2.45",
+    "svg-sprite-loader": "^6.0.11",
+    "vite": "^1.0.0-rc.13"
+  }
+}
