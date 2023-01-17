@@ -1,12 +1,12 @@
 <template>
     <el-scrollbar>
         <el-space wrap>
-            <el-card style="min-width: 180px" v-for="i in 10">
-                <template #header>Test</template>
+            <el-card style="min-width: 180px" v-for="i in groupData">
+                <template #header>{{ i.title }}</template>
                 <template #default>
                     <div style="display: flex;align-items: baseline">
                         <div>成员</DIV>
-                        <div style="margin-left: auto">{{ i }}</div>
+                        <div style="margin-left: auto">{{ i.currentMember }}</div>
                     </div>
                 </template>
             </el-card>
@@ -25,10 +25,10 @@
         </el-space>
 
 
-       <Dialog title="新建群组" :show="showGroupView" @close="closeView">
+        <Dialog title="新建群组" :show="showGroupView" @close="closeView">
             <template #default>
-                <el-input placeholder="群组名称"></el-input>
-                <el-input placeholder="人数上限" style="margin-top: 8px"></el-input>
+                <el-input v-model="createGroupTitle" placeholder="群组名称"></el-input>
+                <el-input v-model="createGroupMaxMember" placeholder="人数上限" style="margin-top: 8px"></el-input>
             </template>
             <template #footer>
                 <div>
@@ -36,7 +36,7 @@
                     <el-button @click="addGroup" type="primary">创建</el-button>
                 </div>
             </template>
-       </Dialog>
+        </Dialog>
 
     </el-scrollbar>
 
@@ -45,33 +45,36 @@
 
 <script setup>
 
-import {ref, watch} from "vue";
+import {onMounted} from "vue";
 import Dialog from "../components/other/cmp/Dialog.vue";
-import {ElMessage} from "element-plus";
+import useGroups from "../hooks/useGroups";
+import {group_list} from "../api/group";
 
-let showGroupView = ref(false);
+let {
+    groupData,
+    showGroupView,
+    createGroupTitle,
+    createGroupMaxMember,
+    addGroup,
+    closeView,
+    switchDialog,
+} = useGroups();
 
-const addGroup = () => {
-    ElMessage.success({
-        message: '创建成功',
-        showClose: true,
+onMounted(() => {
+    group_list().then(res => {
+        groupData.value = res.data.data;
     })
-    closeView()
-}
-const closeView = () => {
-    showGroupView.value = false;
-};
-const switchDialog = (data) => {
-    showGroupView.value = data;
-};
+})
 
 </script>
 
 <style scoped>
 
-.addIcon{
-    display: flex;justify-content: center;
+.addIcon {
+    display: flex;
+    justify-content: center;
 }
+
 .addIcon:hover {
     color: royalblue;
 }

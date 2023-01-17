@@ -1,36 +1,30 @@
 <template>
-        <pc-view>
-            <Header :nav="navData.navData" @iconActive="$router.push('/')" height="50px"></Header>
-            <div class="pc-create">
-                <component-list/>
-                <component-create/>
-                <component-preview/>
-            </div>
-            <Dialog :show="navData.publishAble.value" @close="()=>{navData.publishAble.value = false}"
-                    :title="'问卷发布'">
-                <template #default>
-                    <div style="display: flex;flex-direction: column">
-                        <el-space :fill="true">
-                            <read-only-text data="请选择一个群组"/>
-                            <el-select v-model="selectedGroup" clearable placeholder="Select">
-                                <el-option v-for="item in groupArr" :key="item.id" :label="item.name"
-                                           :value="item.name"/>
-                            </el-select>
-                            <el-date-picker v-model="endTime" placeholder="问卷截止日期"/>
-                        </el-space>
-                    </div>
-
-                </template>
-                <template #footer>
-                    <el-button @click="()=>{navData.publishAble.value = false}">取消</el-button>
-                    <el-button type="primary" @click="()=>{
-                    navData.publish();
-                    navData.publishAble.value = false
-                }">创建
-                    </el-button>
-                </template>
-            </Dialog>
-        </pc-view>
+    <pc-view>
+        <Header :nav="navData" @iconActive="$router.push('/')" height="50px"></Header>
+        <div class="pc-create">
+            <component-list/>
+            <component-create/>
+            <component-preview/>
+        </div>
+        <Dialog :show="publishAble" @close="()=>{publishAble = false}" :title="'问卷发布'">
+            <template #default>
+                <div style="display: flex;flex-direction: column">
+                    <el-space :fill="true">
+                        <read-only-text data="请选择一个群组"/>
+                        <el-select v-model="selectedGroupList" clearable placeholder="选择您的群组">
+                            <el-option v-for="item in groupArr" :key="item.id" :label="item.title" :value="item.id"/>
+                        </el-select>
+                        <el-date-picker v-model="questionnaireEndTime" placeholder="问卷截止日期"/>
+                    </el-space>
+                </div>
+            </template>
+            <template #footer>
+                <el-button @click="()=>{publishAble = false}">取消</el-button>
+                <el-button type="primary" @click="()=>{  publish();  publishAble = false}">创建
+                </el-button>
+            </template>
+        </Dialog>
+    </pc-view>
 </template>
 
 <script setup>
@@ -42,18 +36,19 @@ import PcView from "../components/other/cmp/PcView.vue";
 import Dialog from '../components/other/cmp/Dialog.vue'
 import useCreateNav from "../hooks/useCreateNav";
 import ReadOnlyText from "../components/other/cmp/ReadOnlyText.vue";
-import {ref} from "vue";
-let navData = useCreateNav()
-let selectedGroup = ref("");
-let groupArr = [{
-    id: 1,
-    name: "葬爱家族永不磨灭",
-},{
-    id: 2,
-    name: "西山不倒小组"
-}]
+import {onMounted, ref} from "vue";
+import {group_list} from "../api/group";
 
-let endTime = ref("");
+let {navData, publishAble, questionnaireEndTime, selectedGroupList, publish} = useCreateNav();
+let groupArr = ref([]);
+onMounted(() => {
+    questionnaireEndTime.value = "";
+    selectedGroupList.value = "";
+    group_list().then(res => {
+        groupArr = res.data.data
+    });
+});
+
 </script>
 
 <style scoped>

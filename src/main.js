@@ -25,7 +25,7 @@ app.config.globalProperties.$echarts = echarts;
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
     config.headers = {
-        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6ImpheTI1NzI0OCIsInByb2ZpbGUiOiJudWxsIiwiZ3JvdXBMaXN0IjoiW10iLCJpZCI6IjE2MTM0NzIwNzM4MjgyNTM2OTciLCJleHAiOjE2NzM2MTgzNzksImFjY291bnQiOiIyMDMzNDcxMzQ5QHFxLmNvbSIsInVzZXJuYW1lIjoiTHNrIn0.awVKdA9gA8-uhIkrXx9Verd6dJOCbMukQyZR7TDGNQk",
+        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6ImpheTI1NzI0OCIsInByb2ZpbGUiOiJudWxsIiwiZ3JvdXBMaXN0IjoiW10iLCJpZCI6IjE2MTM0NzIwNzM4MjgyNTM2OTciLCJleHAiOjE2NzQ1MjgwMDYsImFjY291bnQiOiIyMDMzNDcxMzQ5QHFxLmNvbSIsInVzZXJuYW1lIjoiTHNrIn0.fbebzp6z0bg2qarpGZs2U2bpCw7QVh06eQJ9oPxn8aY",
     }
     // 在发送请求之前做些什么
     return config;

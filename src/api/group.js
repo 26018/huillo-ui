@@ -11,3 +11,7 @@ export function group_add_member(data) {
 export function group_share(id) {
     return axios.get("http://localhost/group/share?id=" + id);
 }
+
+export function group_list() {
+    return axios.get("http://localhost/group/list");
+}

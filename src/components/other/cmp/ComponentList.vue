@@ -139,7 +139,7 @@ export default {
 }
 
 .fix {
-    width: 260px;
+    width: 280px;
     border: 0px solid red;
     box-sizing: border-box;
     padding: 8px 0;

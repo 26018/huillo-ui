@@ -74,7 +74,6 @@ export default {
                 list[i].sequence = i;
             }
         },
-
         moving(e) {
             return e.relatedContext.sequence !== 0
         },
