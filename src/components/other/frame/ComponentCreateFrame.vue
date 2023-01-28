@@ -6,24 +6,15 @@
                     <component-input v-model="model.title"/>
                 </div>
             </div>
-            <div v-show="model && !isHeadCmp" class="operation-frame">
-                <div>
-                    <slot name="extend"></slot>
-                </div>
+            <div v-show="model && !isHeadCmp" class="operation-frame"><div>
+                <slot name="extend"></slot></div>
                 <el-checkbox v-model="model.optional">选填</el-checkbox>
-                <el-icon class="move">
-                    <Sort/>
-                </el-icon>
-                <el-icon @click="$emit('removeItem',model);">
-                    <CircleClose/>
-                </el-icon>
+                <el-icon class="move"><Sort/></el-icon>
+                <el-icon @click="$emit('removeItem',model);" style="cursor: pointer"><CircleClose/></el-icon>
             </div>
         </div>
-
         <div class="frame-desc" v-show="model">
-            <component-input :type="isHeadCmp ? 'textarea':'text'"
-                             :style="{marginTop:isHeadCmp?'8px':'0px'}"
-                             v-model="model.description"/>
+            <component-input :type="isHeadCmp ? 'textarea':'text'" :style="{marginTop:isHeadCmp?'8px':'0px'}" v-model="model.description"/>
         </div>
         <div>
             <slot></slot>

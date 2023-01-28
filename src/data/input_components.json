@@ -1,7 +1,7 @@
 [
   {
     "cname": "jh-date-input",
-    "title": "日 期",
+    "title": "日期",
     "description": ""
   },
   {
@@ -11,18 +11,18 @@
   },
   {
     "cname": "jh-text-input",
-    "title": "问 答",
+    "title": "问答",
     "description": ""
   },
   {
     "cname": "jh-radio",
-    "title": "单 选",
+    "title": "单选",
     "options": [],
     "preselectedAnswer": ""
   },
   {
     "cname": "jh-multi",
-    "title": "多 选",
+    "title": "多选",
     "options": ["多选一","多选二"],
     "preselectedAnswer": []
   },

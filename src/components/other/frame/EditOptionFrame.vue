@@ -3,7 +3,7 @@
         <div style="width: 100%">
             <slot></slot>
         </div>
-        <el-button link @click="$emit('removeItem')" style="margin-left: auto">
+        <el-button link @click="$emit('removeItem')" style="margin-left: auto;">
             <el-icon class="edit-option-deleteButton">
                 <CloseBold/>
             </el-icon>

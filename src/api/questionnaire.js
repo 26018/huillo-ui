@@ -12,3 +12,7 @@ export function questionnaire_list() {
 export function questionnaire_share(id) {
     return axios.get("http://localhost/questionnaire/share?id=" + id);
 }
+
+export function questionnaire_detail(id) {
+    return axios.get("http://localhost/questionnaire/detail?id=" + id);
+}

@@ -6,7 +6,7 @@
                   :stripe="false">
             <el-table-column fixed prop="title" label="收集标题" width="180"/>
             <el-table-column prop="status" sortable label="状态" width="180"/>
-            <el-table-column prop="commitTimes" sortable label="提交次数" width="180"/>
+            <el-table-column prop="commitCount" sortable label="提交次数" width="180"/>
             <el-table-column prop="endTime" label="截止日期" width="180"/>
             <el-table-column align="right">
                 <template #header>
@@ -29,14 +29,13 @@
             <div>
                 <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+questionnaireShareInfo.shareImage"/>
             </div>
-            <div
-                style="padding: 4px 2px;
+            <div style="padding: 4px 2px;
                 color: black;font-size: 14px;
                 background-color: gainsboro;border-radius: 4px;
                 box-sizing: border-box;">
-                链接: <a target="_blank" :href="questionnaireShareInfo.shareLink">{{
-                    questionnaireShareInfo.shareLink
-                }}</a></div>
+                链接:
+                <a target="_blank" :href="questionnaireShareInfo.shareLink">{{questionnaireShareInfo.shareLink}}</a>
+            </div>
         </Dialog>
         <!--关闭问卷-->
         <Dialog title="结束问卷" :show="closeView" @close="closeExit">
@@ -60,8 +59,8 @@
 
 <script setup>
 
-import {onMounted, reactive, ref, toRefs, watch} from "vue";
-import {navTo} from "../hooks/util";
+import {onMounted} from "vue";
+import {formatDate} from "../hooks/util";
 import Dialog from "../components/other/cmp/Dialog.vue";
 import useCollections from "../hooks/useCollections";
 import {questionnaire_list} from "../api/questionnaire";
@@ -72,13 +71,11 @@ let {
     shareExit, removeExit, closeExit,
     remove, close, share, analysis
 } = useCollections();
-const formatDate = (current_datetime) => {
-    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
-    return formatted_date;
-}
+
 onMounted(() => {
     questionnaire_list().then(res => {
         tableData.value = res.data.data;
+        console.log(tableData.value)
         tableData.value.forEach(table => {
             // 格式化时间
             if (table.endTime == null) {
@@ -111,4 +108,9 @@ onMounted(() => {
     grid-gap: 10px;
     overflow: auto;
 }
+
+:deep(.el-table__row) {
+    cursor: pointer;
+}
+
 </style>

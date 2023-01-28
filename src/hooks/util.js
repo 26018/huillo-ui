@@ -49,4 +49,7 @@ export function removeItem(data) {
     // console.log("remove:", data);
 }
 
-
+export function formatDate(current_datetime) {
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+    return formatted_date;
+}
