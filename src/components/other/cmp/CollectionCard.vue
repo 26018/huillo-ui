@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import {navTo} from "../../../hooks/util";
+import {navTo} from "../../../api/util";
 
 defineProps(['data'])
 

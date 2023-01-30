@@ -23,7 +23,7 @@
 <script setup>
 import {onMounted, ref, watch} from "vue";
 import {submission_commitList} from "../api/submission";
-import {formatDate} from "../hooks/util";
+import {formatDate} from "../api/util";
 
 let tableData = ref([]);
 

@@ -46,7 +46,7 @@
 <script setup>
 
 import {onMounted} from "vue";
-import Dialog from "../components/other/cmp/Dialog.vue";
+import Dialog from "../components/other/cmp/JhDialog.vue";
 import useGroups from "../hooks/useGroups";
 import {group_list} from "../api/group";
 

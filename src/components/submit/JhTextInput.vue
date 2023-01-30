@@ -6,7 +6,6 @@
 
 <script setup>
 import ComponentSubmitFrame from "../other/frame/ComponentSubmitFrame.vue";
-import {provide} from "vue";
 
 let props = defineProps(['data']);
 

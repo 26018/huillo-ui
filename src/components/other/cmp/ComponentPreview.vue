@@ -44,11 +44,7 @@ export default {
     },
 
     created() {
-        // TODO 调换顺序之后，index不会变化
-        // let len = this.template.length;
-        // for (let i = 0; i < len; i++) {
-        //     this.template[i].index = i;
-        // }
+
     },
 
     methods: {

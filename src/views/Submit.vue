@@ -1,10 +1,63 @@
 <template>
-<div>submit</div>
+    <div style="max-width: 600px;margin:0 auto;height: 100vh">
+        <el-scrollbar>
+            <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
+                <component :is="t.cname" :data="t"/>
+            </div>
+            <div style="display: flex;justify-content: center">
+                <el-button style="margin: 16px auto" @click="submit" type="primary">提交</el-button>
+            </div>
+        </el-scrollbar>
+    </div>
 </template>
 
 <script>
+import {questionnaire_getById, questionnaire_submit} from "../api/questionnaire";
+import JhHead from '../components/submit/JhHead.vue';
+import JhTextInput from "../components/submit/JhTextInput.vue";
+import JhMulti from "../components/submit/JhMulti.vue";
+import JhRadio from "../components/submit/JhRadio.vue";
+import JhRate from '../components/submit/JhRate.vue';
+import JhLocation from '../components/submit/JhLocation.vue'
+import JhDateInput from '../components/submit/JhDateInput.vue'
+import JhDropdownSelect from '../components/submit/JhDropdownSelect.vue'
+import JhDownloadFile from '../components/submit/JhDownloadFile.vue';
+import JhUploadFile from '../components/submit/JhUploadFile.vue';
+
 export default {
-    name: "Submit"
+    components: {
+        JhHead,
+        JhMulti,
+        JhRadio,
+        JhDownloadFile,
+        JhUploadFile,
+        JhDropdownSelect,
+        JhTextInput,
+        JhRate,
+        JhLocation,
+        JhDateInput
+    },
+    data() {
+        return {
+            questionnaireId: "",
+            questionnaire: {}
+        }
+    },
+    created() {
+        this.questionnaireId = this.$route.params.id;
+        // TODO 查询问卷
+        questionnaire_getById(this.questionnaireId).then(res => {
+            this.questionnaire = res.data.data;
+            console.log(this.questionnaire);
+        });
+    },
+    methods: {
+        submit() {
+            // TODO 提交到后台
+            console.log(this.questionnaire)
+            questionnaire_submit(this.questionnaire, this.questionnaireId);
+        }
+    }
 }
 </script>
 

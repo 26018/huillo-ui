@@ -33,7 +33,7 @@ import ComponentList from "../components/other/cmp/ComponentList.vue";
 import ComponentCreate from "../components/other/cmp/ComponentCreate.vue";
 import ComponentPreview from '../components/other/cmp/ComponentPreview.vue'
 import PcView from "../components/other/cmp/PcView.vue";
-import Dialog from '../components/other/cmp/Dialog.vue'
+import Dialog from '../components/other/cmp/JhDialog.vue'
 import useCreateNav from "../hooks/useCreateNav";
 import ReadOnlyText from "../components/other/cmp/ReadOnlyText.vue";
 import {onMounted, ref} from "vue";

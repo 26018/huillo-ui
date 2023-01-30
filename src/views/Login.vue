@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import {navTo} from "../hooks/util";
+import {navTo} from "../api/util";
 import Header from "../components/other/cmp/Header.vue";
 import {ref} from "vue";
 import {login} from "../api/user";

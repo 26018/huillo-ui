@@ -29,7 +29,7 @@ import ComponentCreateFrame from "../other/frame/ComponentCreateFrame.vue";
 import { ref, watch} from "vue";
 import {ElMessage} from "element-plus";
 import EditOptionFrame from "../other/frame/EditOptionFrame.vue";
-import {removeOption} from "../../hooks/util";
+import {removeOption} from "../../api/util";
 
 let props = defineProps(['model'])
 

@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory, createWebHistory} from "vue-router"
+import {createRouter, createWebHistory} from "vue-router"
 import index from '../views/Index.vue'
 import about from '../views/AboutHuillo.vue'
 import introduction from '../views/Introduction.vue'

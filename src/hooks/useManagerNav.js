@@ -1,5 +1,5 @@
 import {reactive} from "vue";
-import {navTo} from "./util";
+import {navTo} from "../api/util";
 
 export default function () {
     let navData = reactive([{

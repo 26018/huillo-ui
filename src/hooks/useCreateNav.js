@@ -1,5 +1,5 @@
 import {ref} from "vue";
-import {navTo} from "./util";
+import {navTo} from "../api/util";
 import {ElMessage} from "element-plus";
 import {useStore} from "vuex";
 import { questionnaire_create} from "../api/questionnaire";

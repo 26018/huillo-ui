@@ -1,5 +1,5 @@
 import {reactive, ref, watch} from "vue";
-import {navTo} from "./util";
+import {navTo} from "../api/util";
 import {questionnaire_list, questionnaire_share} from "../api/questionnaire";
 
 export default function () {

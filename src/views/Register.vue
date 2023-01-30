@@ -36,7 +36,7 @@
 
 <script setup>
 import Header from '../components/other/cmp/Header.vue'
-import {navTo} from "../hooks/util";
+import {navTo} from "../api/util";
 import {register} from "../api/user";
 import {ref} from "vue";
 

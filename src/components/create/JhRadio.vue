@@ -13,7 +13,7 @@
 
 <script setup>
 import ComponentCreateFrame from "../other/frame/ComponentCreateFrame.vue";
-import {addOption, removeOption} from "../../hooks/util";
+import {addOption, removeOption} from "../../api/util";
 import EditOptionFrame from "../other/frame/EditOptionFrame.vue";
 
 let props = defineProps(['model'])

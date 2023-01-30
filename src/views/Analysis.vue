@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import {navTo} from "../hooks/util";
+import {navTo} from "../api/util";
 import ReadOnlyText from "../components/other/cmp/ReadOnlyText.vue";
 import BarChart from "../components/echarts/BarChart.vue";
 import {onMounted} from "vue";

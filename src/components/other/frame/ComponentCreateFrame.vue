@@ -25,7 +25,7 @@
 <script setup>
 
 import {computed} from "vue";
-import {removeItem} from "../../../hooks/util";
+import {removeItem} from "../../../api/util";
 import ComponentInput from "../cmp/ComponentInput.vue";
 
 let props = defineProps(['model']);
