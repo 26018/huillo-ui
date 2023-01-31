@@ -1,9 +1,7 @@
 <template>
     <el-scrollbar>
-        <el-table :data="tableData" :height="'95vh'"
-                  :show-overflow-tooltip="true"
-                  :highlight-current-row="true" @row-click="showDetail"
-                  :stripe="false">
+        <el-table :data="tableData" :height="'95vh'" :show-overflow-tooltip="true"
+                  :highlight-current-row="true" @row-click="showDetail" :stripe="false">
             <el-table-column fixed prop="title" label="收集标题" width="180"/>
             <el-table-column prop="status" sortable label="状态" width="180"/>
             <el-table-column prop="commitCount" sortable label="提交次数" width="180"/>
@@ -26,15 +24,19 @@
         <!--弹窗-->
         <!--分享问卷-->
         <jh-dialog title="分享问卷" :show="shareView" @close="shareExit">
-            <div>
-                <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+questionnaireShareInfo.shareImage"/>
+            <div
+                style="display: flex;align-items: center;width: 100%;height: 30px;margin-bottom: 8px;box-shadow: 0 0 0 1px #dcdfe6 inset;padding:4px 8px;border-radius: 4px">
+                <a :href="questionnaireShareInfo.shareLink" target="_blank">{{
+                        questionnaireShareInfo.shareLink
+                    }}</a>
+                <el-button style="margin-left: 8px" type="primary" link size="small">复制</el-button>
             </div>
-            <div style="padding: 4px 2px;
-                color: black;font-size: 14px;
-                background-color: gainsboro;border-radius: 4px;
-                box-sizing: border-box;">
-                链接:
-                <a target="_blank" :href="questionnaireShareInfo.shareLink">{{questionnaireShareInfo.shareLink}}</a>
+            <div class="image-container">
+                <div style="color: white;align-items: center;justify-content: center;">
+                    <p style="font-size: 22px">{{ questionnaireShareInfo.title }}</p>
+                    <p>手机扫描二维码填写内容</p>
+                </div>
+                <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+questionnaireShareInfo.shareImage"/>
             </div>
         </jh-dialog>
         <!--关闭问卷-->
@@ -53,7 +55,6 @@
                 <el-button>确定</el-button>
             </template>
         </jh-dialog>
-
     </el-scrollbar>
 </template>
 
@@ -75,7 +76,6 @@ let {
 onMounted(() => {
     questionnaire_list().then(res => {
         tableData.value = res.data.data;
-        console.log(tableData.value)
         tableData.value.forEach(table => {
             // 格式化时间
             if (table.endTime == null) {
@@ -99,14 +99,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.collections {
-    box-sizing: border-box;
-    padding: 8px;
-    width: calc(100vw - 200px);
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    grid-gap: 10px;
-    overflow: auto;
+
+.image-container {
+    background-image: url('../assets/sea.jpg');
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: flex;
+    width: 100%;
+    outline: none;
+    justify-content: space-between
 }
 
 :deep(.el-table__row) {

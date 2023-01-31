@@ -1,8 +1,8 @@
 <template>
     <div class="component-create">
         <el-scrollbar>
-            <draggable :list="template" @end="moveEnd" :move="moving" handle=".move" item-key="template"
-                       animation="300">
+            <component :is="questionnaire.cname" :model="questionnaire"/>
+            <draggable :list="questionnaire.components" @end="moveEnd" handle=".move" item-key="template" animation="300">
                 <template #item="{ element }">
                     <component :is="element.cname" :model="element" @removeItem="removeItem"/>
                 </template>
@@ -43,17 +43,17 @@ export default {
     },
 
     computed: {
-        ...mapState('questionnaire', ['template'])
+        ...mapState('questionnaire', ['questionnaire'])
     },
 
     created() {
-        this.setIndex(this.template);
+        this.setIndex(this.questionnaire.components);
     },
 
     watch:{
-        template: {
+        questionnaire: {
             handler(n) {
-                localStorage.setItem('template', JSON.stringify(n));
+                localStorage.setItem('questionnaire', JSON.stringify(n));
             },
             deep: true,
         },
@@ -65,17 +65,16 @@ export default {
             store.commit('questionnaire/REMOVE_ITEM', data);
         },
         moveEnd(data) {
-            this.setIndex(this.template);
+            this.setIndex(this.questionnaire.components);
         },
-
         setIndex(list) {
-            let len = list.length;
-            for (let i = 0; i < len; i++) {
-                list[i].sequence = i;
+            if (list == null) {
+                return
             }
-        },
-        moving(e) {
-            return e.relatedContext.sequence !== 0
+            let len = list.length;
+            for (let i = 1; i <= len; i++) {
+                list[i-1].sequence = i;
+            }
         },
     },
 }

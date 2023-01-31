@@ -49,15 +49,15 @@ export default function () {
     }
 
     function publish() {
-        let template = localStorage.getItem('template');
+        let template = localStorage.getItem('questionnaire');
         let parsed = JSON.parse(template);
         if (questionnaireEndTime.value.length === 0) {
             ElMessage.error({message: "截止时间不能为空", showClose: true})
             return;
         }
         // 加上截止时间和选择发布的群组
-        parsed[0].endTime = questionnaireEndTime.value;
-        parsed[0].selectedGroupList = selectedGroupList.value;
+        parsed.endTime = questionnaireEndTime.value;
+        parsed.selectedGroupList = selectedGroupList.value;
         questionnaire_create(parsed).then(res => {
             if (res.data.code !== 200) {
                 ElMessage.error({message: res.data.message, showClose: true,})

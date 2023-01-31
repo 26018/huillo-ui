@@ -1,9 +1,9 @@
 <template>
     <component-submit-frame :data="data">
         <el-checkbox-group style="width: 100%;" v-model="data.input">
-            <el-checkbox style="width: 100%;" v-for="(option,index) in JSON.parse(data.options)" :key="index"
+            <el-checkbox style="width: 100%;" v-for="(option,index) in data.options" :key="index"
                          :label="option">
-                <read-only-text :data="JSON.parse(data.options)[index]"/>
+                <read-only-text :data="data.options[index]"/>
             </el-checkbox>
         </el-checkbox-group>
     </component-submit-frame>
@@ -12,10 +12,14 @@
 <script setup>
 import ComponentSubmitFrame from "../other/frame/ComponentSubmitFrame.vue";
 import ReadOnlyText from "../other/cmp/ReadOnlyText.vue";
-import {provide} from "vue";
+import {onMounted, provide} from "vue";
 
 let props = defineProps(['data']);
-
+onMounted(() => {
+    if ('string' === typeof props.data.options) {
+        props.data.options = JSON.parse(props.data.options);
+    }
+})
 </script>
 
 <style scoped>

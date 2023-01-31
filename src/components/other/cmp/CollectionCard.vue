@@ -3,8 +3,7 @@
     <el-card shadow="always" style="border-radius: 8px" class="collection-card">
         <template #header>
             <el-row style="display: flex;align-items: baseline;justify-content: space-around">
-                <el-col :span="16"
-                        style="font-size: 24px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;overflow: hidden">
+                <el-col :span="16" style="font-size: 24px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;overflow: hidden">
                     在线文件收集
                 </el-col>
                 <el-col :span="8" style="text-align: right;font-weight: 500;font-size: 14px">已结束</el-col>

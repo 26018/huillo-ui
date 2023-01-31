@@ -4,25 +4,25 @@ import initComponents from '../data/InitComponent.json'
 const questionnaire = {
     namespaced: true,
     state: {
-        template: localStorage.getItem('template') == null ? initComponents : JSON.parse(localStorage.getItem('template')),
+        questionnaire: localStorage.getItem('questionnaire') == null ? initComponents : JSON.parse(localStorage.getItem('questionnaire')),
     },
     mutations: {
         ADD_COMPONENT(st, value) {
             // 为每一个项添加index下标
-            value.sequence = st.template.length;
-            st.template.push(value);
-            localStorage.setItem('template', JSON.stringify(st.template));
+            value.sequence = st.questionnaire.length;
+            st.questionnaire.components.push(value);
+            localStorage.setItem('questionnaire', JSON.stringify(st.questionnaire));
         },
         CLEAR(st) {
-            st.template.splice(1, st.template.length);
-            localStorage.setItem('template', JSON.stringify(st.template));
+            st.questionnaire.components.splice(1, st.questionnaire.length);
+            localStorage.setItem('questionnaire', JSON.stringify(st.questionnaire));
         },
         CLEAR_ALL(st) {
-            st.template.splice(0, st.template.length);
-            localStorage.removeItem('template');
+            st.questionnaire = null;
+            localStorage.removeItem('questionnaire');
         },
         REMOVE_ITEM(st, item) {
-            let arr = st.template;
+            let arr = st.questionnaire;
             let targetIndex = -1;
             for (let i = 0; i < arr.length; i++) {
                 if (arr[i] === item) {
@@ -30,17 +30,9 @@ const questionnaire = {
                     break;
                 }
             }
-            st.template.splice(targetIndex, 1);
-            localStorage.setItem('template', JSON.stringify(st.template));
+            st.questionnaire.components.splice(targetIndex, 1);
+            localStorage.setItem('questionnaire', JSON.stringify(st.questionnaire));
         },
-
-        UPDATE_LIST(st, list) {
-            list = JSON.parse(list);
-            st.template = list;
-            localStorage.setItem('template', JSON.stringify(st.template));
-            console.log('vuex更新完成');
-        },
-
     },
 }
 

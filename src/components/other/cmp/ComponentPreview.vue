@@ -1,7 +1,8 @@
 <template>
     <div style="width: 400px;box-sizing: border-box;overflow: auto">
         <el-scrollbar>
-            <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in template">
+            <component :is="questionnaire.cname" :data="questionnaire"/>
+            <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
                 <component :is="t.cname" :data="t"/>
             </div>
             <div style="display: flex;justify-content: center">
@@ -40,11 +41,7 @@ export default {
         JhDateInput
     },
     computed: {
-        ...mapState('questionnaire', ['template'])
-    },
-
-    created() {
-
+        ...mapState('questionnaire', ['questionnaire'])
     },
 
     methods: {

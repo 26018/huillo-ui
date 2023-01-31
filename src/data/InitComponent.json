@@ -1,56 +1,56 @@
-[
-  {
-    "cname": "jh-head",
-    "title": "在线文件收集",
-    "description": "",
-    "optional": false,
-    "preselectedAnswer": "",
-    "verify": []
-  },
-  {
-    "cname": "jh-text-input",
-    "title": "姓名",
-    "description": "请填写您的姓名",
-    "optional": false,
-    "preselectedAnswer": "",
-    "verify": []
-  },
-  {
-    "cname": "jh-radio",
-    "title": "性别",
-    "description": "选择您的性别",
-    "optional": false,
-    "options": [
-      "男",
-      "女"
-    ],
-    "preselectedAnswer": "",
-    "verify": []
-  },
-  {
-    "cname": "jh-multi",
-    "title": "工作经历",
-    "description": "从2019年起",
-    "optional": false,
-    "options": [
-      "Tencent",
-      "Alibaba",
-      "Bytedance"
-    ],
-    "preselectedAnswer": [],
-    "verify": []
-  },
-  {
-    "cname": "jh-dropdown-select",
-    "title": "学校",
-    "description": "选择您当前就读的学校",
-    "optional": false,
-    "options": [
-      "内江师范学院",
-      "乐山师范学院",
-      "四川师范学院"
-    ],
-    "preselectedAnswer": "",
-    "verify": []
-  }
-]
+{
+  "cname": "jh-head",
+  "title": "在线文件收集",
+  "description": "",
+  "optional": false,
+  "preselectedAnswer": "",
+  "verify": [],
+  "components": [
+    {
+      "cname": "jh-text-input",
+      "title": "姓名",
+      "description": "请填写您的姓名",
+      "optional": false,
+      "preselectedAnswer": "",
+      "verify": []
+    },
+    {
+      "cname": "jh-radio",
+      "title": "性别",
+      "description": "选择您的性别",
+      "optional": false,
+      "options": [
+        "男",
+        "女"
+      ],
+      "preselectedAnswer": "",
+      "verify": []
+    },
+    {
+      "cname": "jh-multi",
+      "title": "工作经历",
+      "description": "从2019年起",
+      "optional": false,
+      "options": [
+        "Tencent",
+        "Alibaba",
+        "Bytedance"
+      ],
+      "preselectedAnswer": [],
+      "verify": []
+    },
+    {
+      "cname": "jh-dropdown-select",
+      "title": "学校",
+      "description": "选择您当前就读的学校",
+      "optional": false,
+      "options": [
+        "内江师范学院",
+        "乐山师范学院",
+        "四川师范学院"
+      ],
+      "preselectedAnswer": "",
+      "verify": []
+    }
+  ]
+}

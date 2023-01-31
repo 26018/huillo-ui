@@ -1,6 +1,7 @@
 <template>
-    <div style="max-width: 600px;margin:0 auto;height: 100vh">
+    <div style="max-width: 600px;margin:0 auto;height: 100vh;">
         <el-scrollbar>
+            <component :is="questionnaire.cname" :data="questionnaire"/>
             <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
                 <component :is="t.cname" :data="t"/>
             </div>
@@ -23,6 +24,7 @@ import JhDateInput from '../components/submit/JhDateInput.vue'
 import JhDropdownSelect from '../components/submit/JhDropdownSelect.vue'
 import JhDownloadFile from '../components/submit/JhDownloadFile.vue';
 import JhUploadFile from '../components/submit/JhUploadFile.vue';
+import {ElMessage} from "element-plus";
 
 export default {
     components: {
@@ -55,7 +57,11 @@ export default {
         submit() {
             // TODO 提交到后台
             console.log(this.questionnaire)
-            questionnaire_submit(this.questionnaire, this.questionnaireId);
+            questionnaire_submit(this.questionnaire, this.questionnaireId).then(res=>{
+                if (res.data.code === 200) {
+                    ElMessage.success("提交成功");
+                }
+            });
         }
     }
 }

@@ -11,9 +11,14 @@
 
 <script setup>
 import ComponentSubmitFrame from "../other/frame/ComponentSubmitFrame.vue";
+import {onMounted} from "vue";
 
 let props = defineProps(['data']);
-
+onMounted(() => {
+    if ('string' === typeof props.data.options) {
+        props.data.options = JSON.parse(props.data.options);
+    }
+})
 </script>
 
 <style scoped>

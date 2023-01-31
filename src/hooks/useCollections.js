@@ -11,12 +11,12 @@ export default function () {
     let removeView = ref(false);
     let tableData = ref([]);
 
-// 点击按钮的方法
+    // 点击按钮的方法
     const analysis = (data) => {
         navTo('collections/analysis/' + data.id)
     };
     const share = (data) => {
-        questionnaire_share(data.id).then(res=>{
+        questionnaire_share(data.id).then(res => {
             questionnaireShareInfo.value = res.data.data;
             console.log(questionnaireShareInfo.value)
         })
@@ -69,7 +69,7 @@ export default function () {
         navTo('collections/detail/' + row.id)
     }
     return {
-        search, tableData, showDetail,questionnaireShareInfo,
+        search, tableData, showDetail, questionnaireShareInfo,
         shareView, removeView, closeView,
         shareExit, removeExit, closeExit,
         remove, close, share, analysis

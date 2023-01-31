@@ -7,6 +7,7 @@
     </component-create-frame>
 </template>
 
+
 <script setup>
 import ComponentCreateFrame from "../other/frame/ComponentCreateFrame.vue";
 import {ElMessage} from "element-plus";

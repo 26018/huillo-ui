@@ -6,7 +6,7 @@
             </el-icon>
             <div style="display: flex;font-size: 24px;margin-left: 8px">{{ collectionDetail.title.value }}</div>
             <div style="display: flex;margin-left: auto;background-color: white;padding: 8px;border-radius: 8px;">
-                <el-button type="" @click="openView(collectionDetail.shareView)">
+                <el-button @click="openView(collectionDetail.shareView)">
                     <el-icon>
                         <Share/>
                     </el-icon>&nbsp;分享
@@ -68,24 +68,16 @@
         </el-card>
 
         <!--通知未提交窗口-->
-        <jh-dialog :show="collectionDetail.notSubmitNotifyView.data"
-                   @close="closeView(collectionDetail.notSubmitNotifyView);">
-            <div style="width: 800px;height: 400px">
-                <el-card style="margin-top: 8px">
-                    <el-table style="width: 100%" :data="collectionDetail.tableData.value" :highlight-current-row="true"
-                              :stripe="true">
-                        <el-table-column prop="username" fixed label="提交人" width="180"/>
-                    </el-table>
-                </el-card>
-            </div>
-        </jh-dialog>
-        <!--分享-->
-        <jh-dialog :show="collectionDetail.shareView.data" @close="closeView(collectionDetail.shareView)">
+        <jh-dialog :show="collectionDetail.notSubmitNotifyView.data" @close="closeView(collectionDetail.notSubmitNotifyView);">
 
-            <template #footer>
-                <el-button @click="closeView(collectionDetail.shareView)">取消</el-button>
-                <el-button @click="">确定</el-button>
-            </template>
+        </jh-dialog>
+
+        <!--分享-->
+        <jh-dialog :show="collectionDetail.shareView.data" :title="'分享问卷'" @close="closeView(collectionDetail.shareView)">
+            <el-image style="border-radius: 4px" :src="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAQAAAABYmaj5AAAA6klEQVR42u3ULXLEMAwFYJvUV4jJ5moJia/gkPyQzRUkYl+tJjEttEhdo2468zK9wIp96D2NZqTqZb7UW3cq6rHMedNIUmlMHAVqD+Y4yGLR9GHvFJnzjSoHF195VxVlmfnV86o2Isdlv4uK3rqHmhxSDX6VzIJUdBgPThVJajFMNiOV+Tks3dQjVTk7b5ihEi3K9xGqDI5Pl5GKaQl+jUjy3UqfnYVKO40x9FDkTT5/9/ur0HWL1ztSy3ecikZqFyOTqEeSGo8kIlA7b4NX9kbPmVzCoodO5KAqcyxjRmrNPtUaeqT31/hXP+bsRmX82btZAAAAAElFTkSuQmCC'"/>
+            <div>
+                <a href="http:fixyou.top/questionnaire/26">http:fixyou.top/questionnaire/26</a>
+            </div>
         </jh-dialog>
         <!--结束-->
         <jh-dialog :show="collectionDetail.finishView.data" @close="closeView(collectionDetail.finishView)">
@@ -116,12 +108,10 @@ import {onMounted} from "vue";
 import {questionnaire_detail} from "../api/questionnaire";
 
 let collectionDetail = useCollectionDetail();
-
 let props = defineProps(['id']);
 
 onMounted(() => {
     questionnaire_detail(props.id).then(res => {
-        console.log(res.data.data)
         let {endTime, title, startTime, filesCount, submitterDetailList} = res.data.data;
         collectionDetail.title.value = title;
         collectionDetail.filesCount.value = filesCount;
