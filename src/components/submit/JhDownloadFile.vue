@@ -9,11 +9,13 @@
 
 <script setup>
 
-import {inject, provide} from "vue";
 import ComponentSubmitFrame from "../other/frame/ComponentSubmitFrame.vue";
+import {onMounted} from "vue";
 
 let props = defineProps(['data']);
-
+onMounted(()=>{
+    props.data.optional = true;
+})
 
 </script>
 

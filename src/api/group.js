@@ -15,3 +15,17 @@ export function group_share(id) {
 export function group_list() {
     return axios.get("http://localhost/group/list");
 }
+
+export function group_getNotSubmitMember(groupList) {
+    let groupIdList = [];
+    groupList.forEach(group=>{
+        groupIdList.push(group.id);
+    })
+    return axios.post("http://localhost/questionnaire/notSubmitMember", {
+        "selectedGroupList": groupIdList,
+    });
+}
+
+export function group_notifyNotSubmitMember(userIdList) {
+    return axios.post("http://localhost/questionnaire/notifyNotSubmitMember", userIdList);
+}

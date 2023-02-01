@@ -11,7 +11,7 @@
                 <div style="display: flex;flex-direction: column">
                     <el-space :fill="true">
                         <read-only-text data="请选择一个群组"/>
-                        <el-select v-model="selectedGroupList" clearable placeholder="选择您的群组">
+                        <el-select v-model="selectedGroupList" multiple clearable placeholder="选择您的群组">
                             <el-option v-for="item in groupArr" :key="item.id" :label="item.title" :value="item.id"/>
                         </el-select>
                         <el-date-picker v-model="questionnaireEndTime" placeholder="问卷截止日期"/>

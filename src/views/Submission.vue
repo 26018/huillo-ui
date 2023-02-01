@@ -12,7 +12,9 @@
                     <el-input v-model="search" clearable prefix-icon="Search" placeholder='搜索提交'/>
                 </template>
                 <template #default="scope">
-                    <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">删除
+                    <el-button type="primary" size="small" @click="navTo('/manager/collections/committed/detail/'+scope.row.id)">查看
+                    </el-button>
+                    <el-button type="danger" size="small" @click="">删除
                     </el-button>
                 </template>
             </el-table-column>
@@ -23,7 +25,7 @@
 <script setup>
 import {onMounted, ref, watch} from "vue";
 import {submission_commitList} from "../api/submission";
-import {formatDate} from "../api/util";
+import {formatDate, navTo} from "../api/util";
 
 let tableData = ref([]);
 
@@ -37,13 +39,11 @@ onMounted(() => {
             } else {
                 table.endTime = formatDate(new Date(table.endTime))
             }
-
             if (table.submitTime == null) {
                 table.submitTime = formatDate(new Date());
             } else {
                 table.submitTime = formatDate(new Date(table.submitTime))
             }
-
             // 比较时间
             let endTime = Date.parse(table.endTime);
             let now = Date.now();

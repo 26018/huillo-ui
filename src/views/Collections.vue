@@ -29,7 +29,7 @@
                 <a :href="questionnaireShareInfo.shareLink" target="_blank">{{
                         questionnaireShareInfo.shareLink
                     }}</a>
-                <el-button style="margin-left: 8px" type="primary" link size="small">复制</el-button>
+                <el-button style="margin-left: auto" type="primary" link size="small">复制</el-button>
             </div>
             <div class="image-container">
                 <div style="color: white;align-items: center;justify-content: center;">

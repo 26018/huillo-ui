@@ -25,7 +25,8 @@ function uploadFile(params) {
     params.userFileList = userFileList;
     userFile_upload(params).then(res => {
         if (res.data.code == 200) {
-            params.input = "上传成功"
+            // params.input = "上传成功"
+            params.optional = true;
             ElMessage.success("上传成功");
             return;
         }
@@ -38,10 +39,13 @@ function pushFile(file, fileList) {
     // TODO 上传Id
     const fileReader = new FileReader()
     fileReader.readAsBinaryString(file.raw);
+    if (props.data.input == null) {
+        props.data.input = [];
+    }
     fileReader.onloadend = e => {
         const md5 = SparkMD5.hashBinary(e.target.result);
-        props.model.options.push(md5)
-    }
+        props.data.input.push(md5)
+    };
 }
 
 </script>

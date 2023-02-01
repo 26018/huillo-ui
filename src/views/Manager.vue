@@ -1,12 +1,10 @@
 <template>
     <div style="display: flex;height: 100vh;padding: 8px;box-sizing: border-box">
         <div class="nav-bar">
-            <div v-for="(nav,index) in navData"
-                 class="nav-item"
-                 :id="'Manager:'+index"
-                 @click="ManagerNav(nav,index)">{{ nav.text }}
+            <div v-for="(nav,index) in navData" class="nav-item" :id="'Manager:'+index" @click="ManagerNav(nav,index)">
+                <img :src="nav.icon">
+                <div style="margin-left: 4px">{{ nav.text }}</div>
             </div>
-<!--            <div class="nav-item account-management">账号管理</div>-->
         </div>
         <div style="padding: 4px"></div>
         <div style="padding: 0px;box-sizing: border-box;width: calc(100% - 200px);">
@@ -94,5 +92,8 @@ onMounted(() => {
     border-radius: 4px;
 }
 
+img {
+    width: 20px;
+}
 
 </style>

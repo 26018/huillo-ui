@@ -19,6 +19,9 @@ onMounted(() => {
     if ('string' === typeof props.data.options) {
         props.data.options = JSON.parse(props.data.options);
     }
+    if ('string' === typeof props.data.input) {
+        props.data.input = JSON.parse(props.data.input);
+    }
 })
 </script>
 

@@ -26,6 +26,7 @@ export function questionnaire_submit(questionnaire) {
     for (const c of components) {
         if (c.optional == false && (c.input == null || c.input.length == 0)) {
             ElMessage.info("没填完呢您")
+            console.log("没填完：",c)
             return ;
         }
     }
