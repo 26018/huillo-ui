@@ -13,21 +13,21 @@
                 </template>
                 <template #default="scope">
                     <div style="display: flex;width: 230px;margin-left: auto">
-                        <el-button type="success" size="small" @click="share(scope.row)">分享</el-button>
+                        <el-button type="success" size="small" @click="share(scope.row,shareView)">分享</el-button>
                         <el-button type="primary" size="small" @click="analysis(scope.row)">分析</el-button>
-                        <el-button type="warning" size="small" @click="close(scope.row)">结束</el-button>
-                        <el-button type="danger" size="small" @click="remove(scope.row)">删除</el-button>
+                        <el-button type="warning" size="small" @click="close(scope.row,closeView)">结束</el-button>
+                        <el-button type="danger" size="small" @click="remove(scope.row,deleteView)">删除</el-button>
                     </div>
                 </template>
             </el-table-column>
         </el-table>
         <!--弹窗-->
         <!--分享问卷-->
-        <jh-dialog title="分享问卷" :show="shareView" @close="shareExit">
+        <jh-dialog title="分享问卷" :show="shareView" @close="ViewClose(shareView)">
             <div
                 style="display: flex;align-items: center;width: 100%;height: 30px;margin-bottom: 8px;box-shadow: 0 0 0 1px #dcdfe6 inset;padding:4px 8px;border-radius: 4px">
-                <a :href="questionnaireShareInfo.shareLink" target="_blank">{{
-                        questionnaireShareInfo.shareLink
+                <a :href="questionnaireShareInfo['shareLink']" target="_blank">{{
+                        questionnaireShareInfo['shareLink']
                     }}</a>
                 <el-button style="margin-left: auto" type="primary" link size="small">复制</el-button>
             </div>
@@ -39,19 +39,21 @@
                 <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+questionnaireShareInfo.shareImage"/>
             </div>
         </jh-dialog>
+
         <!--关闭问卷-->
-        <jh-dialog title="结束问卷" :show="closeView" @close="closeExit">
+        <jh-dialog title="结束问卷" :show="closeView" @close="ViewClose(closeView)">
             <div>确定要结束此问卷？</div>
             <template #footer>
-                <el-button @click="closeExit">取消</el-button>
+                <el-button @click="ViewClose(closeView)">取消</el-button>
                 <el-button>确定</el-button>
             </template>
         </jh-dialog>
+
         <!--删除问卷-->
-        <jh-dialog title="删除问卷" :show="removeView" @close="removeExit">
+        <jh-dialog title="删除问卷" :show="deleteView" @close="ViewClose(deleteView)">
             <div>确定要删除此问卷？</div>
             <template #footer>
-                <el-button @click="removeExit">取消</el-button>
+                <el-button @click="ViewClose(deleteView)">取消</el-button>
                 <el-button>确定</el-button>
             </template>
         </jh-dialog>
@@ -61,17 +63,17 @@
 <script setup>
 
 import {onMounted} from "vue";
-import {formatDate} from "../api/util";
+import {formatDate, ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollections from "../hooks/useCollections";
 import {questionnaire_list} from "../api/questionnaire";
 
 let {
     search, tableData, showDetail, questionnaireShareInfo,
-    shareView, removeView, closeView,
-    shareExit, removeExit, closeExit,
-    remove, close, share, analysis
+    shareView, closeView, deleteView,
+    close, share, analysis, remove
 } = useCollections();
+
 
 onMounted(() => {
     questionnaire_list().then(res => {

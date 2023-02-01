@@ -19,12 +19,10 @@ import useManagerNav from "../hooks/useManagerNav";
 import {onMounted} from "vue";
 
 let navData = useManagerNav()
-
 function ManagerNav(data, index) {
     data.action(data.args);
     let element = document.getElementById('Manager:' + index);
     element.style.color = '#409EFF'
-    element.style.backgroundColor = 'rgb(243,246,249)'
     recordCurrentNav(index)
 
     let length = navData.length;
@@ -32,7 +30,6 @@ function ManagerNav(data, index) {
         if (i !== index) {
             let ele = document.getElementById('Manager:' + i);
             ele.style.color = 'black'
-            element.style.backgroundColor = 'transparent'
         }
     }
 }
@@ -65,13 +62,18 @@ onMounted(() => {
 
 .nav-item {
     height: 40px;
-    width: 100px;
+    width: 120px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     user-select: none;
+}
+
+.nav-item:hover {
+    background-color: gainsboro;
+    border-radius: 4px;
 }
 
 .manager-view {

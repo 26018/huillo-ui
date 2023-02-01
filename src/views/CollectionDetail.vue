@@ -6,25 +6,25 @@
             </el-icon>
             <div style="display: flex;font-size: 24px;margin-left: 8px">{{ collectionDetail.title.value }}</div>
             <div style="margin-left: auto;padding: 8px;">
-                <el-button @click="openView(collectionDetail.shareView)">
+                <el-button @click="ViewOpen(collectionDetail.shareView)">
                     <el-icon>
                         <Share/>
                     </el-icon>&nbsp;分享
                 </el-button>
-                <el-button type="warning" @click="openView(collectionDetail.exportView)"><el-icon>
-                        <Share/>
-                    </el-icon>&nbsp;导出</el-button>
-                <el-button type="primary" @click="openView(collectionDetail.editView)">
+<!--                <el-button type="warning" @click="openView(collectionDetail.exportView)"><el-icon>-->
+<!--                        <Share/>-->
+<!--                    </el-icon>&nbsp;导出</el-button>-->
+                <el-button type="primary" @click="ViewOpen(collectionDetail.editView)">
                     <el-icon>
                         <Edit/>
                     </el-icon>&nbsp;编辑
                 </el-button>
-                <el-button type="info" @click="openView(collectionDetail.finishView)">
+                <el-button type="info" @click="ViewOpen(collectionDetail.finishView)">
                     <el-icon>
                         <CloseBold/>
                     </el-icon>&nbsp;结束
                 </el-button>
-                <el-button type="danger" @click="openView(collectionDetail.deletedView)">
+                <el-button type="danger" @click="ViewOpen(collectionDetail.deletedView)">
                     <el-icon>
                         <Delete/>
                     </el-icon>&nbsp;删除
@@ -69,15 +69,15 @@
         </el-card>
 
         <!--通知未提交窗口-->
-        <jh-dialog :title="'邮件通知成员'" :show="collectionDetail.notSubmitNotifyView.data"
-                   @close="closeView(collectionDetail.notSubmitNotifyView);">
+        <jh-dialog :title="'邮件通知成员'" :show="collectionDetail.notSubmitNotifyView"
+                   @close="ViewClose(collectionDetail.notSubmitNotifyView);">
             <div style="max-width: 400px">
                 <el-checkbox-group v-model="notifyArray">
                     <el-checkbox v-for="member in noSubmitMember" :label="member.id">{{member.username}}</el-checkbox>
                 </el-checkbox-group>
             </div>
             <template #footer>
-                <el-button>取消</el-button>
+                <el-button @click="ViewClose(collectionDetail.notSubmitNotifyView)">取消</el-button>
                 <el-button>全选</el-button>
                 <el-button>反选</el-button>
                 <el-button type="primary" @click="notifyNotSubmitOkButton">确认通知</el-button>
@@ -85,8 +85,8 @@
         </jh-dialog>
 
         <!--分享-->
-        <jh-dialog :show="collectionDetail.shareView.data" :title="'分享问卷'"
-                   @close="closeView(collectionDetail.shareView)">
+        <jh-dialog :show="collectionDetail.shareView" :title="'分享问卷'"
+                   @close="ViewClose(collectionDetail.shareView)">
             <el-image style="border-radius: 4px"
                       :src="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAQAAAABYmaj5AAAA6klEQVR42u3ULXLEMAwFYJvUV4jJ5moJia/gkPyQzRUkYl+tJjEttEhdo2468zK9wIp96D2NZqTqZb7UW3cq6rHMedNIUmlMHAVqD+Y4yGLR9GHvFJnzjSoHF195VxVlmfnV86o2Isdlv4uK3rqHmhxSDX6VzIJUdBgPThVJajFMNiOV+Tks3dQjVTk7b5ihEi3K9xGqDI5Pl5GKaQl+jUjy3UqfnYVKO40x9FDkTT5/9/ur0HWL1ztSy3ecikZqFyOTqEeSGo8kIlA7b4NX9kbPmVzCoodO5KAqcyxjRmrNPtUaeqT31/hXP+bsRmX82btZAAAAAElFTkSuQmCC'"/>
             <div>
@@ -94,18 +94,18 @@
             </div>
         </jh-dialog>
         <!--结束-->
-        <jh-dialog :show="collectionDetail.finishView.data" @close="closeView(collectionDetail.finishView)">
+        <jh-dialog :show="collectionDetail.finishView" @close="ViewClose(collectionDetail.finishView)">
             <h2>结束</h2>
             <template #footer>
-                <el-button @click="closeView(collectionDetail.finishView)">取消</el-button>
+                <el-button @click="ViewClose(collectionDetail.finishView)">取消</el-button>
                 <el-button @click="">确定</el-button>
             </template>
         </jh-dialog>
         <!--删除-->
-        <jh-dialog :show="collectionDetail.deletedView.data" @close="closeView(collectionDetail.deletedView)">
+        <jh-dialog :show="collectionDetail.deletedView" @close="ViewClose(collectionDetail.deletedView)">
             <h2>删除</h2>
             <template #footer>
-                <el-button @click="closeView(collectionDetail.deletedView)">取消</el-button>
+                <el-button @click="ViewClose(collectionDetail.deletedView)">取消</el-button>
                 <el-button @click="">确定</el-button>
             </template>
         </jh-dialog>
@@ -114,7 +114,7 @@
 </template>
 
 <script setup>
-import {closeView, formatDate, navTo, openView} from "../api/util";
+import {formatDate, navTo, ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollectionDetail from "../hooks/useCollectionDetail";
 import {onMounted, ref} from "vue";
@@ -153,7 +153,7 @@ function notifyNotSubmit() {
     group_getNotSubmitMember(collectionDetail.selectedGroupList).then(res=>{
         if (res.data.code === 200) {
             noSubmitMember = res.data.data;
-            openView(collectionDetail.notSubmitNotifyView);
+            ViewOpen(collectionDetail.notSubmitNotifyView);
         }
     });
 }

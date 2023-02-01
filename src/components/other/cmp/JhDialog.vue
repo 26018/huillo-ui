@@ -1,6 +1,6 @@
 <template>
     <teleport to="body">
-        <el-dialog style="width: fit-content;min-width: 200px;border-radius: 8px" :model-value="show"
+        <el-dialog style="width: fit-content;min-width: 200px;border-radius: 8px" :model-value="show.data"
                    @close="$emit('close')" :title=title>
             <template #default>
                 <slot/>

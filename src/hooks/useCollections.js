@@ -6,44 +6,32 @@ export default function () {
 
     let search = ref("");
     let questionnaireShareInfo = ref({});
-    let shareView = ref(false);
-    let closeView = ref(false);
-    let removeView = ref(false);
+    let shareView = reactive({data: false});
+    let closeView = reactive({data: false});
+    let deleteView = reactive({data: false});
     let tableData = ref([]);
 
     // 点击按钮的方法
     const analysis = (data) => {
         navTo('collections/analysis/' + data.id)
     };
-    const share = (data) => {
+    const share = (data, viewControl) => {
+        viewControl.data = true;
         questionnaire_share(data.id).then(res => {
             questionnaireShareInfo.value = res.data.data;
             console.log(questionnaireShareInfo.value)
         })
         shareView.value = true;
     }
+    const close = (data, viewControl) => {
+        viewControl.data = true;
 
-    const close = (data) => {
-        closeView.value = true;
+    };
+    const remove = (data, viewControl) => {
+        viewControl.data = true;
+
     };
 
-    const remove = (data) => {
-        removeView.value = true;
-    };
-
-// 关闭方法
-
-    const shareExit = () => {
-        shareView.value = false;
-    }
-
-    const closeExit = () => {
-        closeView.value = false;
-    }
-
-    const removeExit = () => {
-        removeView.value = false;
-    };
 
     // let keepAliveValue = tableData;
 // 检测搜索值变化
@@ -70,9 +58,8 @@ export default function () {
     }
     return {
         search, tableData, showDetail, questionnaireShareInfo,
-        shareView, removeView, closeView,
-        shareExit, removeExit, closeExit,
-        remove, close, share, analysis
+        shareView, closeView, deleteView,
+        close, share, analysis, remove
     }
 
 };
