@@ -7,7 +7,12 @@
                     <component :is="element.cname" :model="element" @removeItem="removeItem"/>
                 </template>
             </draggable>
-
+            <div style="height: 40px;margin-top: 8px;
+            display:flex;align-items: center
+            ;width: 100%;text-align: center;
+            justify-content: center;
+            font-family: Consolas;
+             font-size: 14px">Powered by Lsk</div>
         </el-scrollbar>
     </div>
 </template>
@@ -86,12 +91,14 @@ export default {
     width: 700px;
     margin: 0 10px;
     box-sizing: border-box;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 55px);
     overflow: auto;
     background-color: white;
 }
 
 :deep(.el-scrollbar__thumb) {
     max-width: 2px;
+    margin-left: auto;
 }
+
 </style>

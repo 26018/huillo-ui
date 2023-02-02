@@ -1,6 +1,6 @@
 <template>
     <pc-view>
-        <Header :nav="navData" @iconActive="$router.push('/')" height="50px"></Header>
+        <Header :nav="navData" @iconActive="$router.push('/')" height="45px"></Header>
         <div class="pc-create">
             <component-list/>
             <component-create/>
@@ -53,9 +53,13 @@ onMounted(() => {
 
 <style scoped>
 .pc-create {
-    height: calc(100vh - 50px);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /*border: 1px solid red;*/
+    overflow: hidden;
+    height: calc(100vh - 55px);
     display: flex;
     background-color: rgba(243, 246, 249);
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 </style>

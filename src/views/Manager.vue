@@ -53,7 +53,7 @@ onMounted(() => {
 <style scoped>
 .nav-bar {
     width: 200px;
-    padding: 8px;
+    padding: 8px ;
     box-sizing: border-box;
     border-radius: 8px;
     background-color: white;
@@ -61,14 +61,15 @@ onMounted(() => {
 }
 
 .nav-item {
-    height: 40px;
+    height: 30px;
     width: 120px;
-    margin: 0 auto;
+    margin: 8px auto 0;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     user-select: none;
+    font-family: 微软雅黑;
 }
 
 .nav-item:hover {
@@ -96,6 +97,7 @@ onMounted(() => {
 
 img {
     width: 20px;
+    aspect-ratio: 1/1;
 }
 
 </style>

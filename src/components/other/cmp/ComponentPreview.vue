@@ -1,5 +1,6 @@
 <template>
-    <div style="width: 400px;box-sizing: border-box;overflow: auto">
+    <div style="width: 360px;
+    box-sizing: border-box;overflow: auto">
         <el-scrollbar>
             <component :is="questionnaire.cname" :data="questionnaire"/>
             <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
@@ -63,5 +64,8 @@ export default {
 
 :deep(.el-scrollbar__thumb) {
     max-width: 2px;
+    margin-left: auto;
 }
+
+
 </style>

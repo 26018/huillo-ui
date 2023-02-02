@@ -29,29 +29,10 @@ export default function () {
     };
     const remove = (data, viewControl) => {
         viewControl.data = true;
-
     };
 
-
-    // let keepAliveValue = tableData;
-// 检测搜索值变化
-    watch(search, (value, oldValue, onCleanup) => {
-        // tableData = keepAliveValue;
-        // if (value === '') {
-        //     return;
-        // }
-        // let newTable = [];
-        // tableData.forEach(v => {
-        //     let s = JSON.stringify(v);
-        //     if (s.includes(value)) {
-        //         newTable.push(v);
-        //     }
-        // })
-        // tableData = newTable;
-    });
-
     const showDetail = (row, column, event) => {
-        if (column.label === '' || column.label == undefined) {
+        if (column.label === '' || column.label === undefined) {
             return;
         }
         navTo('collections/detail/' + row.id)

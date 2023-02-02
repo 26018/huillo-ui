@@ -18,7 +18,7 @@ import {onMounted} from "vue";
 let props = defineProps(['model'])
 let userFileList = [];
 
-onMounted(()=>{
+onMounted(() => {
     userFileList = []
 })
 
@@ -42,7 +42,11 @@ function pushFile(file, fileList) {
     fileReader.readAsBinaryString(file.raw);
     fileReader.onloadend = e => {
         const md5 = SparkMD5.hashBinary(e.target.result);
-        props.model.options.push(md5)
+        props.model.options.push({
+            md5,
+            name: file.raw.name,
+            size: file.raw.size
+        })
     }
 }
 

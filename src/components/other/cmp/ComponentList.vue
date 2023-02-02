@@ -139,18 +139,18 @@ export default {
 }
 
 .fix {
-    width: 280px;
+    width: 260px;
     border: 0px solid red;
     box-sizing: border-box;
     padding: 8px 0;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 45px);
     background-color: white;
 }
 
 .component-list {
     display: grid;
-    grid-gap: 4px;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    /*grid-gap: 4px;*/
+    grid-template-columns: 1fr 1fr;
     box-sizing: border-box;
 }
 

@@ -15,7 +15,6 @@
     "spark-md5": "^3.0.2",
     "vue": "^3.2.45",
     "vue-router": "^4.0.13",
-    "vue3-json-excel": "^1.0.10-alpha",
     "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"
   },

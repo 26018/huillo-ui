@@ -4,16 +4,13 @@
             <el-icon style="cursor: pointer;" :size="24" @click="navTo(-1)">
                 <ArrowLeft/>
             </el-icon>
-            <div style="display: flex;font-size: 24px;margin-left: 8px">{{ collectionDetail.title.value }}</div>
+            <div style="display: flex;font-size: 24px;margin-left: 8px">{{ questionnaire.title }}</div>
             <div style="margin-left: auto;padding: 8px;">
                 <el-button @click="ViewOpen(collectionDetail.shareView)">
                     <el-icon>
                         <Share/>
                     </el-icon>&nbsp;分享
                 </el-button>
-<!--                <el-button type="warning" @click="openView(collectionDetail.exportView)"><el-icon>-->
-<!--                        <Share/>-->
-<!--                    </el-icon>&nbsp;导出</el-button>-->
                 <el-button type="primary" @click="ViewOpen(collectionDetail.editView)">
                     <el-icon>
                         <Edit/>
@@ -33,9 +30,9 @@
         </div>
         <el-card style="margin-top: 8px">
             <div style="display: flex;align-items: center;justify-content: space-between">
-                <div>提交人数：{{ collectionDetail.tableData.value.length }}</div>
-                <div>创建时间：{{ collectionDetail.startTime.value }}</div>
-                <div>截止时间：{{ collectionDetail.endTime.value }}</div>
+                <div>提交人数：{{ questionnaire['submitterList'].length }}</div>
+                <div>创建时间：{{ questionnaire.startTime }}</div>
+                <div>截止时间：{{ questionnaire.endTime }}</div>
                 <div>收集用时：8天5小时</div>
             </div>
         </el-card>
@@ -46,14 +43,14 @@
             </div>
         </el-card>
         <el-card style="margin-top: 8px">
-            <el-table style="width: 100%" :data="collectionDetail.tableData.value" :highlight-current-row="true"
+            <el-table style="width: 100%" :data="questionnaire.submitterList" :highlight-current-row="true"
                       :stripe="true">
                 <el-table-column prop="username" fixed label="提交人" width="180"/>
-                <el-table-column prop="commitCount" label="提交次数" width="180"/>
-                <el-table-column prop="commitTime" label="提交日期" width="180"/>
+                <el-table-column prop="submitCount" label="提交次数" width="180"/>
+                <el-table-column prop="submitTime" label="提交日期" width="180"/>
                 <el-table-column align="right">
                     <template #header>
-                        <el-button @click="notifyNotSubmit" style="width: 170px"
+                        <el-button @click="ViewOpen(collectionDetail.notSubmitNotifyView)" style="width: 170px"
                                    type="warning">通知未提交
                         </el-button>
                     </template>
@@ -73,7 +70,7 @@
                    @close="ViewClose(collectionDetail.notSubmitNotifyView);">
             <div style="max-width: 400px">
                 <el-checkbox-group v-model="notifyArray">
-                    <el-checkbox v-for="member in noSubmitMember" :label="member.id">{{member.username}}</el-checkbox>
+                    <el-checkbox v-for="member in questionnaire.notSubmitterList" :label="member.id">{{member.username}}</el-checkbox>
                 </el-checkbox-group>
             </div>
             <template #footer>
@@ -119,18 +116,16 @@ import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollectionDetail from "../hooks/useCollectionDetail";
 import {onMounted, ref} from "vue";
 import {questionnaire_detail} from "../api/questionnaire";
-import {group_getNotSubmitMember, group_notifyNotSubmitMember} from "../api/group";
+import { group_notifyNotSubmitMember} from "../api/group";
 import {ElMessage} from "element-plus";
 
 let collectionDetail = useCollectionDetail();
 let props = defineProps(['id']);
 let notifyArray = ref([]);
-let noSubmitMember = [
-    {name: "小花"},
-    {name: "小王"},
-    {name: "小张"},
-    {name: "小张"}
-]
+let questionnaire = ref({
+    title: "",
+    submitterList: [],
+});
 
 onMounted(() => {
     questionnaire_detail(props.id).then(res => {
@@ -138,26 +133,9 @@ onMounted(() => {
             ElMessage.error("获取详细信息失败");
             return
         }
-        let {endTime, title, startTime, filesCount, submitterDetailList, selectedGroupList} = res.data.data;
-        collectionDetail.title.value = title;
-        collectionDetail.filesCount.value = filesCount;
-        collectionDetail.tableData.value = submitterDetailList;
-        collectionDetail.startTime.value = formatDate(new Date(startTime));
-        collectionDetail.endTime.value = formatDate(new Date(endTime));
-        collectionDetail.selectedGroupList = selectedGroupList;
+        questionnaire.value = res.data.data;
     });
 })
-
-// 通知未提交按钮
-function notifyNotSubmit() {
-    group_getNotSubmitMember(collectionDetail.selectedGroupList).then(res=>{
-        if (res.data.code === 200) {
-            noSubmitMember = res.data.data;
-            ViewOpen(collectionDetail.notSubmitNotifyView);
-        }
-    });
-}
-// 通知未提交确认按钮
 function notifyNotSubmitOkButton() {
     group_notifyNotSubmitMember(notifyArray.value).then(res=>{
         if (res.data.code){

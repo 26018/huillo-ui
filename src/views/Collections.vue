@@ -1,18 +1,16 @@
 <template>
     <el-scrollbar>
-        <el-table :data="tableData" :height="'95vh'" :show-overflow-tooltip="true"
-                  :highlight-current-row="true" @row-click="showDetail" :stripe="false">
+        <el-table :data="tableData" :show-overflow-tooltip="true" :highlight-current-row="true" @row-click="showDetail" :stripe="false">
             <el-table-column fixed prop="title" label="收集标题" width="180"/>
             <el-table-column prop="status" sortable label="状态" width="180"/>
             <el-table-column prop="commitCount" sortable label="提交次数" width="180"/>
             <el-table-column prop="endTime" sortable label="截止日期" width="180"/>
-            <el-table-column align="right">
+            <el-table-column align="center">
                 <template #header>
-                    <el-input v-model="search" style="width: 230px" clearable prefix-icon="Search"
-                              placeholder='搜索问卷'/>
+                    <el-input v-model="search" style="width: 230px" clearable prefix-icon="Search" placeholder='搜索问卷'/>
                 </template>
                 <template #default="scope">
-                    <div style="display: flex;width: 230px;margin-left: auto">
+                    <div style="display: flex;width: 100%;justify-content: center;z-index: 9999">
                         <el-button type="success" size="small" @click="share(scope.row,shareView)">分享</el-button>
                         <el-button type="primary" size="small" @click="analysis(scope.row)">分析</el-button>
                         <el-button type="warning" size="small" @click="close(scope.row,closeView)">结束</el-button>
@@ -39,7 +37,6 @@
                 <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+questionnaireShareInfo.shareImage"/>
             </div>
         </jh-dialog>
-
         <!--关闭问卷-->
         <jh-dialog title="结束问卷" :show="closeView" @close="ViewClose(closeView)">
             <div>确定要结束此问卷？</div>
@@ -48,7 +45,6 @@
                 <el-button>确定</el-button>
             </template>
         </jh-dialog>
-
         <!--删除问卷-->
         <jh-dialog title="删除问卷" :show="deleteView" @close="ViewClose(deleteView)">
             <div>确定要删除此问卷？</div>
@@ -57,6 +53,7 @@
                 <el-button>确定</el-button>
             </template>
         </jh-dialog>
+
     </el-scrollbar>
 </template>
 

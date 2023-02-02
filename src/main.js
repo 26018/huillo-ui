@@ -8,13 +8,11 @@ import store from "./store/index";
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import * as echarts from 'echarts';
-import vue3jsonExcel from 'vue3-json-excel';
 import axios from "axios";
 let app = createApp(App)
 app.use(ElementPlus, {
     locale: zhCn,
 });
-app.use(vue3jsonExcel)
 app.use(store)
 app.use(router)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -47,8 +45,5 @@ axios.interceptors.response.use(function (response) {
     // 对响应错误做点什么
     return Promise.reject(error);
 });
-
-
-
 app.mount('#app')
 

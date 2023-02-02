@@ -57,7 +57,20 @@ export default {
         submit() {
             // TODO 提交到后台
             console.log(this.questionnaire)
-            questionnaire_submit(this.questionnaire, this.questionnaireId).then(res=>{
+            let submitDTO = {
+                id:Number,
+                optional:Boolean,
+                components:[]
+            }
+            submitDTO.id = this.questionnaireId;
+            this.questionnaire.components.forEach(cp=>{
+                let obj = {};
+                obj.id = cp.id;
+                obj.optional = cp.optional
+                obj.input = cp.input
+                submitDTO.components.push(obj);
+            })
+            questionnaire_submit(submitDTO, this.questionnaireId).then(res=>{
                 if (res.data.code === 200) {
                     ElMessage.success("提交成功");
                 }

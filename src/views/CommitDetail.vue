@@ -55,7 +55,7 @@ export default {
         };
     },
     created() {
-        axios.get('http://localhost/questionnaire/withAnswer?id=1620630700821266434').then(res => {
+        axios.get('http://localhost/submission/1620630700821266434').then(res => {
             this.questionnaire = res.data.data
             console.log(this.questionnaire);
         });

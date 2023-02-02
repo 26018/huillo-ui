@@ -1,21 +1,17 @@
 <template>
-    <div class="header" :style="{height:height}">
+    <div class="header" :style="{height: height}">
         <div class="icon" @click="$emit('iconActive')">Huillo</div>
         <pc-view>
             <div class="poem">铁树银花合，星桥铁锁开</div>
         </pc-view>
         <div class="navBar">
-            <div class="nav" @click="data.action(data.args)" :style="{color:data.fontColor}" v-for="data in nav">
-                {{ data.text }}
-            </div>
+            <div class="nav" @click="data.action(data.args)" :style="{color:data.fontColor}" v-for="data in nav">{{ data.text }}</div>
         </div>
-
     </div>
 </template>
 
 <script setup>
 import PcView from "./PcView.vue";
-
 defineProps(['nav', 'height'])
 </script>
 
@@ -31,7 +27,6 @@ defineProps(['nav', 'height'])
     white-space: nowrap;
     top: 0;
     font-size: 14px;
-
 }
 
 .navBar {
@@ -54,7 +49,7 @@ defineProps(['nav', 'height'])
 
 .icon {
     margin-left: 16px;
-    font-family: "华文行楷";
+    font-family: "华文行楷", serif;
     font-size: 24px;
     user-select: none;
     cursor: pointer;

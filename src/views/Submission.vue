@@ -1,21 +1,19 @@
 <template>
     <el-scrollbar>
-        <el-table :data="tableData" :height="'95vh'"
-                  :highlight-current-row="true" @row-click="showDetail"
-                  :stripe="false">
-            <el-table-column prop="title" label="收集标题" width="180"/>
+        <el-table :data="tableData" :show-overflow-tooltip="true" :highlight-current-row="true" @row-click="showDetail" :stripe="false">
+            <el-table-column prop="title" fixed label="收集标题" width="180"/>
             <el-table-column prop="status" sortable label="状态" width="180"/>
             <el-table-column prop="submitTime" sortable label="提交日期" width="180"/>
             <el-table-column prop="endTime" sortable label="截止日期" width="180"/>
-            <el-table-column width="260" align="center">
+            <el-table-column align="center">
                 <template #header>
-                    <el-input v-model="search" clearable prefix-icon="Search" placeholder='搜索提交'/>
+                    <el-input style="width: 230px;" v-model="search" clearable prefix-icon="Search" placeholder='搜索提交'/>
                 </template>
                 <template #default="scope">
-                    <el-button type="primary" size="small" @click="navTo('/manager/collections/committed/detail/'+scope.row.id)">查看
-                    </el-button>
-                    <el-button type="danger" size="small" @click="">删除
-                    </el-button>
+                    <div style="width: 100%;justify-content: center;display: flex;border: 0px solid red">
+                        <el-button type="danger" size="small" @click="">删除
+                        </el-button>
+                    </div>
                 </template>
             </el-table-column>
         </el-table>
@@ -61,7 +59,7 @@ const showDetail = (row, column, event) => {
     if (column.label === '' || column.label == undefined) {
         return;
     }
-    // navTo('collections/detail/1')
+    navTo('/manager/collections/committed/detail/'+row.id)
 }
 
 let search = ref("");
