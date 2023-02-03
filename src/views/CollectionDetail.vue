@@ -1,34 +1,34 @@
 <template>
     <el-scrollbar>
-        <div style="display: flex;align-items: center;">
+        <div style="display: flex;align-items: center;;height: 50px">
             <el-icon style="cursor: pointer;" :size="24" @click="navTo(-1)">
                 <ArrowLeft/>
             </el-icon>
             <div style="display: flex;font-size: 24px;margin-left: 8px">{{ questionnaire.title }}</div>
-            <div style="margin-left: auto;padding: 8px;">
-                <el-button @click="ViewOpen(collectionDetail.shareView)">
+            <div style="margin-left: auto;">
+                <el-button text @click="ViewOpen(collectionDetail.shareView)">
                     <el-icon>
                         <Share/>
                     </el-icon>&nbsp;分享
                 </el-button>
-                <el-button type="primary" @click="ViewOpen(collectionDetail.editView)">
+                <el-button text type="primary" @click="ViewOpen(collectionDetail.editView)">
                     <el-icon>
                         <Edit/>
                     </el-icon>&nbsp;编辑
                 </el-button>
-                <el-button type="info" @click="ViewOpen(collectionDetail.finishView)">
+                <el-button text type="info" @click="ViewOpen(collectionDetail.finishView)">
                     <el-icon>
                         <CloseBold/>
                     </el-icon>&nbsp;结束
                 </el-button>
-                <el-button type="danger" @click="ViewOpen(collectionDetail.deletedView)">
+                <el-button text type="danger" @click="ViewOpen(collectionDetail.deletedView)">
                     <el-icon>
                         <Delete/>
                     </el-icon>&nbsp;删除
                 </el-button>
             </div>
         </div>
-        <el-card style="margin-top: 8px">
+        <el-card shadow="never" style="margin-top: 8px">
             <div style="display: flex;align-items: center;justify-content: space-between">
                 <div>提交人数：{{ questionnaire['submitterList'].length }}</div>
                 <div>创建时间：{{ questionnaire.startTime }}</div>
@@ -36,13 +36,13 @@
                 <div>收集用时：8天5小时</div>
             </div>
         </el-card>
-        <el-card style="margin-top: 8px">
+        <el-card shadow="never" style="margin-top: 8px">
             <div style="display: flex;align-items: center;justify-content: space-between">
-                <div>收集到 {{ collectionDetail.filesCount.value }} 份文件</div>
-                <el-button type="primary">全部下载</el-button>
+                <div>收集到 {{ questionnaire.fileList.length }} 份文件</div>
+                <el-button @click="downloadFiles(questionnaire.fileList)" type="primary">全部下载</el-button>
             </div>
         </el-card>
-        <el-card style="margin-top: 8px">
+        <el-card shadow="never" style="margin-top: 8px">
             <el-table style="width: 100%" :data="questionnaire.submitterList" :highlight-current-row="true"
                       :stripe="true">
                 <el-table-column prop="username" fixed label="提交人" width="180"/>
@@ -56,7 +56,9 @@
                     </template>
                     <template #default="scope">
                         <div style="display: flex;">
-                            <el-button style="margin-left: auto" type="primary" size="small" @click="navTo('/manager/collections/committed/detail/'+scope.row.id)">查看</el-button>
+                            <el-button style="margin-left: auto" type="primary" size="small"
+                                       @click="navTo('/manager/collections/committed/detail/'+scope.row.id)">查看
+                            </el-button>
                             <el-button size="small" @click="">回绝</el-button>
                             <el-button type="danger" size="small" @click="">删除</el-button>
                         </div>
@@ -70,7 +72,9 @@
                    @close="ViewClose(collectionDetail.notSubmitNotifyView);">
             <div style="max-width: 400px">
                 <el-checkbox-group v-model="notifyArray">
-                    <el-checkbox v-for="member in questionnaire.notSubmitterList" :label="member.id">{{member.username}}</el-checkbox>
+                    <el-checkbox v-for="member in questionnaire.notSubmitterList" :label="member.id">
+                        {{ member.username }}
+                    </el-checkbox>
                 </el-checkbox-group>
             </div>
             <template #footer>
@@ -106,25 +110,26 @@
                 <el-button @click="">确定</el-button>
             </template>
         </jh-dialog>
-
     </el-scrollbar>
 </template>
 
 <script setup>
-import {formatDate, navTo, ViewClose, ViewOpen} from "../api/util";
+import {download, formatDate, navTo, ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollectionDetail from "../hooks/useCollectionDetail";
 import {onMounted, ref} from "vue";
 import {questionnaire_detail} from "../api/questionnaire";
-import { group_notifyNotSubmitMember} from "../api/group";
+import {group_notifyNotSubmitMember} from "../api/group";
 import {ElMessage} from "element-plus";
+import {userFile_download} from "../api/UserFile";
 
 let collectionDetail = useCollectionDetail();
 let props = defineProps(['id']);
 let notifyArray = ref([]);
 let questionnaire = ref({
     title: "",
-    submitterList: [],
+    fileList: [],
+    submitterList: []
 });
 
 onMounted(() => {
@@ -136,14 +141,31 @@ onMounted(() => {
         questionnaire.value = res.data.data;
     });
 })
+
 function notifyNotSubmitOkButton() {
-    group_notifyNotSubmitMember(notifyArray.value).then(res=>{
-        if (res.data.code){
+    group_notifyNotSubmitMember(notifyArray.value).then(res => {
+        if (res.data.code) {
             ElMessage.success("通知成功");
         }
     })
 }
 
+// 下载文件
+function downloadFiles(fileList) {
+    let downloadFileCount = 0;
+    fileList.forEach(file => {
+        userFile_download(file).then(res => {
+            console.log(res.status)
+            if (res.status === 200) {
+                downloadFileCount = downloadFileCount + 1;
+                if (downloadFileCount === fileList.length) {
+                    ElMessage.success("文件全部下载成功")
+                }
+            }
+            download(res.data, null, file.name);
+        });
+    })
+}
 
 
 </script>

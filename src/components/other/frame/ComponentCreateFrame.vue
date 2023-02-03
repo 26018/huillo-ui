@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="frame-desc" v-show="model">
-            <component-input :type="isHeadCmp ? 'textarea':'text'" :style="{marginTop:isHeadCmp?'8px':'0px'}" v-model="model.description"/>
+            <component-input  :type="isHeadCmp ? 'textarea':'text'" :style="{marginTop:isHeadCmp?'8px':'0px'}" v-model="model.description"/>
         </div>
         <div>
             <slot></slot>

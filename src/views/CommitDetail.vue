@@ -2,13 +2,13 @@
 
     <!--查看提交的问卷详情-->
     <div>
-        <div style="display: flex;align-items: center;height: 40px">
+        <div style=";display: flex;align-items: center;height: 40px">
             <el-icon style="cursor: pointer" :size="24" @click="navTo(-1)">
                 <ArrowLeft/>
             </el-icon>
             <div style="font-size: 24px;margin-left: 8px">提交详情</div>
         </div>
-        <div style="max-width: 600px;height: calc(100% - 40px);margin:0 auto;overflow: auto">
+        <div style="max-width: 600px;height: calc(100% - 42px);margin:0 auto;overflow: auto">
             <el-scrollbar>
                 <component :is="questionnaire.cname" :data="questionnaire"/>
                 <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
@@ -55,7 +55,7 @@ export default {
         };
     },
     created() {
-        axios.get('http://localhost/submission/1620630700821266434').then(res => {
+        axios.get('http://localhost/submission/'+this.$route.params.id ).then(res => {
             this.questionnaire = res.data.data
             console.log(this.questionnaire);
         });
@@ -65,5 +65,10 @@ export default {
 </script>
 
 <style scoped>
+
+:deep(.el-scrollbar__thumb) {
+    max-width: 2px;
+    margin-left: auto;
+}
 
 </style>

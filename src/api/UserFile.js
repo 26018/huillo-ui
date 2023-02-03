@@ -15,5 +15,10 @@ export function userFile_upload(params) {
             "Content-Type": "multipart/form-data"
         }
     });
+}
 
+export function userFile_download(fileMetaList) {
+    return axios.post("http://localhost/userfile/download",fileMetaList,{
+        responseType: 'arraybuffer'
+    });
 }

@@ -27,6 +27,7 @@ import JhDownloadFile from '../../submit/JhDownloadFile.vue';
 import JhUploadFile from '../../submit/JhUploadFile.vue';
 import {mapState} from "vuex";
 import {ElMessage} from "element-plus";
+import {useSurvey} from "../../../store/survey";
 
 export default {
     components: {
@@ -41,8 +42,14 @@ export default {
         JhLocation,
         JhDateInput
     },
-    computed: {
-        ...mapState('questionnaire', ['questionnaire'])
+
+    created() {
+        this.questionnaire = useSurvey();
+    },
+    data() {
+        return{
+            questionnaire: {},
+        }
     },
 
     methods: {

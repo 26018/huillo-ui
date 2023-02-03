@@ -59,6 +59,7 @@ export default {
             console.log(this.questionnaire)
             let submitDTO = {
                 id:Number,
+                cname:String,
                 optional:Boolean,
                 components:[]
             }
@@ -67,10 +68,11 @@ export default {
                 let obj = {};
                 obj.id = cp.id;
                 obj.optional = cp.optional
+                obj.cname = cp.cname
                 obj.input = cp.input
                 submitDTO.components.push(obj);
             })
-            questionnaire_submit(submitDTO, this.questionnaireId).then(res=>{
+            questionnaire_submit(submitDTO).then(res=>{
                 if (res.data.code === 200) {
                     ElMessage.success("提交成功");
                 }

@@ -30,7 +30,7 @@ import JhLocation from '../../create/JhLocation.vue'
 import JhRate from "../../create/JhRate.vue";
 import JhDateInput from '../../create/JhDateInput.vue'
 import store from "../../../store";
-import {mapState} from "vuex";
+import {useSurvey} from "../../../store/survey";
 
 export default {
     components: {
@@ -47,23 +47,27 @@ export default {
         JhRate
     },
 
-    computed: {
-        ...mapState('questionnaire', ['questionnaire'])
-    },
 
     created() {
+        this.questionnaire = useSurvey();
+
         this.setIndex(this.questionnaire.components);
     },
-
-    watch:{
-        questionnaire: {
-            handler(n) {
-                localStorage.setItem('questionnaire', JSON.stringify(n));
-            },
-            deep: true,
-        },
-
+    data() {
+        return{
+            questionnaire: {}
+        }
     },
+
+    // watch:{
+    //     questionnaire: {
+    //         handler(n) {
+    //             localStorage.setItem('questionnaire', JSON.stringify(n));
+    //         },
+    //         deep: true,
+    //     },
+    //
+    // },
 
     methods: {
         removeItem(data) {

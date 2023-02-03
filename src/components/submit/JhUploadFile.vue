@@ -24,8 +24,7 @@ let userFileList = [];
 function uploadFile(params) {
     params.userFileList = userFileList;
     userFile_upload(params).then(res => {
-        if (res.data.code == 200) {
-            // params.input = "上传成功"
+        if (res.data.code === 200) {
             params.optional = true;
             ElMessage.success("上传成功");
             return;

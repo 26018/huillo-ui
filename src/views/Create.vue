@@ -6,7 +6,7 @@
             <component-create/>
             <component-preview/>
         </div>
-        <Dialog :show="publishAble" @close="()=>{publishAble = false}" :title="'问卷发布'">
+        <jh-dialog :show="publishAble" @close="ViewClose(publishAble)" :title="'问卷发布'">
             <template #default>
                 <div style="display: flex;flex-direction: column">
                     <el-space :fill="true">
@@ -19,11 +19,11 @@
                 </div>
             </template>
             <template #footer>
-                <el-button @click="()=>{publishAble = false}">取消</el-button>
-                <el-button type="primary" @click="()=>{  publish();  publishAble = false}">创建
+                <el-button @click="ViewClose(publishAble)">取消</el-button>
+                <el-button type="primary" @click="()=>{  publish(); ViewClose(publishAble)}">创建
                 </el-button>
             </template>
-        </Dialog>
+        </jh-dialog>
     </pc-view>
 </template>
 
@@ -33,15 +33,17 @@ import ComponentList from "../components/other/cmp/ComponentList.vue";
 import ComponentCreate from "../components/other/cmp/ComponentCreate.vue";
 import ComponentPreview from '../components/other/cmp/ComponentPreview.vue'
 import PcView from "../components/other/cmp/PcView.vue";
-import Dialog from '../components/other/cmp/JhDialog.vue'
 import useCreateNav from "../hooks/useCreateNav";
 import ReadOnlyText from "../components/other/cmp/ReadOnlyText.vue";
 import {onMounted, ref} from "vue";
 import {group_list} from "../api/group";
+import JhDialog from "../components/other/cmp/JhDialog.vue";
+import {ViewClose} from "../api/util";
 
 let {navData, publishAble, questionnaireEndTime, selectedGroupList, publish} = useCreateNav();
 let groupArr = ref([]);
 onMounted(() => {
+
     questionnaireEndTime.value = "";
     selectedGroupList.value = "";
     group_list().then(res => {
