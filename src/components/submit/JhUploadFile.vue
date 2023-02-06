@@ -1,8 +1,8 @@
 <template>
     <component-submit-frame :data="data">
         <el-upload
-            class="upload-demo" drag action="" :http-request="uploadFile"
-            :on-change="pushFile" :file-list="userFileList" multiple>
+            class="upload-demo" drag action="" :auto-upload="false"
+            :on-change="pushFile" :file-list="userFile.uploadFileList" multiple>
             <el-icon class="el-icon--upload">
                 <upload-filled/>
             </el-icon>
@@ -15,27 +15,19 @@
 
 <script setup>
 import ComponentSubmitFrame from "../other/frame/ComponentSubmitFrame.vue";
-import {userFile_upload} from "../../api/UserFile";
-import {ElMessage} from "element-plus";
 import SparkMD5 from "spark-md5";
+import {useUserFile} from "../../store/userfile";
+import {onMounted} from "vue";
 
 let props = defineProps(['data']);
-let userFileList = [];
-function uploadFile(params) {
-    params.userFileList = userFileList;
-    userFile_upload(params).then(res => {
-        if (res.data.code === 200) {
-            params.optional = true;
-            ElMessage.success("上传成功");
-            return;
-        }
-    });
-    userFileList = [];
-}
+let userFile = useUserFile();
+
+onMounted(()=>{
+    userFile.uploadFileList = [];
+})
 
 function pushFile(file, fileList) {
-    userFileList = fileList;
-    // TODO 上传Id
+    userFile.uploadFileList = fileList;
     const fileReader = new FileReader()
     fileReader.readAsBinaryString(file.raw);
     if (props.data.input == null) {

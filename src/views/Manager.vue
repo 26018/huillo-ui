@@ -73,7 +73,7 @@ onMounted(() => {
 }
 
 .nav-item:hover {
-    background-color: gainsboro;
+    background-color: rgb(245,249,255);
     border-radius: 4px;
 }
 

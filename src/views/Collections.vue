@@ -24,8 +24,8 @@
         <jh-dialog title="分享问卷" :show="shareView" @close="ViewClose(shareView)">
             <div
                 style="display: flex;align-items: center;width: 100%;height: 30px;margin-bottom: 8px;box-shadow: 0 0 0 1px #dcdfe6 inset;padding:4px 8px;border-radius: 4px">
-                <a :href="questionnaireShareInfo['shareLink']" target="_blank">{{
-                        questionnaireShareInfo['shareLink']
+                <a :href="questionnaireShareInfo['link']" target="_blank">{{
+                        questionnaireShareInfo['link']
                     }}</a>
                 <el-button style="margin-left: auto" type="primary" link size="small">复制</el-button>
             </div>
@@ -34,7 +34,7 @@
                     <p style="font-size: 22px">{{ questionnaireShareInfo.title }}</p>
                     <p>手机扫描二维码填写内容</p>
                 </div>
-                <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+questionnaireShareInfo.shareImage"/>
+                <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+questionnaireShareInfo.image"/>
             </div>
         </jh-dialog>
         <!--关闭问卷-->

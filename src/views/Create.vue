@@ -6,15 +6,29 @@
             <component-create/>
             <component-preview/>
         </div>
+
         <jh-dialog :show="publishAble" @close="ViewClose(publishAble)" :title="'问卷发布'">
             <template #default>
-                <div style="display: flex;flex-direction: column">
+                <div style="display: flex;flex-direction: column;max-width: 400px">
                     <el-space :fill="true">
-                        <read-only-text data="请选择一个群组"/>
-                        <el-select v-model="selectedGroupList" multiple clearable placeholder="选择您的群组">
-                            <el-option v-for="item in groupArr" :key="item.id" :label="item.title" :value="item.id"/>
-                        </el-select>
-                        <el-date-picker v-model="questionnaireEndTime" placeholder="问卷截止日期"/>
+                        <el-row>
+                            <div>通知朋友：</div>
+                            <el-select style="flex:1" v-model="selectedGroupList" multiple clearable
+                                       placeholder="选择您的群组">
+                                <el-option v-for="item in groupList" :key="item.id" :label="item.title"
+                                           :value="item.id"/>
+                            </el-select>
+                        </el-row>
+                        <el-row>
+                            <div>截止日期：</div>
+                            <el-date-picker style="flex: 1" v-model="endTime" placeholder="截止日期"/>
+                        </el-row>
+
+                        <el-row>
+                            <div>允许匿名填写：</div>
+                            <el-switch inline-prompt v-model="anonymous" :active-text="'是'"
+                                       :inactive-text="'否'"></el-switch>
+                        </el-row>
                     </el-space>
                 </div>
             </template>
@@ -34,34 +48,48 @@ import ComponentCreate from "../components/other/cmp/ComponentCreate.vue";
 import ComponentPreview from '../components/other/cmp/ComponentPreview.vue'
 import PcView from "../components/other/cmp/PcView.vue";
 import useCreateNav from "../hooks/useCreateNav";
-import ReadOnlyText from "../components/other/cmp/ReadOnlyText.vue";
 import {onMounted, ref} from "vue";
 import {group_list} from "../api/group";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import {ViewClose} from "../api/util";
+import {storeToRefs} from "pinia";
+import {useSurvey} from "../store/survey";
 
-let {navData, publishAble, questionnaireEndTime, selectedGroupList, publish} = useCreateNav();
-let groupArr = ref([]);
+let {navData, publishAble, publish} = useCreateNav();
+let groupList = ref([]);
+let {selectedGroupList, anonymous, endTime} = storeToRefs(useSurvey());
+
 onMounted(() => {
-
-    questionnaireEndTime.value = "";
-    selectedGroupList.value = "";
+    anonymous = false;
     group_list().then(res => {
-        groupArr = res.data.data
+        groupList = res.data.data
     });
 });
 
 </script>
 
 <style scoped>
+
 .pc-create {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    /*border: 1px solid red;*/
+    padding: 8px 0 8px 0;
+    box-sizing: border-box;
     overflow: hidden;
-    height: calc(100vh - 55px);
+    height: calc(100vh - 45px);
     display: flex;
     background-color: rgba(243, 246, 249);
     justify-content: space-evenly;
 }
+
+.el-row {
+    align-items: center;
+    font-size: 16px;
+}
+
+.el-row > * {
+    height: 30px;
+    align-items: center;
+    line-height: 30px;
+}
+
+
 </style>

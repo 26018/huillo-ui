@@ -1,12 +1,13 @@
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import {ElMessage} from "element-plus";
 import {group_create} from "../api/group";
+import {ViewClose} from "../api/util";
 
 export default function () {
 
     let groupData = ref([]);
 
-    let showGroupView = ref(false);
+    let showGroupView = reactive({data: false});
     let createGroupTitle = ref("");
     let createGroupMaxMember = ref("");
 
@@ -24,25 +25,20 @@ export default function () {
                     message: '创建成功',
                     showClose: true,
                 })
-                closeView()
+                ViewClose(showGroupView);
             } else {
-                ElMessage.success({
-                    message: '创建成功',
+                ElMessage.error({
+                    message: '创建失败',
                     showClose: true,
                 })
             }
         });
     }
-    const closeView = () => {
-        showGroupView.value = false;
-    };
     const switchDialog = (data) => {
         showGroupView.value = data;
     };
 
     return {
-        groupData,showGroupView,createGroupTitle,createGroupMaxMember,addGroup,closeView, switchDialog,
+        groupData,showGroupView,createGroupTitle,createGroupMaxMember,addGroup, switchDialog,
     }
-
-
 };

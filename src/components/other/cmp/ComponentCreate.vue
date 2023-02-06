@@ -1,18 +1,16 @@
 <template>
     <div class="component-create">
-        <el-scrollbar>
+        <el-scrollbar class="scrollbar">
             <component :is="questionnaire.cname" :model="questionnaire"/>
-            <draggable :list="questionnaire.components" @end="moveEnd" handle=".move" item-key="template" animation="300">
+            <draggable class="ccv" :list="questionnaire.components" @end="moveEnd" handle=".move" item-key="template"
+                       animation="300">
                 <template #item="{ element }">
                     <component :is="element.cname" :model="element" @removeItem="removeItem"/>
                 </template>
             </draggable>
-            <div style="height: 40px;margin-top: 8px;
-            display:flex;align-items: center
-            ;width: 100%;text-align: center;
-            justify-content: center;
-            font-family: Consolas;
-             font-size: 14px">Powered by Lsk</div>
+            <div id="copyright">
+                <p style="width: 100%;text-align: center">Powered by Lsk</p>
+            </div>
         </el-scrollbar>
     </div>
 </template>
@@ -29,7 +27,6 @@ import JhRadio from "../../create/JhRadio.vue";
 import JhLocation from '../../create/JhLocation.vue'
 import JhRate from "../../create/JhRate.vue";
 import JhDateInput from '../../create/JhDateInput.vue'
-import store from "../../../store";
 import {useSurvey} from "../../../store/survey";
 
 export default {
@@ -47,31 +44,24 @@ export default {
         JhRate
     },
 
-
     created() {
         this.questionnaire = useSurvey();
-
         this.setIndex(this.questionnaire.components);
     },
     data() {
-        return{
+        return {
             questionnaire: {}
         }
     },
 
-    // watch:{
-    //     questionnaire: {
-    //         handler(n) {
-    //             localStorage.setItem('questionnaire', JSON.stringify(n));
-    //         },
-    //         deep: true,
-    //     },
-    //
-    // },
-
     methods: {
         removeItem(data) {
-            store.commit('questionnaire/REMOVE_ITEM', data);
+            for (let i = 0; i < this.questionnaire['components'].length; i++) {
+                const component = this.questionnaire['components'][i];
+                if (component === data) {
+                    this.questionnaire['components'].splice(i, 1);
+                }
+            }
         },
         moveEnd(data) {
             this.setIndex(this.questionnaire.components);
@@ -82,7 +72,7 @@ export default {
             }
             let len = list.length;
             for (let i = 1; i <= len; i++) {
-                list[i-1].sequence = i;
+                list[i - 1].sequence = i;
             }
         },
     },
@@ -93,12 +83,37 @@ export default {
 <style scoped>
 .component-create {
     width: 700px;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     margin: 0 10px;
     box-sizing: border-box;
-    height: calc(100vh - 55px);
     overflow: auto;
     background-color: white;
 }
+
+:deep(.el-scrollbar__view) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:deep(.el-scrollbar__view>*):last-child {
+    margin-top: auto;
+}
+
+#copyright {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    color: gray;
+}
+
+#copyright:hover {
+    color: black;
+    user-select: none;
+}
+
 
 :deep(.el-scrollbar__thumb) {
     max-width: 2px;

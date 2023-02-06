@@ -25,6 +25,8 @@ import JhDropdownSelect from '../components/submit/JhDropdownSelect.vue'
 import JhDownloadFile from '../components/submit/JhDownloadFile.vue';
 import JhUploadFile from '../components/submit/JhUploadFile.vue';
 import {ElMessage} from "element-plus";
+import {useUserFile} from "../store/userfile";
+import {addJsonAndFile} from "../api/util";
 
 export default {
     components: {
@@ -54,17 +56,16 @@ export default {
         });
     },
     methods: {
-        submit() {
-            // TODO 提交到后台
-            console.log(this.questionnaire)
+        submit: function () {
+            // // TODO 提交到后台
             let submitDTO = {
-                id:Number,
-                cname:String,
-                optional:Boolean,
-                components:[]
+                id: Number,
+                cname: String,
+                optional: Boolean,
+                components: []
             }
             submitDTO.id = this.questionnaireId;
-            this.questionnaire.components.forEach(cp=>{
+            this.questionnaire.components.forEach(cp => {
                 let obj = {};
                 obj.id = cp.id;
                 obj.optional = cp.optional
@@ -72,11 +73,14 @@ export default {
                 obj.input = cp.input
                 submitDTO.components.push(obj);
             })
-            questionnaire_submit(submitDTO).then(res=>{
+            let userFile = useUserFile();
+            let jsonAndFile = addJsonAndFile(submitDTO, 'submitSurvey', userFile.uploadFileList, 'uploadFiles');
+            questionnaire_submit(jsonAndFile).then(res => {
                 if (res.data.code === 200) {
                     ElMessage.success("提交成功");
                 }
             });
+            userFile.uploadFileList = []
         }
     }
 }

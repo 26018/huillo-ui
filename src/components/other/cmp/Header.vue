@@ -5,13 +5,16 @@
             <div class="poem">铁树银花合，星桥铁锁开</div>
         </pc-view>
         <div class="navBar">
-            <div class="nav" @click="data.action(data.args)" :style="{color:data.fontColor}" v-for="data in nav">{{ data.text }}</div>
+            <div class="nav" @click="data.action(data.args)" :style="{color:data.fontColor}" v-for="data in nav">
+                {{ data.text }}
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
 import PcView from "./PcView.vue";
+
 defineProps(['nav', 'height'])
 </script>
 
@@ -42,6 +45,7 @@ defineProps(['nav', 'height'])
     margin: 0 24px 0 0;
     height: 100%;
     display: flex;
+    font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
     align-items: center;
     user-select: none;
     cursor: pointer;
@@ -60,5 +64,6 @@ defineProps(['nav', 'height'])
     user-select: none;
     cursor: pointer;
 }
+
 
 </style>

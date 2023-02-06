@@ -51,13 +51,19 @@ let isHeadCmp = computed(() => {
     display: flex;
     align-items: center;
     justify-content: end;
+
 }
 
 .operation-frame > * {
     margin-left: 20px;
+    color: gray;
 }
 
 .frame-desc {
+}
+
+.operation-frame > *:hover{
+    color: black;
 }
 
 .frame-desc >>> * {
@@ -71,6 +77,19 @@ let isHeadCmp = computed(() => {
 .header {
     display: flex;
 }
+
+/*:deep(.el-textarea__inner) {*/
+/*    box-shadow: 0 0 0 0;*/
+/*    outline: none;*/
+/*}*/
+/*:deep(.el-textarea__inner):hover {*/
+/*    outline: none;*/
+/*    box-shadow: 0 0 0 0;*/
+/*}*/
+/*:deep(.el-textarea__inner):out-of-range {*/
+/*    outline: none;*/
+/*    box-shadow: 0 0 0 0;*/
+/*}*/
 
 
 .head {

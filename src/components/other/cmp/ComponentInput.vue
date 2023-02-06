@@ -1,5 +1,5 @@
 <template>
-    <el-input v-model="data" :autosize="{minRows:2}" :type="type" placeholder="请输入描述" clearable
+    <el-input v-model="data" :autosize="{minRows:2}" :type="type" placeholder="请输入描述 (选填)" clearable
               :style="{fontSize:size}"/>
 </template>
 

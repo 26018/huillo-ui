@@ -6,8 +6,7 @@
 
 <script setup>
 // data是柱状图的数据，desc是柱状图的描述
-import {getCurrentInstance, onMounted, onUnmounted} from "vue";
-import ResizeObserver from 'resize-observer-polyfill';
+import {getCurrentInstance, onMounted} from "vue";
 
 let props = defineProps({
     data: {

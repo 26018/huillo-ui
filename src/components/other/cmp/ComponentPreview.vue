@@ -1,6 +1,5 @@
 <template>
-    <div style="width: 360px;
-    box-sizing: border-box;overflow: auto">
+    <div class="preview">
         <el-scrollbar>
             <component :is="questionnaire.cname" :data="questionnaire"/>
             <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
@@ -25,7 +24,6 @@ import JhDateInput from '../../submit/JhDateInput.vue'
 import JhDropdownSelect from '../../submit/JhDropdownSelect.vue'
 import JhDownloadFile from '../../submit/JhDownloadFile.vue';
 import JhUploadFile from '../../submit/JhUploadFile.vue';
-import {mapState} from "vuex";
 import {ElMessage} from "element-plus";
 import {useSurvey} from "../../../store/survey";
 
@@ -69,6 +67,13 @@ export default {
     background-color: white;
 }
 
+.preview {
+    width: 360px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
 :deep(.el-scrollbar__thumb) {
     max-width: 2px;
     margin-left: auto;

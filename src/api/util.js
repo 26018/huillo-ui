@@ -51,7 +51,7 @@ export function removeItem(data) {
 }
 
 export function formatDate(current_datetime) {
-    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+    let formatted_date = current_datetime.getFullYear() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate();
     return formatted_date;
 }
 
@@ -68,8 +68,6 @@ export function download(res, type, filename) {
     // 创建blob对象，解析流数据
     const blob = new Blob([res], {
         // 设置返回的文件类型
-        // type: 'application/pdf;charset=UTF-8' 表示下载文档为pdf，如果是word则设置为msword，excel为excel
-        // type: type
     })
     // 这里就是创建一个a标签，等下用来模拟点击事件
     const a = document.createElement('a')
@@ -89,3 +87,26 @@ export function download(res, type, filename) {
     window.URL.revokeObjectURL(herf)
 }
 
+
+// 添加json和文件到formdata
+export function addJsonAndFile(json, jsonName, fileList, fileListName) {
+    let formData = new FormData();
+    fileList.forEach(file => {
+        formData.append(fileListName, file.raw);
+    })
+    let string = JSON.stringify(json);
+    let blob = new Blob([string], {type: "application/json"});
+    formData.append(jsonName, blob)
+    return formData;
+}
+
+
+export function refreshComponentIndex(components) {
+    if (components == null) {
+        return
+    }
+    let len = components.length;
+    for (let i = 1; i <= len; i++) {
+        components[i - 1].sequence = i;
+    }
+}

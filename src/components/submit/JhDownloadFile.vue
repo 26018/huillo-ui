@@ -18,7 +18,6 @@ import {download} from "../../api/util";
 let props = defineProps(['data']);
 onMounted(()=>{
     props.data.optional = true;
-    // props.data.options = [];
     if (props.data.options != null && typeof props.data.options !== 'object' && props.data.options.length>0) {
         props.data.options = JSON.parse(props.data.options)
     }
@@ -28,7 +27,6 @@ function downloadFiles(fileList) {
     let downloadFileCount = 0;
     fileList.forEach(file => {
         userFile_download(file).then(res => {
-            console.log(res.status)
             if (res.status === 200) {
                 downloadFileCount = downloadFileCount + 1;
                 if (downloadFileCount === fileList.length) {

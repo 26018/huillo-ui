@@ -1,8 +1,8 @@
 <template>
     <div>
         <el-scrollbar>
-            <el-space direction="vertical" :fill="true" style="width: 100%;border: 0px solid red">
-                <div style="display: flex;align-items: center;border: 0px solid red">
+            <el-space direction="vertical" :fill="true" style="width: 100%;">
+                <div style="display: flex;align-items: center">
                     <el-icon style="cursor: pointer" :size="24" @click="navTo(-1)">
                         <ArrowLeft/>
                     </el-icon>
@@ -19,6 +19,7 @@
                     </div>
                 </el-card>
                 <BarChart v-for="i in dataArr" :data="i"/>
+
                 <div  style="margin: 0 auto;width: 100%;text-align: center">到底了...</div>
             </el-space>
         </el-scrollbar>

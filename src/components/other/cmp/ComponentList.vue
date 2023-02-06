@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import {useStore} from "vuex";
 import input_components from '../../../data/input_components.json'
 import file_components from '../../../data/file_components.json'
 import other_components from '../../../data/other_components.json'
@@ -61,6 +60,8 @@ import JhLocation from '../../create/JhLocation.vue'
 import JhDateInput from '../../create/JhDateInput.vue'
 import JhRate from "../../create/JhRate.vue";
 import {ElMessage} from "element-plus";
+import {useSurvey} from "../../../store/survey";
+import {refreshComponentIndex} from "../../../api/util";
 
 export default {
     components: {
@@ -76,14 +77,15 @@ export default {
         JhHead
     },
     setup: function () {
-        let store = useStore();
+        let survey = useSurvey();
         let mouse = reactive(useMouseMove());
         let selectData = reactive({
             data: {},
         })
 
         function addComponent(data) {
-            store.commit('questionnaire/ADD_COMPONENT', data);
+            survey["components"].push(data)
+            refreshComponentIndex(survey['components']);
             ElMessage.success({
                 message: '添加组件成功',
                 showClose: true,
@@ -142,16 +144,16 @@ export default {
     width: 300px;
     border: 0px solid red;
     box-sizing: border-box;
-    padding: 8px 0;
-    height: calc(100vh - 45px);
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     background-color: white;
 }
 
 .component-list {
     display: grid;
-    /*grid-gap: 4px;*/
     grid-template-columns: 1fr 1fr;
     box-sizing: border-box;
+    padding: 8px;
 }
 
 .component {
@@ -168,6 +170,11 @@ export default {
     background-color: rgba(247, 247, 247);
 }
 
+.component:hover {
+    color: dodgerblue;
+    background-color: rgb(245,249,255);
+}
+
 .title {
     width: 100%;
     text-align: left;
@@ -179,6 +186,7 @@ export default {
     align-items: center;
     background-color: white;
     z-index: 1;
+    margin-left: 8px;
     overflow: hidden
 }
 </style>
