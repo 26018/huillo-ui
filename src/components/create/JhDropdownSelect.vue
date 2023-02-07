@@ -16,17 +16,19 @@
                 <el-option :key="item" :label="item" :value="item"/>
             </edit-option-frame>
         </el-select>
+        <div style="margin-top: 8px;">已添加的选项</div>
+        <div>
+            <el-input style="margin-top: 4px" v-for="option in model.options" :model-value="option">{{ option }}
+            </el-input>
+        </div>
         <el-input style="margin-top: 8px" placeholder="回车确认添加" @keyup.enter="addOption" v-model="addValue">
-            <template #append>
-                <el-button @click="addOption">添加选项</el-button>
-            </template>
         </el-input>
     </component-create-frame>
 </template>
 
 <script setup>
 import ComponentCreateFrame from "../other/frame/ComponentCreateFrame.vue";
-import { ref, watch} from "vue";
+import {ref, watch} from "vue";
 import {ElMessage} from "element-plus";
 import EditOptionFrame from "../other/frame/EditOptionFrame.vue";
 import {removeOption} from "../../api/util";

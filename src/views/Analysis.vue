@@ -10,67 +10,57 @@
                     <el-button style="margin-left: auto" type="primary">导出数据</el-button>
                 </div>
                 <read-only-text style="text-align: center;" size="30px" data="在线文件收集调查"></read-only-text>
-                <el-card>
-                    <div style="display: flex;justify-content: space-between">
-                        <el-button link>提交人数：8</el-button>
-                        <el-button link>创建时间：2022/02/08</el-button>
-                        <el-button link>截止时间：2022/02/24</el-button>
-                        <el-button link>总共用时：8天5小时</el-button>
-                    </div>
-                </el-card>
-                <BarChart v-for="i in dataArr" :data="i"/>
 
-                <div  style="margin: 0 auto;width: 100%;text-align: center">到底了...</div>
+                <BarChart v-for="i in dataArr" :data="i"/>
             </el-space>
         </el-scrollbar>
     </div>
 </template>
 
-<script>
+<script setup>
 import {navTo} from "../api/util";
 import ReadOnlyText from "../components/other/cmp/ReadOnlyText.vue";
 import BarChart from "../components/echarts/BarChart.vue";
 import {onMounted} from "vue";
+import JhCard from "../components/other/cmp/JhCard.vue";
+import {questionnaire_component_analysis} from "../api/questionnaire";
 
-export default {
-    components: {BarChart, ReadOnlyText},
-    setup() {
+let dataArr = [
+    {
+        id: "main",
+        name: "为啥子选择echarts",
+        options: ["只听说过echarts", "不晓得为啥子", "同事推荐给我的", "维护旧项目需要"],
+        countArr: [5, 20, 36, 10, 10, 20, 4],
+    }
+]
 
-        let dataArr = [
-            {
-                id: "main",
-                name: "为啥子选择echarts",
-                options: ["只听说过echarts", "不晓得为啥子", "同事推荐给我的", "维护旧项目需要"],
-                countArr: [5, 20, 36, 10, 10, 20, 4],
-            }
-        ]
-
-        for (let i = 0; i < 0; i++) {
-            let data = dataArr[0];
-            let copyData = {};
-            copyData.id = data.id + i;
-            copyData.name = data.name + i;
-            copyData.options = data.options;
-            copyData.countArr = data.countArr;
-            dataArr.push(copyData);
-        }
-
-
-        onMounted(()=>{
-            // 固定头栏
-            let ele = document.getElementsByClassName('el-space__item');
-            ele[0].style.position = 'sticky'
-            ele[0].style.top = 0
-            ele[0].style.overflow = 'hidden'
-            ele[0].style.backgroundColor = 'white'
-            ele[0].style.zIndex = '999'
-        })
-
-        return {navTo, dataArr}
-    },
-
-
+for (let i = 0; i < 0; i++) {
+    let data = dataArr[0];
+    let copyData = {};
+    copyData.id = data.id + i;
+    copyData.name = data.name + i;
+    copyData.options = data.options;
+    copyData.countArr = data.countArr;
+    dataArr.push(copyData);
 }
+
+let props = defineProps(['id'])
+
+onMounted(() => {
+    // 固定头栏
+    let ele = document.getElementsByClassName('el-space__item');
+    ele[0].style.position = 'sticky'
+    ele[0].style.top = 0
+    ele[0].style.overflow = 'hidden'
+    ele[0].style.backgroundColor = 'white'
+    ele[0].style.zIndex = '999'
+
+    // 请求组件分析数据
+    questionnaire_component_analysis(props.id).then(res => {
+        console.log(res.data)
+    })
+
+})
 
 
 </script>

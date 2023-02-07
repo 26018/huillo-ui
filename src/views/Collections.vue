@@ -59,7 +59,7 @@
 
 <script setup>
 
-import {onMounted} from "vue";
+import {onMounted, ref, watch, watchEffect} from "vue";
 import {formatDate, ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollections from "../hooks/useCollections";
@@ -71,6 +71,7 @@ let {
     close, share, analysis, remove
 } = useCollections();
 
+let copyTable = ref();
 
 onMounted(() => {
     questionnaire_list().then(res => {
@@ -91,8 +92,22 @@ onMounted(() => {
                 table.status = "已截止";
             }
         })
+        copyTable.value = tableData.value;
     })
 })
+
+watch(search, (o, n) => {
+    if (o == null || o.length === 0) {
+        tableData.value = copyTable.value;
+    }
+    let searchResult = [];
+    copyTable.value.forEach(t=>{
+        if (JSON.stringify(t).includes(o)) {
+            searchResult.push(t);
+        }
+    })
+    tableData.value = searchResult;
+});
 
 
 </script>

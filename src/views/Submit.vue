@@ -1,15 +1,15 @@
 <template>
-    <div style="max-width: 600px;margin:0 auto;height: 100vh;">
-        <el-scrollbar>
-            <component :is="questionnaire.cname" :data="questionnaire"/>
-            <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
-                <component :is="t.cname" :data="t"/>
-            </div>
-            <div style="display: flex;justify-content: center">
-                <el-button style="margin: 16px auto" @click="submit" type="primary">提交</el-button>
-            </div>
-        </el-scrollbar>
-    </div>
+       <div class="submit">
+           <el-scrollbar>
+               <component :is="questionnaire.cname" :data="questionnaire"/>
+               <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
+                   <component :is="t.cname" :data="t"/>
+               </div>
+               <div style="display: flex;justify-content: center">
+                   <el-button style="margin: 16px auto" @click="submit" type="primary">提交</el-button>
+               </div>
+           </el-scrollbar>
+       </div>
 </template>
 
 <script>
@@ -87,5 +87,18 @@ export default {
 </script>
 
 <style scoped>
+:deep(.el-scrollbar__thumb) {
+    max-width: 2px;
+    margin-left: auto;
+}
 
+.submit {
+    max-width: 600px;
+    margin: 0 auto;
+    height: 100vh;
+    background-color: transparent;
+    border-left: 1px solid gainsboro;
+    border-right: 1px solid gainsboro;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
 </style>

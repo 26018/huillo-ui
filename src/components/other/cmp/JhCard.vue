@@ -24,7 +24,8 @@ export default {
     /*flex-direction: column;*/
     /*align-items: center;*/
     /*justify-content: center;*/
-    background-color: rgb(245, 245, 247);
+    /*background-color: rgb(245, 245, 247);*/
+    border: 1px solid gainsboro;
     border-radius: 16px;
     box-sizing: border-box;
     height: 100%;

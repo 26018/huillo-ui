@@ -98,9 +98,12 @@ export default {
             let ele = document.getElementById('not');
             ele.style.left = (mouse.x + 50) + 'px'
             // 如果超出底部
-            if ((mouse.y + ele.scrollHeight / 2) >= document.body.scrollHeight) {
+            let computedHeight = (mouse.y + ele.scrollHeight / 2)
+            if (computedHeight >= document.body.scrollHeight) {
                 // 高出底部10px
                 ele.style.top = (document.body.scrollHeight - ele.scrollHeight / 2 - 10) + 'px';
+            } else if ((computedHeight - ele.scrollHeight) <= 45) {
+                ele.style.top = (45 + ele.scrollHeight / 2) + "px";
             } else {
                 ele.style.top = (mouse.y) + 'px';
             }
@@ -141,7 +144,8 @@ export default {
 }
 
 .fix {
-    width: 300px;
+    max-width: 300px;
+    min-width: 300px;
     border: 0px solid red;
     box-sizing: border-box;
     height: 100%;
@@ -172,7 +176,7 @@ export default {
 
 .component:hover {
     color: dodgerblue;
-    background-color: rgb(245,249,255);
+    background-color: rgb(245, 249, 255);
 }
 
 .title {

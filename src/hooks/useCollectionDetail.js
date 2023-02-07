@@ -21,6 +21,8 @@ export default function () {
     let finishView = reactive({data: false})
     // 通知未提交
     let notSubmitNotifyView = reactive({data: false})
+    // 个人提交详细列表
+    let personalSubmitDetailView = reactive({data: false})
 
     const share = (data, viewControl) => {
         viewControl.data = true;
@@ -32,6 +34,6 @@ export default function () {
 
     return {
         tableData, title, endTime, startTime, filesCount, questionnaireShare,
-        shareView, exportView, editView, deletedView, finishView, notSubmitNotifyView
+        shareView, exportView, editView, deletedView, finishView, notSubmitNotifyView,personalSubmitDetailView
     };
 };

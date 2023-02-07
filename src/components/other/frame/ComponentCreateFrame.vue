@@ -51,7 +51,6 @@ let isHeadCmp = computed(() => {
     display: flex;
     align-items: center;
     justify-content: end;
-
 }
 
 .operation-frame > * {

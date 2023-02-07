@@ -48,7 +48,7 @@ import ComponentCreate from "../components/other/cmp/ComponentCreate.vue";
 import ComponentPreview from '../components/other/cmp/ComponentPreview.vue'
 import PcView from "../components/other/cmp/PcView.vue";
 import useCreateNav from "../hooks/useCreateNav";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {group_list} from "../api/group";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import {ViewClose} from "../api/util";

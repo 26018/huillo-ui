@@ -21,6 +21,10 @@ export function questionnaire_detail(id) {
     return axios.get("http://localhost/questionnaire/statistics/submission?id=" + id);
 }
 
+export function questionnaire_component_analysis(surveyId){
+    return axios.get('http://localhost/questionnaire/statistics/component?id=' + surveyId);
+}
+
 export function questionnaire_submit(questionnaire) {
     // let components = questionnaire.components;
     // for (const c of components) {

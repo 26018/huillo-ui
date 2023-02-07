@@ -8,7 +8,7 @@
             </el-icon>
             <div style="font-size: 24px;margin-left: 8px">提交详情</div>
         </div>
-        <div style="max-width: 600px;height: calc(100% - 42px);margin:0 auto;overflow: auto">
+        <div style="max-width: 600px;height: calc(100% - 42px);margin:0 auto;overflow: auto;border-radius: 8px;border: 1px solid gainsboro">
             <el-scrollbar>
                 <component :is="questionnaire.cname" :data="questionnaire"/>
                 <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">

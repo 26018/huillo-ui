@@ -53,7 +53,7 @@ onMounted(() => {
 <style scoped>
 .nav-bar {
     width: 200px;
-    padding: 8px ;
+    padding: 8px;
     box-sizing: border-box;
     border-radius: 8px;
     background-color: white;

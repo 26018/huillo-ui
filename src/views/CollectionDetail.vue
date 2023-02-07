@@ -29,8 +29,7 @@
             </div>
         </div>
         <div class="kkg">
-            <div
-                style="min-width: 140px;display: flex;flex-direction: column;justify-content: space-evenly;">
+            <div style="min-width: 140px;display: flex;flex-direction: column;justify-content: space-evenly;">
                 <jh-card style="height: 50%">
                     <div class="flex">
                         <div style="font-size: 18px;margin-bottom: 8px">提交人数</div>
@@ -50,20 +49,22 @@
             </div>
 
             <jh-card style="flex: 1;min-width: 500px">
-                <div
-                    style="font-size: 18px;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center">
+                <div v-show="!emptySet" id="data" style="height: 100%;width: 100%"></div>
+                <div v-show="emptySet" style="font-size: 18px;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center">
                     暂无统计数据
                 </div>
             </jh-card>
 
             <jh-card>
                 <div style="font-size: 18px;margin-bottom: 8px">通知的群组</div>
-                <el-button link type="primary"
-                           style="padding: 8px 0;text-align: center;width: 100%;border-bottom: 2px dashed gainsboro"
-                           v-for="group in questionnaire.selectedGroupList">{{
-                        group.title
-                    }}
-                </el-button>
+                <div style="border: 0px solid red">
+                    <div
+                        style="width: 100%;text-align: center;color: cornflowerblue;white-space: nowrap;padding: 8px 0;border-bottom: 2px dashed gainsboro"
+                        v-for="group in questionnaire.selectedGroupList">{{
+                            group['title']
+                        }}
+                    </div>
+                </div>
                 <div style="color: gray;display: flex;align-items: center;height: 100%"
                      v-show="questionnaire['selectedGroupList'].length === 0">未选择通知群组
                 </div>
@@ -71,7 +72,7 @@
 
             <div style="width: 200px;display: flex;flex-direction: column;justify-content: space-between;">
                 <jh-card style="height: 50%">
-                    <div class="flex">
+                    <div style="display: flex;flex-direction: column;justify-content: center">
                         <div style="font-size: 18px;margin-bottom: 8px">开始时间</div>
                         <div style="font-size: 30px;color: rgb(0,217,89)"> {{
                                 formatDate(new Date(questionnaire.startTime))
@@ -81,7 +82,7 @@
                 </jh-card>
                 <div style="height: 16px"></div>
                 <jh-card style="height: 50%">
-                    <div class="flex">
+                    <div style="display: flex;flex-direction: column;justify-content: center">
                         <div style="font-size: 18px;margin-bottom: 8px">截止时间</div>
                         <div style="font-size: 30px;color: orangered">{{
                                 formatDate(new Date(questionnaire.endTime))
@@ -92,7 +93,7 @@
             </div>
         </div>
         <jh-card style="padding: 8px;">
-            <el-table :header-cell-style={backgroundColor:'#F5F5F7'} style="width: 100%;"
+            <el-table style="width: 100%;"
                       :data="questionnaire.submitterList"
                       :highlight-current-row="true"
                       :stripe="true">
@@ -108,7 +109,8 @@
                     <template #default="scope">
                         <div style="display: flex;">
                             <el-button style="margin-left: auto" type="primary" size="small"
-                                       @click="navTo('/manager/collections/committed/detail/'+scope.row.id)">查看
+                                       @click="()=>{ selectCurrentSubmitter(scope.row);ViewOpen(collectionDetail.personalSubmitDetailView)}">
+                                查看
                             </el-button>
                             <el-button size="small" @click="">回绝</el-button>
                             <el-button type="danger" size="small" @click="">删除</el-button>
@@ -121,19 +123,27 @@
         <!--文件列表窗口-->
         <jh-dialog :title="'文件列表'" :show="fileListView">
             <div>
-                <div v-for="file in questionnaire.fileList">
-                    <div style="width: fit-content;margin-bottom: 8px">
-                        <el-col>文件名：{{ file.name }}</el-col>
-                        <el-col>大小：{{ file.size }}</el-col>
-                        <el-col>md5：{{ file.md5 }}</el-col>
-                    </div>
+                <div style="max-width: 1200px;max-height: 350px;overflow: auto">
+                    <el-table :border="true" :show-overflow-tooltip="true" :data="questionnaire.fileList"
+                              style="width: 100%">
+                        <el-table-column :fit="false" prop="name" label="name" width="180"/>
+                        <el-table-column prop="size" label="size" width="180"/>
+                        <el-table-column prop="md5" width="300" label="md5"/>
+                        <el-table-column label="操作" align="center" width="60">
+                            <el-button link type="primary">下载</el-button>
+                        </el-table-column>
+                    </el-table>
                 </div>
-                <el-button type="primary" @click="downloadFiles(questionnaire.fileList)">全部下载</el-button>
+                <div style="display: flex;margin-top: 24px;align-items: center">
+                    <el-button style="margin-left: auto;" type="primary" @click="downloadFiles(questionnaire.fileList)">
+                        全部下载
+                    </el-button>
+                </div>
             </div>
+
         </jh-dialog>
         <!--通知未提交窗口-->
-        <jh-dialog :title="'邮件通知成员'" :show="collectionDetail.notSubmitNotifyView"
-                   @close="ViewClose(collectionDetail.notSubmitNotifyView);">
+        <jh-dialog :title="'邮件通知成员'" :show="collectionDetail.notSubmitNotifyView">
             <div style="max-width: 400px">
                 <el-checkbox-group v-model="notifyArray">
                     <el-checkbox v-for="member in questionnaire.notSubmitterList" :label="member.id">
@@ -151,9 +161,26 @@
                 </div>
             </template>
         </jh-dialog>
+        <!--个人提交详情窗口-->
+        <jh-dialog :title="'提交列表'" :show="collectionDetail.personalSubmitDetailView">
+            <div style="max-width: 1200px;max-height: 350px;overflow: auto">
+                <el-table :border="true" :show-overflow-tooltip="true" :data="currentSubmitter['submitList']"
+                          style="width: 100%">
+                    <el-table-column :fit="false" prop="id" label="提交id" width="200"/>
+                    <el-table-column prop="username" label="用户名" width="180"/>
+                    <el-table-column prop="submitTime" width="180" label="提交时间"/>
+                    <el-table-column label="操作" align="center" width="60">
+                        <template #default="scope">
+                            <el-button link type="primary"
+                                       @click="navTo('/manager/collections/committed/detail/'+scope.row.id)">查看
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </DIV>
+        </jh-dialog>
         <!--分享-->
-        <jh-dialog :show="collectionDetail.shareView" :title="'分享问卷'"
-                   @close="ViewClose(collectionDetail.shareView)">
+        <jh-dialog :show="collectionDetail.shareView" :title="'分享问卷'">
             <el-image style="border-radius: 4px"
                       :src="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAQAAAABYmaj5AAAA6klEQVR42u3ULXLEMAwFYJvUV4jJ5moJia/gkPyQzRUkYl+tJjEttEhdo2468zK9wIp96D2NZqTqZb7UW3cq6rHMedNIUmlMHAVqD+Y4yGLR9GHvFJnzjSoHF195VxVlmfnV86o2Isdlv4uK3rqHmhxSDX6VzIJUdBgPThVJajFMNiOV+Tks3dQjVTk7b5ihEi3K9xGqDI5Pl5GKaQl+jUjy3UqfnYVKO40x9FDkTT5/9/ur0HWL1ztSy3ecikZqFyOTqEeSGo8kIlA7b4NX9kbPmVzCoodO5KAqcyxjRmrNPtUaeqT31/hXP+bsRmX82btZAAAAAElFTkSuQmCC'"/>
             <div>
@@ -161,21 +188,22 @@
             </div>
         </jh-dialog>
         <!--结束-->
-        <jh-dialog :show="collectionDetail.finishView" @close="ViewClose(collectionDetail.finishView)">
-            <h2>结束</h2>
+        <jh-dialog :show="collectionDetail.finishView">
+            <h2>结束此问卷？</h2>
             <template #footer>
                 <el-button @click="ViewClose(collectionDetail.finishView)">取消</el-button>
                 <el-button @click="">确定</el-button>
             </template>
         </jh-dialog>
         <!--删除-->
-        <jh-dialog :show="collectionDetail.deletedView" @close="ViewClose(collectionDetail.deletedView)">
-            <h2>删除</h2>
+        <jh-dialog :show="collectionDetail.deletedView">
+            <h2>删除此问卷？</h2>
             <template #footer>
                 <el-button @click="ViewClose(collectionDetail.deletedView)">取消</el-button>
                 <el-button @click="">确定</el-button>
             </template>
         </jh-dialog>
+
     </el-scrollbar>
 </template>
 
@@ -183,7 +211,7 @@
 import {download, formatDate, navTo, ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollectionDetail from "../hooks/useCollectionDetail";
-import {onMounted, reactive, ref} from "vue";
+import {getCurrentInstance, onMounted, reactive, ref} from "vue";
 import {questionnaire_detail} from "../api/questionnaire";
 import {group_notifyNotSubmitMember} from "../api/group";
 import {ElMessage} from "element-plus";
@@ -194,6 +222,8 @@ let fileListView = reactive({data: false})
 let collectionDetail = useCollectionDetail();
 let props = defineProps(['id']);
 let notifyArray = ref([]);
+let currentSubmitter = ref({});
+let emptySet = ref(false);
 let questionnaire = ref({
     title: "",
     fileList: [],
@@ -202,14 +232,81 @@ let questionnaire = ref({
 });
 
 onMounted(() => {
+
+    let {proxy} = getCurrentInstance();
+
+
     questionnaire_detail(props.id).then(res => {
         if (res.data.code !== 200) {
             ElMessage.error("获取详细信息失败");
             return
         }
         questionnaire.value = res.data.data;
+
+
+        let myChart = proxy.$echarts.init(document.getElementById('data'));
+        let option = {
+            xAxis: {
+                type: 'time',
+                name: "日期",
+                splitLine: {
+                    show: true
+                },
+                min: new Date(questionnaire.value['startTime']), // 起始
+                max: new Date(questionnaire.value['endTime']),
+                axisLabel: {
+                    interale: 0,
+                    rotate: -40,
+                    formatter: function (value) {//在这里写你需要的时间格式
+                        let t_date = new Date(value);
+                        return [t_date.getFullYear(), t_date.getMonth() + 1, t_date.getDate()].join('-') + " "
+                            + [t_date.getHours(), t_date.getMinutes()].join(':');
+
+                    }
+                }
+            },
+            yAxis: {
+                type: 'value',
+            },
+            series: [
+                {
+                    data: [],
+                    type: 'line',
+                },
+            ],
+        };
+
+        let array = questionnaire.value.submitterList;
+        let index = 1;
+        let dateArray = []
+        if (array != null) {
+            array.forEach(a => {
+                let list = a['submitList'];
+                if (list != null) {
+                    list.forEach(l => {
+                        index++
+                        let parseDate = new Date(l.submitTime);
+                        dateArray.push(parseDate)
+                        option.series[0].data.push([parseDate, index]);
+                    })
+                }
+            })
+        }
+        let maxTime = Math.max(...dateArray);
+        let minTime = Math.min(...dateArray);
+        option.xAxis.max = new Date(maxTime);
+        option.xAxis.min = new Date(minTime);
+        if (dateArray.length === 0) {
+            emptySet.value = true;
+        }
+        myChart.setOption(option);
+        window.addEventListener('resize', myChart.resize)
     });
 })
+
+function selectCurrentSubmitter(selectedCurrentSubmitter) {
+    currentSubmitter.value = selectedCurrentSubmitter;
+}
 
 function notifyNotSubmitOkButton() {
     group_notifyNotSubmitMember(notifyArray.value).then(res => {
@@ -258,11 +355,9 @@ function downloadFiles(fileList) {
     width: 100%;
 }
 
-:deep(.el-table__body-wrapper tr td.el-table-fixed-column--left) {
-    background-color: transparent;
+:deep(.el-table .cell) {
+    white-space: nowrap;
 }
 
-:deep(.el-table__row) {
-    background-color: #F5F5F7;
-}
+
 </style>

@@ -16,17 +16,18 @@ export default function () {
             args: '/manager',
             action: navTo
         },
-        // {
-        //     text: '清空缓存',
-        //     fontColor: 'red',
-        //     args: '',
-        //     action: clear
-        // },
+
         {
             text: '清空所有缓存',
             fontColor: 'dodgerblue',
             args: '',
             action: clearAll
+        },
+        {
+            text: '全屏预览',
+            fontColor: 'red',
+            args: '',
+            action: null,
         },
 
         {

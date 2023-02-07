@@ -34,11 +34,9 @@ export default function () {
             }
         });
     }
-    const switchDialog = (data) => {
-        showGroupView.value = data;
-    };
+
 
     return {
-        groupData,showGroupView,createGroupTitle,createGroupMaxMember,addGroup, switchDialog,
+        groupData,showGroupView,createGroupTitle,createGroupMaxMember,addGroup,
     }
 };

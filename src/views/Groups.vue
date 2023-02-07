@@ -12,12 +12,12 @@
                     </div>
                 </template>
             </el-card>
-            <el-card style="min-width: 180px">
+            <el-card id="newGroup" style="min-width: 180px">
                 <template #header>
                     <div style="user-select: none;text-align: center">新建群组</div>
                 </template>
                 <template #default>
-                    <div @click="switchDialog(true)" class="addIcon">
+                    <div @click="ViewOpen(showGroupView)" class="addIcon">
                         <el-icon>
                             <CirclePlus/>
                         </el-icon>
@@ -65,7 +65,6 @@ let {
     createGroupTitle,
     createGroupMaxMember,
     addGroup,
-    switchDialog,
 } = useGroups();
 
 let shareView = reactive({data: false})
@@ -95,5 +94,10 @@ function groupInfo(groupId) {
 
 .addIcon:hover {
     color: royalblue;
+}
+
+:deep(#newGroup .el-card__body):hover {
+    scale: 1.8;
+    transition: .5s;
 }
 </style>

@@ -8,8 +8,8 @@
                     <component :is="element.cname" :model="element" @removeItem="removeItem"/>
                 </template>
             </draggable>
-            <div id="copyright">
-                <p style="width: 100%;text-align: center">Powered by Lsk</p>
+            <div>
+                <div id="copyright">Powered by Lsk</div>
             </div>
         </el-scrollbar>
     </div>
@@ -82,7 +82,8 @@ export default {
 
 <style scoped>
 .component-create {
-    width: 700px;
+    max-width: 800px;
+    min-width: 600px;
     height: 100%;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     margin: 0 10px;
@@ -102,11 +103,12 @@ export default {
 }
 
 #copyright {
-    width: 100%;
-    height: 40px;
+    height: 30px;
     display: flex;
     align-items: center;
     color: gray;
+    font-size: 14px;
+    justify-content: center;
 }
 
 #copyright:hover {

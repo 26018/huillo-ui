@@ -26,10 +26,13 @@ import {submission_commitList} from "../api/submission";
 import {formatDate, navTo} from "../api/util";
 
 let tableData = ref([]);
+let copyTable = ref()
+let search = ref();
 
 onMounted(() => {
     submission_commitList().then(res => {
         tableData.value = res.data.data
+        copyTable.value = tableData.value;
         tableData.value.forEach(table => {
             // 格式化时间
             if (table.endTime == null) {
@@ -54,6 +57,20 @@ onMounted(() => {
     })
 })
 
+
+watch(search, (o, n) => {
+    if (o == null || o.length === 0) {
+        tableData.value = copyTable.value;
+    }
+    let searchResult = [];
+    copyTable.value.forEach(t=>{
+        if (JSON.stringify(t).includes(o)) {
+            searchResult.push(t);
+        }
+    })
+    tableData.value = searchResult;
+});
+
 const showDetail = (row, column, event) => {
     // TODO 拿到data的id
     if (column.label === '' || column.label == undefined) {
@@ -61,26 +78,6 @@ const showDetail = (row, column, event) => {
     }
     navTo('/manager/collections/committed/detail/'+row.id)
 }
-
-let search = ref("");
-let keepAliveValue = tableData.data;
-
-// 检测输入值变化
-watch(search, (value, oldValue, onCleanup) => {
-    tableData.data = keepAliveValue;
-    if (value === '') {
-        return;
-    }
-    let newTable = [];
-    tableData.data.forEach(v => {
-        let s = JSON.stringify(v);
-        if (s.includes(value)) {
-            newTable.push(v);
-        }
-    })
-    tableData.data = newTable;
-});
-
 
 </script>
 

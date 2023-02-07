@@ -1,9 +1,7 @@
 <template>
     <component-submit-frame :data="data">
+        <read-only-text style="margin-top: 8px;background-color: rgba(243,246,249);border-radius: 4px;box-sizing: border-box;padding: 4px" :data="'您当前在：四川省成都市武侯区'+'附近'"/>
         <el-button style="width: 100%" type="primary" @click="getLocation">点击获取位置</el-button>
-        <read-only-text
-            style="margin-top: 8px;background-color: rgba(243,246,249);border-radius: 4px;box-sizing: border-box;padding: 4px"
-            :data="'您当前在：四川省成都市武侯区'"/>
     </component-submit-frame>
 </template>
 
