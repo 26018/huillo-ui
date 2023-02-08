@@ -49,21 +49,16 @@ import ComponentPreview from '../components/other/cmp/ComponentPreview.vue'
 import PcView from "../components/other/cmp/PcView.vue";
 import useCreateNav from "../hooks/useCreateNav";
 import {onMounted, ref, watch} from "vue";
-import {group_list} from "../api/group";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import {ViewClose} from "../api/util";
 import {storeToRefs} from "pinia";
 import {useSurvey} from "../store/survey";
 
-let {navData, publishAble, publish} = useCreateNav();
-let groupList = ref([]);
+let {navData,groupList, publishAble, publish} = useCreateNav();
 let {selectedGroupList, anonymous, endTime} = storeToRefs(useSurvey());
 
 onMounted(() => {
-    anonymous.value = false;
-    group_list().then(res => {
-        groupList = res.data.data
-    });
+
 });
 
 

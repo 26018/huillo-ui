@@ -31,8 +31,8 @@ app.config.globalProperties.$echarts = echarts;
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
     config.headers = {
-        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6ImpheTI1NzI0OCIsInByb2ZpbGUiOiJudWxsIiwiZ3JvdXBMaXN0IjoiW10iLCJpZCI6IjE2MTM0NzIwNzM4MjgyNTM2OTciLCJleHAiOjE2NzYwODExMzYsImFjY291bnQiOiIyMDMzNDcxMzQ5QHFxLmNvbSIsInVzZXJuYW1lIjoiTHNrIn0.P40wa1FPb8Ql0tyHdEa8Bdr4XCjvzMkmAoIel2-BIQs",
-    }
+        token: localStorage.getItem("token"),
+    };
     return config;
 }, function (error) {
     return Promise.reject(error);
@@ -40,6 +40,15 @@ axios.interceptors.request.use(function (config) {
 
 axios.interceptors.response.use(function (response) {
     if (response.data.code != null && response.data.code !== 200) {
+        if (response.data.code === 257248) {
+            ElMessage.info({
+                message: "您还未登录，请返回首页登录",
+                showClose: true,
+                duration: 3000,
+            });
+            localStorage.removeItem('token');
+            return;
+        }
         ElMessage.error(response.data.message);
     }
     return response;

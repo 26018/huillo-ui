@@ -4,11 +4,13 @@ import {ElMessage} from "element-plus";
 import {useSurvey} from "../store/survey";
 import {useUserFile} from "../store/userfile";
 import axios from "axios";
+import {group_list} from "../api/group";
 
 export default function () {
     let publishAble = reactive({data: false});
     let selectedGroupList = ref([]);
     let questionnaireEndTime = ref("");
+    let groupList = ref([]);
     let navData = [
         {
             text: '我的',
@@ -69,7 +71,10 @@ export default function () {
         survey.endTime = null;
         survey.selectedGroupList = [];
         survey.anonymous = false;
+        group_list().then(res => {
+            groupList.value = res.data.data
+        });
     }
 
-    return {navData, publishAble, questionnaireEndTime, selectedGroupList, publish};
+    return {navData, publishAble, questionnaireEndTime, selectedGroupList, groupList, publish};
 }

@@ -10,10 +10,10 @@
                     <div class="label">账号</div>
                     <el-input v-model="account"></el-input>
                     <div class="label">密码</div>
-                    <el-input v-model="password"></el-input>
+                    <el-input type="password" show-password v-model="password"></el-input>
                 </div>
                 <div style="display:flex;">
-                    <el-button @click="login({account,password})" type="primary" style="margin-top: 8px">登录</el-button>
+                    <el-button @click="userLogin()" type="primary" style="margin-top: 8px">登录</el-button>
                     <el-button link type="warning" @click="navTo('/register')"
                                style="margin-left: auto;margin-top: 8px">没有账号？去注册
                     </el-button>
@@ -28,9 +28,33 @@ import {navTo} from "../api/util";
 import Header from "../components/other/cmp/Header.vue";
 import {ref} from "vue";
 import {login} from "../api/user";
+import {ElMessage} from "element-plus";
 
 let account = ref("");
 let password = ref("");
+
+function userLogin() {
+    let data = {
+        account: account.value,
+        password: password.value
+    }
+    login(data).then(res => {
+
+        if (res.data.code === 200) {
+            localStorage.setItem('token', res.data.data)
+            ElMessage.success({
+                message: "登录成功,3s后跳转",
+                showClose: true,
+                duration: 2000,
+            })
+            setInterval(() => {
+                navTo('/create')
+            }, 2000)
+        } else {
+            ElMessage.error(res.data.message)
+        }
+    })
+}
 
 </script>
 
