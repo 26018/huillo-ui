@@ -31,7 +31,7 @@ onMounted(() => {
         },
         series: [
             {
-                name: 'Access From',
+                name: '',
                 type: 'pie',
                 radius: ['40%', '70%'],
                 avoidLabelOverlap: false,
@@ -52,7 +52,7 @@ onMounted(() => {
                     }
                 },
                 labelLine: {
-                    show: false
+                    show: true
                 },
                 data: [
 
@@ -60,7 +60,7 @@ onMounted(() => {
             }
         ]
     };
-
+    option.series[0].name = props.data.name
     for (let i = 0; i < props.data.options.length; i++) {
         option.series[0].data.push({
             value: props.data.map[props.data.options[i]],

@@ -60,11 +60,13 @@ let groupList = ref([]);
 let {selectedGroupList, anonymous, endTime} = storeToRefs(useSurvey());
 
 onMounted(() => {
-    anonymous = false;
+    anonymous.value = false;
     group_list().then(res => {
         groupList = res.data.data
     });
 });
+
+
 
 </script>
 

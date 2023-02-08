@@ -13,7 +13,7 @@ export default function () {
 
     // 点击按钮的方法
     const analysis = (data) => {
-        navTo('collections/analysis/' + data.id)
+        navTo('collections/analysis/' + data.id + "?title=" + data.title);
     };
     const share = (data, viewControl) => {
         viewControl.data = true;

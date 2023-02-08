@@ -65,6 +65,10 @@ export default function () {
 
     function publishClick() {
         publishAble.data = true;
+        const survey = useSurvey();
+        survey.endTime = null;
+        survey.selectedGroupList = [];
+        survey.anonymous = false;
     }
 
     return {navData, publishAble, questionnaireEndTime, selectedGroupList, publish};

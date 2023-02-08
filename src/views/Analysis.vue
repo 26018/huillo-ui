@@ -9,7 +9,7 @@
                     <div style="font-size: 24px;margin-left: 8px">问卷分析</div>
                     <el-button style="margin-left: auto" type="primary">导出数据</el-button>
                 </div>
-                <read-only-text style="text-align: center;" size="30px" data="在线文件收集调查"></read-only-text>
+                <read-only-text style="text-align: center;" size="30px" :data='title'></read-only-text>
                 <div v-for="i in dataList">
                     <component :is="mapCnameCharts[i.cname]" :data="i"/>
                 </div>
@@ -32,6 +32,7 @@ import LineChart from "../components/echarts/LineChart.vue";
 import {defineComponent, onMounted, ref} from "vue";
 import {questionnaire_component_analysis} from "../api/questionnaire";
 import mapCnameCharts from '../data/map_cname_charts.json';
+import router from "../router";
 
 export default defineComponent({
     props: ['id'],
@@ -41,6 +42,7 @@ export default defineComponent({
     setup(props) {
         let dataList = ref([])
         let showTip = ref(false);
+        let title = ref('');
 
         onMounted(() => {
             // 固定头栏
@@ -50,6 +52,8 @@ export default defineComponent({
             ele[0].style.overflow = 'hidden'
             ele[0].style.backgroundColor = 'white'
             ele[0].style.zIndex = '999'
+
+            title.value = router.currentRoute.value.query.title
 
             // 请求组件分析数据
             questionnaire_component_analysis(props.id).then(res => {
@@ -72,7 +76,7 @@ export default defineComponent({
         })
 
         return {
-            showTip, dataList, navTo, mapCnameCharts
+            showTip, dataList, title, mapCnameCharts, navTo,
         }
     },
 })
