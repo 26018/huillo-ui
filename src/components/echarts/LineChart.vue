@@ -30,7 +30,7 @@ onMounted(() => {
         yAxis: {},
         series: [{
             name: '',
-            type: "bar",
+            type: "line",
             data: [],
             barWidth: '20%',
         }]

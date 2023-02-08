@@ -75,7 +75,7 @@
                     <div style="display: flex;flex-direction: column;justify-content: center">
                         <div style="font-size: 18px;margin-bottom: 8px">开始时间</div>
                         <div style="font-size: 30px;color: rgb(0,217,89)"> {{
-                                formatDate(new Date(questionnaire.startTime))
+                                simpleFormatDate(new Date(questionnaire.startTime))
                             }}
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div style="display: flex;flex-direction: column;justify-content: center">
                         <div style="font-size: 18px;margin-bottom: 8px">截止时间</div>
                         <div style="font-size: 30px;color: orangered">{{
-                                formatDate(new Date(questionnaire.endTime))
+                                simpleFormatDate(new Date(questionnaire.endTime))
                             }}
                         </div>
                     </div>
@@ -208,7 +208,7 @@
 </template>
 
 <script setup>
-import {download, formatDate, navTo, ViewClose, ViewOpen} from "../api/util";
+import {download, formatDate, navTo, simpleFormatDate, ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollectionDetail from "../hooks/useCollectionDetail";
 import {getCurrentInstance, onMounted, reactive, ref} from "vue";

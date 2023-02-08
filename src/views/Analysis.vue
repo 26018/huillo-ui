@@ -10,58 +10,72 @@
                     <el-button style="margin-left: auto" type="primary">导出数据</el-button>
                 </div>
                 <read-only-text style="text-align: center;" size="30px" data="在线文件收集调查"></read-only-text>
+                <div v-for="i in dataList">
+                    <component :is="mapCnameCharts[i.cname]" :data="i"/>
+                </div>
 
-                <BarChart v-for="i in dataArr" :data="i"/>
+                <div style="margin-top: 32px;width: 100%;display: flex;align-items: center;justify-content: center;"
+                     v-show="showTip">暂无数据分析
+                </div>
+
             </el-space>
         </el-scrollbar>
     </div>
 </template>
 
-<script setup>
+<script>
 import {navTo} from "../api/util";
 import ReadOnlyText from "../components/other/cmp/ReadOnlyText.vue";
 import BarChart from "../components/echarts/BarChart.vue";
-import {onMounted} from "vue";
-import JhCard from "../components/other/cmp/JhCard.vue";
+import CircleChart from "../components/echarts/CircleChart.vue";
+import LineChart from "../components/echarts/LineChart.vue";
+import {defineComponent, onMounted, ref} from "vue";
 import {questionnaire_component_analysis} from "../api/questionnaire";
+import mapCnameCharts from '../data/map_cname_charts.json';
 
-let dataArr = [
-    {
-        id: "main",
-        name: "为啥子选择echarts",
-        options: ["只听说过echarts", "不晓得为啥子", "同事推荐给我的", "维护旧项目需要"],
-        countArr: [5, 20, 36, 10, 10, 20, 4],
-    }
-]
+export default defineComponent({
+    props: ['id'],
+    components: {
+        ReadOnlyText, BarChart, CircleChart,LineChart
+    },
+    setup(props) {
+        let dataList = ref([])
+        let showTip = ref(false);
 
-for (let i = 0; i < 0; i++) {
-    let data = dataArr[0];
-    let copyData = {};
-    copyData.id = data.id + i;
-    copyData.name = data.name + i;
-    copyData.options = data.options;
-    copyData.countArr = data.countArr;
-    dataArr.push(copyData);
-}
+        onMounted(() => {
+            // 固定头栏
+            let ele = document.getElementsByClassName('el-space__item');
+            ele[0].style.position = 'sticky'
+            ele[0].style.top = 0
+            ele[0].style.overflow = 'hidden'
+            ele[0].style.backgroundColor = 'white'
+            ele[0].style.zIndex = '999'
 
-let props = defineProps(['id'])
+            // 请求组件分析数据
+            questionnaire_component_analysis(props.id).then(res => {
+                let retDataList = res.data.data;
+                if (retDataList.length === 0) {
+                    showTip.value = true;
+                    return
+                }
+                retDataList.forEach(r => {
+                    dataList.value.push({
+                        id: r.id,
+                        cname: r.cname,
+                        name: r.title,
+                        map: r.map,
+                        options: Object.keys(r.map),
+                        countArr: Array,
+                    })
+                });
+            })
+        })
 
-onMounted(() => {
-    // 固定头栏
-    let ele = document.getElementsByClassName('el-space__item');
-    ele[0].style.position = 'sticky'
-    ele[0].style.top = 0
-    ele[0].style.overflow = 'hidden'
-    ele[0].style.backgroundColor = 'white'
-    ele[0].style.zIndex = '999'
-
-    // 请求组件分析数据
-    questionnaire_component_analysis(props.id).then(res => {
-        console.log(res.data)
-    })
-
+        return {
+            showTip, dataList, navTo, mapCnameCharts
+        }
+    },
 })
-
 
 </script>
 

@@ -19,20 +19,13 @@ export default function () {
 
         {
             text: '清空所有缓存',
-            fontColor: 'dodgerblue',
+            fontColor: 'red',
             args: '',
             action: clearAll
         },
         {
-            text: '全屏预览',
-            fontColor: 'red',
-            args: '',
-            action: null,
-        },
-
-        {
             text: '发布',
-            fontColor: 'green',
+            fontColor: 'rgb(64,158,255)',
             args: '',
             action: publishClick
         },

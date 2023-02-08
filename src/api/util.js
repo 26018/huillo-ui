@@ -50,10 +50,43 @@ export function removeItem(data) {
     // console.log("remove:", data);
 }
 
-export function formatDate(current_datetime) {
-    let formatted_date = current_datetime.getFullYear() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate();
-    return formatted_date;
+export function formatDate(time, format = 'YY-MM-DD hh:mm:ss') {
+    let date = new Date(time);
+    let year = date.getFullYear(),
+        month = date.getMonth() + 1,//月份是从0开始的
+        day = date.getDate(),
+        hour = date.getHours(),
+        min = date.getMinutes(),
+        sec = date.getSeconds();
+    let preArr = Array.apply(null, Array(10)).map(function (elem, index) {
+        return '0' + index;
+    });
+    let newTime = format.replace(/YY/g, year)
+        .replace(/MM/g, preArr[month] || month)
+        .replace(/DD/g, preArr[day] || day)
+        .replace(/hh/g, preArr[hour] || hour)
+        .replace(/mm/g, preArr[min] || min)
+        .replace(/ss/g, preArr[sec] || sec);
+
+    return newTime;
 }
+
+export function simpleFormatDate(time, format = 'YY/MM/DD') {
+    let date = new Date(time);
+    let year = date.getFullYear(),
+        month = date.getMonth() + 1,//月份是从0开始的
+        day = date.getDate();
+    let preArr = Array.apply(null, Array(10)).map(function (elem, index) {
+        return '0' + index;
+    });
+    let newTime = format.replace(/YY/g, year)
+        .replace(/MM/g, preArr[month] || month)
+        .replace(/DD/g, preArr[day] || day)
+
+
+    return newTime;
+}
+
 
 export function ViewOpen(ctrl) {
     ctrl.data = true;

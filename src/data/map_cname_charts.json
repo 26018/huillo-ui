@@ -1,0 +1,8 @@
+{
+  "jh-radio": "circle-chart",
+  "jh-multi": "bar-chart",
+  "jh-date-input": "line-chart",
+  "jh-text-input": "circle-chart",
+  "jh-location": "",
+  "jh-rate": "bar-chart"
+}
