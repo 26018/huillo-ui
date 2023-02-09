@@ -59,8 +59,10 @@ export default function () {
 
     function publishSurvey(survey, fileList) {
         let jsonAndFile = addJsonAndFile(survey, 'survey', fileList, 'downloadFiles');
-        axios.post("/questionnaire/create", jsonAndFile).then(res => {
-            console.log(res.data)
+        axios.post("/survey/create", jsonAndFile).then(res => {
+            if (res.data.code === 200) {
+                ElMessage.success("发布成功");
+            }
         });
     }
 

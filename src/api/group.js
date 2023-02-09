@@ -13,7 +13,7 @@ export function group_list() {
 }
 
 export function group_notifyNotSubmitMember(userIdList) {
-    return axios.post("/questionnaire/notifyNotSubmitMember", userIdList);
+    return axios.post("/survey/notifyNotSubmitMember", userIdList);
 }
 
 export function group_share(id){
