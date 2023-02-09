@@ -99,6 +99,7 @@ export default {
             ele.style.left = (mouse.x + 50) + 'px'
             // 如果超出底部
             let computedHeight = (mouse.y + ele.scrollHeight / 2)
+
             if (computedHeight >= document.body.scrollHeight) {
                 // 高出底部10px
                 ele.style.top = (document.body.scrollHeight - ele.scrollHeight / 2 - 10) + 'px';
@@ -111,6 +112,7 @@ export default {
             ele.style.position = 'absolute'
             ele.style.transform = 'translate(0px,-50%)'
         }
+
 
         function mouseHover(data) {
             setLocation();
@@ -158,6 +160,11 @@ export default {
     grid-template-columns: 1fr 1fr;
     box-sizing: border-box;
     padding: 8px;
+}
+
+.component-list > div {
+    /*border: 1px solid red;*/
+
 }
 
 .component {
