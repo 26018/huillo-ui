@@ -68,8 +68,8 @@ export default {
 }
 
 .preview {
-    min-width: 360px;
-    max-width: 360px;
+    min-width: 380px;
+    max-width: 380px;
 
     height: 100%;
     box-sizing: border-box;

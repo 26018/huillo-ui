@@ -89,8 +89,9 @@ export default {
 
 <style scoped>
 .component-create {
-    max-width: 800px;
-    min-width: 600px;
+    max-width: 1000px;
+    width: 700px;
+    min-width: 400px;
     height: 100%;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     margin: 0 10px;

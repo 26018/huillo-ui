@@ -4,7 +4,7 @@
         <pc-view>
             <Transition>
                 <div id="poem" @click="searchPoem" v-show="showPoem" class="poem" :style="{color:currentColor}">
-                    {{ currentPoem }}
+                    "{{ currentPoem }}"
                 </div>
             </Transition>
         </pc-view>
@@ -27,9 +27,12 @@ let poems = [
     "你撑把小纸伞，叹姻缘太婉转", "下雨这天好安静", "等爱在升温后渐渐死去", "海鸟跟鱼相爱，只是一场意外",
     "我仍守着孤城", "雨纷纷，旧故里草木深", "我只能不停的飞，直到我将你挽回", "转身离开，分手说不出来",
     "做那个人的战士，和他一起去经历", "你是友情，还是错过的爱情？", "情字何解，怎落笔都不对", "我的世界，你不在里面",
-    "雨过之后更难忘记", "剑出鞘，恩怨了", "爱恨如写意山水画", "街灯下的橱窗，有一种落寞的悲伤"
+    "雨过之后更难忘记", "剑出鞘，恩怨了", "爱恨如写意山水画", "街灯下的橱窗，有一种落寞的悲伤", "没有圆周的钟，失去旋转意义",
+    "你要我在最爱的时候死去", "依旧留着你的笑容"
 ];
-let colorBox = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f73859", "#ff7e67", "#769fcd"];
+let colorBox = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#19448e", "#9ba88d", "#ee7800", "#745399", "#028760",
+    "#f73859", "#ff7e67", "#769fcd", "#c5c56a", "#4c6cb3", "#69b076", "#5654a2", "#47885e", "#241a08"];
+
 let currentPoem = ref("");
 let currentColor = ref("");
 let showPoem = ref(true);
@@ -37,16 +40,19 @@ let duration = 5000;
 
 onMounted(() => {
     let currentIndex = localStorage.getItem('poemIndex');
+    let maxLength = Math.max(poems.length, colorBox.length);
+
     currentIndex = currentIndex == null ? 0 : currentIndex;
+
     currentPoem.value = poems[currentIndex];
     currentColor.value = colorBox[currentIndex];
 
     setInterval(() => {
-        currentIndex = (currentIndex + 1) % poems.length;
+        currentIndex = (currentIndex + 1) % maxLength;
         localStorage.setItem('poemIndex', currentIndex);
 
+        currentPoem.value = poems[currentIndex % poems.length];
         currentColor.value = colorBox[currentIndex % colorBox.length];
-        currentPoem.value = poems[currentIndex];
     }, duration);
 })
 
@@ -57,9 +63,10 @@ watch(currentPoem, (value, oldValue, onCleanup) => {
     }, duration - 500)
 });
 
-function searchPoem(){
+function searchPoem() {
     window.open('https://cn.bing.com/search?q=' + currentPoem.value);
 }
+
 
 </script>
 
@@ -105,7 +112,7 @@ function searchPoem(){
     align-items: center;
     user-select: none;
     cursor: pointer;
-    font-family: siyuan,serif;
+    font-family: siyuan, serif;
 }
 
 .icon {
