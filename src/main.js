@@ -4,12 +4,18 @@ import './index.css'
 import router from './router/index.js'
 import ElementPlus, {ElMessage} from 'element-plus'
 import 'element-plus/dist/index.css'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import zhCn from 'element-plus';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import * as echarts from 'echarts';
 import axios from "axios";
 import {createPinia} from "pinia";
 import piniaPersist from 'pinia-plugin-persist'
+import animated from 'animate.css' // 引入animate.css
+
+
+
+
+axios.defaults.baseURL = "http://localhost";
 
 const pinia = createPinia();
 pinia.use(piniaPersist);
@@ -22,10 +28,12 @@ app.use(ElementPlus, {
 
 app.use(pinia);
 app.use(router)
+app.use(animated);
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
+
 app.config.globalProperties.$echarts = echarts;
 
 // 添加请求拦截器

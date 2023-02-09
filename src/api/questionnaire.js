@@ -2,36 +2,29 @@ import axios from "axios";
 import {ElMessage} from "element-plus";
 
 export function questionnaire_create(jsonList) {
-    return axios.post("http://localhost/questionnaire/create", jsonList)
+    return axios.post("/questionnaire/create", jsonList)
 }
 
 export function questionnaire_getById(id) {
-    return axios.get("http://localhost/questionnaire/" + id);
+    return axios.get("/questionnaire/" + id);
 }
 
 export function questionnaire_list() {
-    return axios.get("http://localhost/questionnaire/list");
+    return axios.get("/questionnaire/list");
 }
 
 export function questionnaire_share(id) {
-    return axios.get("http://localhost/questionnaire/share?id=" + id);
+    return axios.get("/questionnaire/share?id=" + id);
 }
 
 export function questionnaire_detail(id) {
-    return axios.get("http://localhost/questionnaire/statistics/submission?id=" + id);
+    return axios.get("/questionnaire/statistics/submission?id=" + id);
 }
 
 export function questionnaire_component_analysis(surveyId){
-    return axios.get('http://localhost/questionnaire/statistics/component?id=' + surveyId);
+    return axios.get('/questionnaire/statistics/component?id=' + surveyId);
 }
 
 export function questionnaire_submit(questionnaire) {
-    // let components = questionnaire.components;
-    // for (const c of components) {
-    //     if (c.optional === false && (c.input == null || c.input.length === 0)) {
-    //         ElMessage.info(c.title + "没填呢您")
-    //         return;
-    //     }
-    // }
-    return axios.post("http://localhost/questionnaire/submit", questionnaire);
+    return axios.post("/questionnaire/submit", questionnaire);
 }

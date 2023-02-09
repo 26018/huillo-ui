@@ -77,20 +77,6 @@ let isHeadCmp = computed(() => {
     display: flex;
 }
 
-/*:deep(.el-textarea__inner) {*/
-/*    box-shadow: 0 0 0 0;*/
-/*    outline: none;*/
-/*}*/
-/*:deep(.el-textarea__inner):hover {*/
-/*    outline: none;*/
-/*    box-shadow: 0 0 0 0;*/
-/*}*/
-/*:deep(.el-textarea__inner):out-of-range {*/
-/*    outline: none;*/
-/*    box-shadow: 0 0 0 0;*/
-/*}*/
-
-
 .head {
     width: 100%;
     color: rgba(96, 98, 102);

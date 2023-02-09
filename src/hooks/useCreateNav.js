@@ -52,14 +52,14 @@ export default function () {
         const userfile = useUserFile()
         console.log(survey)
         console.log(userfile)
-        uploadFile(survey, userfile.downloadFileList);
+        publishSurvey(survey, userfile.downloadFileList);
         // 文件上传成功后，将其从列表中移除
         userfile.downloadFileList = []
     }
 
-    function uploadFile(survey, fileList) {
+    function publishSurvey(survey, fileList) {
         let jsonAndFile = addJsonAndFile(survey, 'survey', fileList, 'downloadFiles');
-        axios.post("http://localhost/questionnaire/create", jsonAndFile).then(res => {
+        axios.post("/questionnaire/create", jsonAndFile).then(res => {
             console.log(res.data)
         });
     }

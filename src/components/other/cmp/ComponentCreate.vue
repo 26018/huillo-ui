@@ -9,7 +9,7 @@
                 </template>
             </draggable>
             <div>
-                <div id="copyright">Powered by Lsk</div>
+                <div id="copyright" @click="goToHome">Powered by Lsk</div>
             </div>
         </el-scrollbar>
     </div>
@@ -28,6 +28,7 @@ import JhLocation from '../../create/JhLocation.vue'
 import JhRate from "../../create/JhRate.vue";
 import JhDateInput from '../../create/JhDateInput.vue'
 import {useSurvey} from "../../../store/survey";
+import {navTo} from "../../../api/util";
 
 export default {
     components: {
@@ -55,6 +56,7 @@ export default {
     },
 
     methods: {
+        navTo,
         removeItem(data) {
             for (let i = 0; i < this.questionnaire['components'].length; i++) {
                 const component = this.questionnaire['components'][i];
@@ -66,6 +68,11 @@ export default {
         moveEnd(data) {
             this.setIndex(this.questionnaire.components);
         },
+
+        goToHome() {
+            window.open('https://github.com/26018')
+        },
+
         setIndex(list) {
             if (list == null) {
                 return
@@ -114,6 +121,7 @@ export default {
 #copyright:hover {
     color: black;
     user-select: none;
+    cursor: pointer;
 }
 
 
