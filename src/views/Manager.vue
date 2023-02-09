@@ -17,6 +17,7 @@
 <script setup>
 import useManagerNav from "../hooks/useManagerNav";
 import {onMounted} from "vue";
+import '../style/font.css'
 
 let navData = useManagerNav()
 function ManagerNav(data, index) {
@@ -69,7 +70,7 @@ onMounted(() => {
     align-items: center;
     cursor: pointer;
     user-select: none;
-    font-family: 微软雅黑;
+    font-family: siyuan,serif;
 }
 
 .nav-item:hover {

@@ -3,7 +3,7 @@
         <div class="icon" @click="$emit('iconActive')">Huillo</div>
         <pc-view>
             <Transition>
-                <div id="poem" v-show="showPoem" class="poem" :style="{color:currentColor}">
+                <div id="poem" @click="searchPoem" v-show="showPoem" class="poem" :style="{color:currentColor}">
                     {{ currentPoem }}
                 </div>
             </Transition>
@@ -19,6 +19,7 @@
 <script setup>
 import PcView from "./PcView.vue";
 import {onMounted, ref, watch} from "vue";
+import '/src/style/font.css'
 
 defineProps(['nav', 'height'])
 
@@ -55,6 +56,10 @@ watch(currentPoem, (value, oldValue, onCleanup) => {
         showPoem.value = false;
     }, duration - 500)
 });
+
+function searchPoem(){
+    window.open('https://cn.bing.com/search?q=' + currentPoem.value);
+}
 
 </script>
 
@@ -97,10 +102,10 @@ watch(currentPoem, (value, oldValue, onCleanup) => {
     margin: 0 24px 0 0;
     height: 100%;
     display: flex;
-    font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
     align-items: center;
     user-select: none;
     cursor: pointer;
+    font-family: siyuan,serif;
 }
 
 .icon {
@@ -115,6 +120,7 @@ watch(currentPoem, (value, oldValue, onCleanup) => {
     margin-left: 16px;
     user-select: none;
     cursor: pointer;
+    font-family: deyihei;
 }
 
 
