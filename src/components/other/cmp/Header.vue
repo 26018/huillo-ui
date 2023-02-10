@@ -19,7 +19,6 @@
 <script setup>
 import PcView from "./PcView.vue";
 import {onMounted, ref, watch} from "vue";
-import '/src/style/font.css'
 
 defineProps(['nav', 'height'])
 

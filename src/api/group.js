@@ -4,8 +4,8 @@ export function group_create(data) {
     return axios.post("/group/create", data);
 }
 
-export function group_add_member(id) {
-    return axios.post("/group/"+id+"/add");
+export function group_add_member(groupId) {
+    return axios.post("/group/"+groupId+"/add");
 }
 
 export function group_list() {

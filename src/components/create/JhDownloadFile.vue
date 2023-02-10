@@ -24,33 +24,6 @@ onMounted(() => {
     props.model.options = [];
 })
 
-// function uploadFile(params) {
-//     params.userFileList = userFileList;
-//     userFile_upload(params).then(res => {
-//         if (res.data.code == 200) {
-//             ElMessage.success("上传成功");
-//             return;
-//         }
-//     });
-//     userFileList = [];
-// }
-
-// function uploadFile() {
-//     let formData = new FormData();
-//
-//     userFileList.forEach(file=>{
-//         formData.append("files", file.raw);
-//     })
-//
-//     let json = {id: 257248};
-//     let string = JSON.stringify(json);
-//     let blob = new Blob([string], {type: "application/json"});
-//     formData.append("json", blob)
-//
-//     axios.post("http://localhost/questionnaire/test/file", formData).then(res => {
-//         console.log(res.data)
-//     });
-// }
 function pushFile(file, fileList) {
     userfile.downloadFileList = fileList;
     // 每次文件列表变化时，计算md5值

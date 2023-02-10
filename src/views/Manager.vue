@@ -17,7 +17,6 @@
 <script setup>
 import useManagerNav from "../hooks/useManagerNav";
 import {onMounted} from "vue";
-import '../style/font.css'
 
 let navData = useManagerNav()
 function ManagerNav(data, index) {

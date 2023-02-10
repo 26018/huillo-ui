@@ -57,7 +57,7 @@
 
             <jh-card>
                 <div style="font-size: 18px;margin-bottom: 8px">通知的群组</div>
-                <div style="border: 0px solid red">
+                <div>
                     <div
                         style="width: 100%;text-align: center;color: cornflowerblue;white-space: nowrap;padding: 8px 0;border-bottom: 2px dashed gainsboro"
                         v-for="group in questionnaire.selectedGroupList">{{
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div style="color: gray;display: flex;align-items: center;height: 100%"
-                     v-show="questionnaire['selectedGroupList'].length === 0">未选择通知群组
+                     v-show="questionnaire['selectedGroupList'] == null || questionnaire['selectedGroupList'].length === 0">未选择通知群组
                 </div>
             </jh-card>
 
@@ -146,7 +146,7 @@
         <jh-dialog :title="'邮件通知成员'" :show="collectionDetail.notSubmitNotifyView">
             <div style="max-width: 400px">
                 <el-checkbox-group v-model="notifyArray">
-                    <el-checkbox v-for="member in questionnaire.notSubmitterList" :label="member.id">
+                    <el-checkbox v-for="member in questionnaire['notSubmitterList']" :label="member.id">
                         {{ member.username }}
                     </el-checkbox>
                 </el-checkbox-group>
@@ -208,7 +208,7 @@
 </template>
 
 <script setup>
-import {download, formatDate, navTo, simpleFormatDate, ViewClose, ViewOpen} from "../api/util";
+import {download, navTo, simpleFormatDate, ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollectionDetail from "../hooks/useCollectionDetail";
 import {getCurrentInstance, onMounted, reactive, ref} from "vue";
@@ -235,14 +235,12 @@ onMounted(() => {
 
     let {proxy} = getCurrentInstance();
 
-
     questionnaire_detail(props.id).then(res => {
         if (res.data.code !== 200) {
             ElMessage.error("获取详细信息失败");
             return
         }
         questionnaire.value = res.data.data;
-
 
         let myChart = proxy.$echarts.init(document.getElementById('data'));
         let option = {

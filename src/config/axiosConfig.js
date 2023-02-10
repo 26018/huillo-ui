@@ -2,7 +2,8 @@
 import axios from "axios";
 import {ElMessage} from "element-plus";
 
-axios.interceptors.request.use((config) => {
+axios.defaults.baseURL = "http://192.168.2.97";
+axios.interceptors.request.use(function (config) {
     config.headers = {
         token: localStorage.getItem("token"),
     };
@@ -11,14 +12,10 @@ axios.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 
-axios.interceptors.response.use((response) => {
+axios.interceptors.response.use(function (response) {
     if (response.data.code != null && response.data.code !== 200) {
         if (response.data.code === 257248) {
-            ElMessage.info({
-                message: "您还未登录，请返回首页登录",
-                showClose: true,
-                duration: 3000,
-            });
+            ElMessage.info({message: "您还未登录，请返回首页登录", showClose: true, duration: 3000,});
             localStorage.removeItem('token');
             return;
         }
@@ -29,3 +26,4 @@ axios.interceptors.response.use((response) => {
     return Promise.reject(error);
 });
 
+export default axios;

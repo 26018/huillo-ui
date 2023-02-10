@@ -32,7 +32,7 @@
             </div>
         </el-scrollbar>
 
-        <teleport to="body">
+        <teleport to="#app">
             <div v-show="detailCardView" id="not">
                 <el-card style="border-radius: 8px">
                     <component :is="selectData.data.cname" :model="selectData.data"></component>
@@ -113,7 +113,6 @@ export default {
             ele.style.transform = 'translate(0px,-50%)'
         }
 
-
         function mouseHover(data) {
             setLocation();
             setTimeout(() => {
@@ -150,10 +149,9 @@ export default {
 .fix {
     max-width: 300px;
     min-width: 300px;
-    border: 0px solid red;
     box-sizing: border-box;
     height: 100%;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
     background-color: white;
 }
 
@@ -162,11 +160,6 @@ export default {
     grid-template-columns: 1fr 1fr;
     box-sizing: border-box;
     padding: 8px;
-}
-
-.component-list > div {
-    /*border: 1px solid red;*/
-
 }
 
 .component {

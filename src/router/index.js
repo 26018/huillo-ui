@@ -15,6 +15,8 @@ import detail from '../views/CollectionDetail.vue';
 import analysis from '../views/Analysis.vue';
 import commitDetail from "../views/CommitDetail.vue";
 import userSettings from "../views/UserSettings.vue";
+import groupAddMember from '../views/GroupAddMember.vue';
+
 const routes = [
     {path: "/", redirect: '/index'},
 
@@ -38,6 +40,7 @@ const routes = [
             {path: "collections/committed/detail/:id", props: {manager_view: true}, components: {manager_view: commitDetail}},
             {path: "submission", components: {manager_view: submission}},
             {path: "groups", components: {manager_view: groups}},
+            {path: "groups/add/:id", components: {manager_view: groupAddMember}},
             {path: "recycle", components: {manager_view: recycle}},
             {path: "user-settings", components: {manager_view: userSettings}},
         ]

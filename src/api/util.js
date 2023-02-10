@@ -82,8 +82,6 @@ export function simpleFormatDate(time, format = 'YY/MM/DD') {
     let newTime = format.replace(/YY/g, year)
         .replace(/MM/g, preArr[month] || month)
         .replace(/DD/g, preArr[day] || day)
-
-
     return newTime;
 }
 
