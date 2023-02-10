@@ -29,6 +29,7 @@ let poems = [
     "雨过之后更难忘记", "剑出鞘，恩怨了", "爱恨如写意山水画", "街灯下的橱窗，有一种落寞的悲伤", "没有圆周的钟，失去旋转意义",
     "你要我在最爱的时候死去", "依旧留着你的笑容"
 ];
+
 let colorBox = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#19448e", "#9ba88d", "#ee7800", "#745399", "#028760",
     "#f73859", "#ff7e67", "#769fcd", "#c5c56a", "#4c6cb3", "#69b076", "#5654a2", "#47885e", "#241a08"];
 
@@ -38,10 +39,10 @@ let showPoem = ref(true);
 let duration = 5000;
 
 onMounted(() => {
+
     let currentIndex = localStorage.getItem('poemIndex');
     let maxLength = Math.max(poems.length, colorBox.length);
-
-    currentIndex = currentIndex == null ? 0 : currentIndex;
+    currentIndex = !(currentIndex == null || isNaN(currentIndex)) ? currentIndex : 0;
 
     currentPoem.value = poems[currentIndex];
     currentColor.value = colorBox[currentIndex];
