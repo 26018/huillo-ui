@@ -114,6 +114,9 @@ function searchPoem() {
     cursor: pointer;
     font-family: siyuan, serif;
 }
+.nav:hover {
+    text-decoration: underline;
+}
 
 .icon {
     margin-left: 16px;

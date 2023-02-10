@@ -2,7 +2,7 @@
 import axios from "axios";
 import {ElMessage} from "element-plus";
 
-axios.defaults.baseURL = "http://192.168.2.97";
+axios.defaults.baseURL = "http://127.0.0.1";
 axios.interceptors.request.use(function (config) {
     config.headers = {
         token: localStorage.getItem("token"),

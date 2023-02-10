@@ -27,7 +27,7 @@ export default function () {
         args: '/manager/groups',
         action: navTo
     }, {
-        text: '回收空间',
+        text: '文件空间',
         fontColor: 'green',
         icon: '/src/assets/recycle.png',
         args: '/manager/recycle',

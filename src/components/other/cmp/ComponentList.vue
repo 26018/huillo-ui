@@ -117,7 +117,7 @@ export default {
             setLocation();
             setTimeout(() => {
                 detailCardView.value = true;
-            }, 2)
+            }, 0)
             selectData.data = data;
         }
 
@@ -193,6 +193,7 @@ export default {
     background-color: white;
     z-index: 1;
     margin-left: 8px;
-    overflow: hidden
+    overflow: hidden;
+    user-select: none;
 }
 </style>

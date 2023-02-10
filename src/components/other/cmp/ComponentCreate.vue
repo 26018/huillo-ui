@@ -1,7 +1,7 @@
 <template>
     <div class="component-create">
         <el-scrollbar class="scrollbar">
-            <component :is="questionnaire.cname" :model="questionnaire"/>
+            <component style="margin-top: 8px" :is="questionnaire.cname" :model="questionnaire"/>
             <draggable class="ccv" :list="questionnaire.components" @end="moveEnd" handle=".move" item-key="template"
                        animation="300">
                 <template #item="{ element }">

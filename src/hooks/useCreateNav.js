@@ -41,6 +41,7 @@ export default function () {
         let survey = useSurvey();
         survey.$reset()
         refreshComponentIndex(survey['components']);
+        location.reload()
         ElMessage.success({
             message: "清除成功!",
             showClose: true,

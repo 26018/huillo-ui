@@ -41,7 +41,9 @@
         <jh-dialog :title="'群组分享'" :show="shareView" @close="ViewClose(shareView)">
             <div>
                 <div style="font-size: 18px">{{ shareInfo.title }}</div>
-                <div><a style="text-decoration: none" :href="'/manager/groups/add/'+shareInfo.id">{{ '/manager/groups/add/'+shareInfo.id }}</a></div>
+                <div><a style="text-decoration: none" :href="'/manager/groups/add/'+shareInfo.id">{{
+                        axios.defaults.baseURL + '/manager/groups/add/' + shareInfo.id
+                    }}</a></div>
                 <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+shareInfo.image"/>
             </div>
         </jh-dialog>
@@ -58,6 +60,7 @@ import useGroups from "../hooks/useGroups";
 import {group_list, group_share} from "../api/group";
 import {ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
+import axios from "axios";
 
 let {
     groupData,
