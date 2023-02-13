@@ -23,13 +23,6 @@ export default function () {
         })
         shareView.value = true;
     }
-    const close = (data, viewControl) => {
-        viewControl.data = true;
-
-    };
-    const remove = (data, viewControl) => {
-        viewControl.data = true;
-    };
 
     const showDetail = (row, column, event) => {
         if (column.label === '' || column.label === undefined) {
@@ -40,7 +33,7 @@ export default function () {
     return {
         search, tableData, showDetail, questionnaireShareInfo,
         shareView, closeView, deleteView,
-        close, share, analysis, remove
+         share, analysis
     }
 
 };

@@ -74,16 +74,16 @@ onMounted(() => {
     justify-content: space-evenly;
 }
 
-.el-row {
-    align-items: center;
-    font-size: 16px;
-}
+/*.el-row {*/
+/*    align-items: center;*/
+/*    font-size: 16px;*/
+/*}*/
 
-.el-row > * {
-    height: 30px;
-    align-items: center;
-    line-height: 30px;
-}
+/*.el-row > * {*/
+/*    height: 30px;*/
+/*    align-items: center;*/
+/*    line-height: 30px;*/
+/*}*/
 
 
 </style>

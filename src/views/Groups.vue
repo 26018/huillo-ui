@@ -38,7 +38,7 @@
                 </div>
             </template>
         </jh-dialog>
-        <jh-dialog :title="'群组分享'" :show="shareView" @close="ViewClose(shareView)">
+        <jh-dialog :title="'群组信息'" :show="shareView" @close="ViewClose(shareView)">
             <div>
                 <div style="font-size: 18px">{{ shareInfo.title }}</div>
                 <div><a style="text-decoration: none" :href="'/manager/groups/add/'+shareInfo.id">{{
@@ -46,6 +46,9 @@
                     }}</a></div>
                 <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+shareInfo.image"/>
             </div>
+            <template #footer>
+                <el-button type="danger">解散群组</el-button>
+            </template>
         </jh-dialog>
 
     </el-scrollbar>

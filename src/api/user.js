@@ -7,3 +7,7 @@ export function register(data) {
 export function login(data) {
     return axios.post('/user/login', data);
 }
+
+export function user_ChangePassword(newP, oldP) {
+    return axios.post('/user/update',{newPassword:newP, oldPassword: oldP})
+}

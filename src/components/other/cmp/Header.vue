@@ -3,7 +3,7 @@
         <div class="icon" @click="$emit('iconActive')">Huillo</div>
         <pc-view>
             <Transition>
-                <div id="poem" @click="searchPoem" v-show="showPoem" class="poem" :style="{color:currentColor}">
+                <div id="poem" @click="searchPoem" v-show="showPoem" class="poem">
                     "{{ currentPoem }}"
                 </div>
             </Transition>
@@ -31,12 +31,13 @@ let poems = [
 ];
 
 let colorBox = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#19448e", "#9ba88d", "#ee7800", "#745399", "#028760",
-    "#f73859", "#ff7e67", "#769fcd", "#c5c56a", "#4c6cb3", "#69b076", "#5654a2", "#47885e", "#241a08"];
+    "#f73859", "#ff7e67", "#769fcd", "#c5c56a", "#4c6cb3", "#69b076", "#5654a2", "#47885e", "#241a08", "#7209d4", "#2832d4", "#00a5b2"];
 
 let currentPoem = ref("");
 let currentColor = ref("");
 let showPoem = ref(true);
 let duration = 5000;
+let poemBackgroundImage = ref("linear-gradient(90deg, #7209d4, #2832d4 33%, #00a5b2)")
 
 onMounted(() => {
 
@@ -50,7 +51,7 @@ onMounted(() => {
     setInterval(() => {
         currentIndex = (currentIndex + 1) % maxLength;
         localStorage.setItem('poemIndex', currentIndex);
-
+        poemBackgroundImage.value = "linear-gradient(90deg, " + colorBox[currentIndex] + ", " + colorBox[(currentIndex + 1) % poems.length] + " 33%, " + colorBox[(currentIndex + 2) % poems.length] + ")";
         currentPoem.value = poems[currentIndex % poems.length];
         currentColor.value = colorBox[currentIndex % colorBox.length];
     }, duration);
@@ -114,6 +115,7 @@ function searchPoem() {
     cursor: pointer;
     font-family: siyuan, serif;
 }
+
 .nav:hover {
     text-decoration: underline;
 }
@@ -130,7 +132,12 @@ function searchPoem() {
     margin-left: 16px;
     user-select: none;
     cursor: pointer;
-    font-family: deyihei;
+    font-family: deyihei, serif;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /*background-image: v-bind(linear-gradient(90deg, #7209d4, #2832d4 33%, #00a5b2));*/
+    /*background-image: linear-gradient(90deg, #7209d4, #2832d4 33%, #00a5b2);*/
+    background-image: v-bind('poemBackgroundImage');
 }
 
 

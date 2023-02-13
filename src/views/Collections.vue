@@ -13,8 +13,8 @@
                     <div style="display: flex;width: 100%;justify-content: center;z-index: 9999">
                         <el-button type="success" size="small" @click="share(scope.row,shareView)">分享</el-button>
                         <el-button type="primary" size="small" @click="analysis(scope.row)">分析</el-button>
-                        <el-button type="warning" size="small" @click="close(scope.row,closeView)">结束</el-button>
-                        <el-button type="danger" size="small" @click="remove(scope.row,deleteView)">删除</el-button>
+                        <el-button type="warning" size="small" @click="()=>{currentOperateData.value = scope.row,ViewOpen(closeView)}">结束</el-button>
+                        <el-button type="danger" size="small" @click="()=>{currentOperateData.value = scope.row,ViewOpen(deleteView)}">删除</el-button>
                     </div>
                 </template>
             </el-table-column>
@@ -42,7 +42,7 @@
             <div>确定要结束此问卷？</div>
             <template #footer>
                 <el-button @click="ViewClose(closeView)">取消</el-button>
-                <el-button>确定</el-button>
+                <el-button @click="()=>{closeSurvey(currentOperateData.value.id),ViewClose(closeView)}">确定</el-button>
             </template>
         </jh-dialog>
         <!--删除问卷-->
@@ -50,7 +50,7 @@
             <div>确定要删除此问卷？</div>
             <template #footer>
                 <el-button @click="ViewClose(deleteView)">取消</el-button>
-                <el-button>确定</el-button>
+                <el-button @click="()=>{deleteSurvey(currentOperateData.value.id),ViewClose(deleteView)}">确定</el-button>
             </template>
         </jh-dialog>
 
@@ -59,24 +59,50 @@
 
 <script setup>
 
-import {onMounted, ref, watch, watchEffect} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {formatDate, ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollections from "../hooks/useCollections";
-import {questionnaire_list} from "../api/questionnaire";
+import {questionnaire_list, survey_close, survey_delete} from "../api/questionnaire";
+import {ElMessage} from "element-plus";
 
 let {
     search, tableData, showDetail, questionnaireShareInfo,
-    shareView, closeView, deleteView,
-    close, share, analysis, remove
+    shareView, closeView, deleteView, share, analysis
 } = useCollections();
+
+let currentOperateData = ref({});
+
+function closeSurvey(id) {
+    survey_close(id).then(res=>{
+        if (res.data.code === 200) {
+            ElMessage.success("关闭成功")
+            window.location.reload();
+
+        }
+    })
+}
+
+function deleteSurvey(id) {
+    survey_delete(id).then(res=>{
+        if (res.data.code === 200) {
+            ElMessage.success("删除成功")
+            window.location.reload();
+        }
+    })
+}
+
 
 let copyTable = ref();
 
 onMounted(() => {
+
+    currentOperateData.value = {};
+
     questionnaire_list().then(res => {
         tableData.value = res.data.data;
         tableData.value.forEach(table => {
+            console.log(table)
             // 格式化时间
             if (table.endTime == null) {
                 table.endTime = formatDate(new Date());
@@ -84,12 +110,10 @@ onMounted(() => {
                 table.endTime = formatDate(new Date(table.endTime))
             }
             // 比较时间
-            let endTime = Date.parse(table.endTime);
-            let now = Date.now();
-            if (endTime > now) {
-                table.status = "进行中";
-            } else {
+            if (table.closed) {
                 table.status = "已截止";
+            } else {
+                table.status = "进行中";
             }
         })
         copyTable.value = tableData.value;

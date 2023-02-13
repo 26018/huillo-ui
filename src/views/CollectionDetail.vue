@@ -124,9 +124,9 @@
         <jh-dialog :title="'文件列表'" :show="fileListView">
             <div>
                 <div style="max-width: 1200px;max-height: 350px;overflow: auto">
-                    <el-table :border="true" :show-overflow-tooltip="true" :data="questionnaire.fileList"
+                    <el-table :border="true" :data="questionnaire.fileList"
                               style="width: 100%">
-                        <el-table-column :fit="false" prop="name" label="name" width="180"/>
+                        <el-table-column  :show-overflow-tooltip="true" :fit="false" prop="name" label="name" width="180"/>
                         <el-table-column prop="size" label="size" width="180"/>
                         <el-table-column prop="md5" width="300" label="md5"/>
                         <el-table-column label="操作" align="center" width="60">

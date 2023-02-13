@@ -1,17 +1,19 @@
 <template>
     <el-scrollbar>
-        <el-table :data="tableData" :show-overflow-tooltip="true" :highlight-current-row="true" @row-click="showDetail" :stripe="false">
+        <el-table :data="tableData" :show-overflow-tooltip="true" :highlight-current-row="true" @row-click="showDetail"
+                  :stripe="false">
             <el-table-column prop="title" fixed label="收集标题" width="180"/>
             <el-table-column prop="status" sortable label="问卷状态" width="180"/>
             <el-table-column prop="submitTime" sortable label="提交日期" width="180"/>
             <el-table-column prop="endTime" sortable label="问卷截止日期" width="180"/>
             <el-table-column align="center">
                 <template #header>
-                    <el-input style="width: 230px;" v-model="search" clearable prefix-icon="Search" placeholder='搜索提交'/>
+                    <el-input style="width: 230px;" v-model="search" clearable prefix-icon="Search"
+                              placeholder='搜索提交'/>
                 </template>
                 <template #default="scope">
                     <div style="width: 100%;justify-content: center;display: flex;border: 0px solid red">
-                        <el-button type="danger" size="small" @click="">删除
+                        <el-button type="danger" size="small" @click="deleteSubmit(scope.row.id)">删除
                         </el-button>
                     </div>
                 </template>
@@ -22,8 +24,9 @@
 
 <script setup>
 import {onMounted, ref, watch} from "vue";
-import {submission_commitList} from "../api/submission";
+import {submission_commitList, submission_delete} from "../api/submission";
 import {formatDate, navTo} from "../api/util";
+import {ElMessage} from "element-plus";
 
 let tableData = ref([]);
 let copyTable = ref()
@@ -63,7 +66,7 @@ watch(search, (o, n) => {
         tableData.value = copyTable.value;
     }
     let searchResult = [];
-    copyTable.value.forEach(t=>{
+    copyTable.value.forEach(t => {
         if (JSON.stringify(t).includes(o)) {
             searchResult.push(t);
         }
@@ -76,7 +79,19 @@ const showDetail = (row, column, event) => {
     if (column.label === '' || column.label == undefined) {
         return;
     }
-    navTo('/manager/collections/committed/detail/'+row.id)
+    navTo('/manager/collections/committed/detail/' + row.id)
+}
+
+const deleteSubmit = (id) => {
+    submission_delete(id).then(res => {
+        if (res.data.code === 200) {
+            ElMessage.success("删除成功");
+            window.location.reload();
+        } else {
+            ElMessage.error("删除失败");
+        }
+
+    })
 }
 
 </script>

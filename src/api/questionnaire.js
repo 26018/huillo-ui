@@ -4,6 +4,13 @@ import {ElMessage} from "element-plus";
 export function questionnaire_create(jsonList) {
     return axios.post("/survey/create", jsonList)
 }
+export function survey_close(id){
+    return axios.post('/survey/close',{id: id})
+}
+
+export function survey_delete(id){
+    return axios.post('/survey/delete',{id: id})
+}
 
 export function questionnaire_getById(id) {
     return axios.get("/survey/" + id);

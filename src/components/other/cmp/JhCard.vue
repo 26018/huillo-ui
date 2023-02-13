@@ -4,7 +4,7 @@
     <div class="card" :style="{
         width:width,
         height:height,
-        minWidth:minWidth, }">
+        minWidth:minWidth,padding:padding }">
         <slot></slot>
     </div>
 
@@ -14,17 +14,12 @@
 <script>
 export default {
     name: "JhCard",
-    props: ['width', 'height', 'minWidth'],
+    props: ['width', 'height', 'minWidth','padding'],
 }
 </script>
 
 <style scoped>
 .card {
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
-    /*background-color: rgb(245, 245, 247);*/
     border: 1px solid gainsboro;
     border-radius: 16px;
     box-sizing: border-box;

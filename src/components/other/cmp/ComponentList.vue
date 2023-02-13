@@ -115,9 +115,9 @@ export default {
 
         function mouseHover(data) {
             setLocation();
-            setTimeout(() => {
-                detailCardView.value = true;
-            }, 0)
+
+            detailCardView.value = true;
+
             selectData.data = data;
         }
 

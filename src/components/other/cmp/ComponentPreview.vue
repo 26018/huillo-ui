@@ -45,7 +45,7 @@ export default {
         this.questionnaire = useSurvey();
     },
     data() {
-        return{
+        return {
             questionnaire: {},
         }
     },
@@ -68,14 +68,15 @@ export default {
 }
 
 .preview {
+    display: flex;
     min-width: 380px;
     max-width: 380px;
-
     height: 100%;
     box-sizing: border-box;
     overflow: auto;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
+
 :deep(.el-scrollbar__thumb) {
     max-width: 2px;
     margin-left: auto;

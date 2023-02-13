@@ -16,10 +16,15 @@ export function userFile_upload(params) {
     });
 }
 
+// 根据文件MD5下载
 export function userFile_download(fileMetaList) {
     return axios.post("/userfile/download",fileMetaList,{
         responseType: 'arraybuffer'
     });
+}
+
+export function userFile_space(){
+    return axios.get('/userfile/space');
 }
 
 
