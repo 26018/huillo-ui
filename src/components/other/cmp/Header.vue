@@ -44,6 +44,8 @@ onMounted(() => {
     let currentIndex = localStorage.getItem('poemIndex');
     let maxLength = Math.max(poems.length, colorBox.length);
     currentIndex = !(currentIndex == null || isNaN(currentIndex)) ? currentIndex : 0;
+    poemBackgroundImage.value = "linear-gradient(90deg, " + colorBox[currentIndex] + ", " + colorBox[(currentIndex + 1) % poems.length] + " 33%, " + colorBox[(currentIndex + 2) % poems.length] + ")";
+
 
     currentPoem.value = poems[currentIndex];
     currentColor.value = colorBox[currentIndex];
@@ -67,7 +69,6 @@ watch(currentPoem, (value, oldValue, onCleanup) => {
 function searchPoem() {
     window.open('https://cn.bing.com/search?q=' + currentPoem.value);
 }
-
 
 </script>
 
