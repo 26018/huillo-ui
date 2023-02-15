@@ -2,9 +2,9 @@
     <el-scrollbar>
         <el-table :data="tableData" :show-overflow-tooltip="true" :highlight-current-row="true" @row-click="showDetail" :stripe="false">
             <el-table-column fixed prop="title" label="收集标题" width="180"/>
-            <el-table-column prop="status" sortable label="状态" width="180"/>
-            <el-table-column prop="commitCount" sortable label="提交次数" width="180"/>
-            <el-table-column prop="endTime" sortable label="截止日期" width="180"/>
+            <el-table-column prop="status" sortable align="center" label="状态" width="180"/>
+            <el-table-column prop="commitCount" sortable align="center" label="提交次数" width="180"/>
+            <el-table-column prop="endTime" sortable align="center" label="截止日期" width="180"/>
             <el-table-column align="center">
                 <template #header>
                     <el-input v-model="search" style="width: 230px" clearable prefix-icon="Search" placeholder='搜索问卷'/>
@@ -96,9 +96,7 @@ function deleteSurvey(id) {
 let copyTable = ref();
 
 onMounted(() => {
-
     currentOperateData.value = {};
-
     questionnaire_list().then(res => {
         tableData.value = res.data.data;
         tableData.value.forEach(table => {
@@ -108,12 +106,6 @@ onMounted(() => {
                 table.endTime = formatDate(new Date());
             } else {
                 table.endTime = formatDate(new Date(table.endTime))
-            }
-            // 比较时间
-            if (table.closed) {
-                table.status = "已截止";
-            } else {
-                table.status = "进行中";
             }
         })
         copyTable.value = tableData.value;

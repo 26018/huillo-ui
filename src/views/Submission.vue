@@ -3,9 +3,9 @@
         <el-table :data="tableData" :show-overflow-tooltip="true" :highlight-current-row="true" @row-click="showDetail"
                   :stripe="false">
             <el-table-column prop="title" fixed label="收集标题" width="180"/>
-            <el-table-column prop="status" sortable label="问卷状态" width="180"/>
-            <el-table-column prop="submitTime" sortable label="提交日期" width="180"/>
-            <el-table-column prop="endTime" sortable label="问卷截止日期" width="180"/>
+            <el-table-column prop="status" sortable align="center" label="问卷状态" width="180"/>
+            <el-table-column prop="submitTime" sortable align="center" label="提交日期" width="180"/>
+            <el-table-column prop="endTime" sortable align="center" label="问卷截止日期" width="180"/>
             <el-table-column align="center">
                 <template #header>
                     <el-input style="width: 230px;" v-model="search" clearable prefix-icon="Search"

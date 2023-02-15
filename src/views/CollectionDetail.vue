@@ -55,7 +55,7 @@
                 </div>
             </jh-card>
 
-            <jh-card>
+            <jh-card min-width="140px">
                 <div style="font-size: 18px;margin-bottom: 8px">通知的群组</div>
                 <div>
                     <div
@@ -307,8 +307,13 @@ function selectCurrentSubmitter(selectedCurrentSubmitter) {
 }
 
 function notifyNotSubmitOkButton() {
-    group_notifyNotSubmitMember(notifyArray.value).then(res => {
-        if (res.data.code) {
+    let dto = {
+        userIdList: notifyArray.value,
+        surveyId: 257248,
+        surveyTitle: questionnaire.value.title,
+    }
+    group_notifyNotSubmitMember(dto).then(res => {
+        if (res.data.code === 200) {
             ElMessage.success("通知成功");
         }
     })

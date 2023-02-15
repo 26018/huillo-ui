@@ -12,8 +12,8 @@ export function group_list() {
     return axios.get("/group/list");
 }
 
-export function group_notifyNotSubmitMember(userIdList) {
-    return axios.post("/survey/notifyNotSubmitMember", userIdList);
+export function group_notifyNotSubmitMember(notifyNotSubmitDTO) {
+    return axios.post("/survey/notifyNotSubmitMember", notifyNotSubmitDTO);
 }
 
 export function group_share(id){

@@ -46,7 +46,6 @@ onMounted(() => {
     currentIndex = !(currentIndex == null || isNaN(currentIndex)) ? currentIndex : 0;
     poemBackgroundImage.value = "linear-gradient(90deg, " + colorBox[currentIndex] + ", " + colorBox[(currentIndex + 1) % poems.length] + " 33%, " + colorBox[(currentIndex + 2) % poems.length] + ")";
 
-
     currentPoem.value = poems[currentIndex];
     currentColor.value = colorBox[currentIndex];
 

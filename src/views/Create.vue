@@ -23,11 +23,11 @@
                            <el-date-picker style="flex: 1" v-model="endTime" placeholder="截止日期"/>
                        </el-row>
 
-                       <el-row>
-                           <div>允许匿名填写：</div>
-                           <el-switch inline-prompt v-model="anonymous" :active-text="'是'"
-                                      :inactive-text="'否'"></el-switch>
-                       </el-row>
+<!--                       <el-row>-->
+<!--                           <div>允许匿名填写：</div>-->
+<!--                           <el-switch inline-prompt v-model="anonymous" :active-text="'是'"-->
+<!--                                      :inactive-text="'否'"></el-switch>-->
+<!--                       </el-row>-->
                    </el-space>
                </div>
            </template>
@@ -46,7 +46,7 @@ import ComponentList from "../components/other/cmp/ComponentList.vue";
 import ComponentCreate from "../components/other/cmp/ComponentCreate.vue";
 import ComponentPreview from '../components/other/cmp/ComponentPreview.vue'
 import useCreateNav from "../hooks/useCreateNav";
-import {onMounted, ref, watch} from "vue";
+import {onMounted} from "vue";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import {ViewClose} from "../api/util";
 import {storeToRefs} from "pinia";
