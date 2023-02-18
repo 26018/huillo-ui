@@ -13,6 +13,7 @@ import ComponentCreateFrame from "../other/frame/ComponentCreateFrame.vue";
 import SparkMD5 from "spark-md5";
 import {onMounted} from "vue";
 import {useUserFile} from "../../store/userfile";
+import { fi } from "element-plus/es/locale";
 
 let props = defineProps(['model'])
 
@@ -31,6 +32,7 @@ function pushFile(file, fileList) {
     fileReader.readAsBinaryString(file.raw);
     fileReader.onloadend = e => {
         const md5 = SparkMD5.hashBinary(e.target.result);
+        console.log('add',file.raw.name)
         props.model.options.push({
             md5, name: file.raw.name, size: file.raw.size
         })

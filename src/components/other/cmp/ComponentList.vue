@@ -29,13 +29,14 @@
                          @mouseleave="mouseLeave" class="component">{{ data.title }}
                     </div>
                 </el-row>
+                <!-- <div style="height: 200px;"></div> -->
             </div>
         </el-scrollbar>
 
-        <teleport to="#app">
+        <teleport to="body">
             <div v-show="detailCardView" id="not">
-                <el-card style="border-radius: 8px">
-                    <component :is="selectData.data.cname" :model="selectData.data"></component>
+                <el-card style="border-radius: 8px;">
+                    <component style="width: 300px;" :is="selectData.data.cname" :data="selectData.data"></component>
                 </el-card>
             </div>
         </teleport>
@@ -49,16 +50,16 @@ import other_components from '../../../data/other_components.json'
 import most_components from '../../../data/most_components.json'
 import useMouseMove from "../../../hooks/useMouseMove";
 import {reactive, ref} from "vue";
-import JhHead from '../../create/JhHead.vue';
-import JhUploadFile from "../../create/JhUploadFile.vue";
-import JhDownloadFile from '../../create/JhDownloadFile.vue'
-import JhDropdownSelect from '../../create/JhDropdownSelect.vue'
-import JhTextInput from "../../create/JhTextInput.vue";
-import JhMulti from "../../create/JhMulti.vue";
-import JhRadio from "../../create/JhRadio.vue";
-import JhLocation from '../../create/JhLocation.vue'
-import JhDateInput from '../../create/JhDateInput.vue'
-import JhRate from "../../create/JhRate.vue";
+import JhHead from '../../submit/JhHead.vue';
+import JhUploadFile from "../../submit/JhUploadFile.vue";
+import JhDownloadFile from '../../submit/JhDownloadFile.vue'
+import JhDropdownSelect from '../../submit/JhDropdownSelect.vue'
+import JhTextInput from "../../submit/JhTextInput.vue";
+import JhMulti from "../../submit/JhMulti.vue";
+import JhRadio from "../../submit/JhRadio.vue";
+import JhLocation from '../../submit/JhLocation.vue'
+import JhDateInput from '../../submit/JhDateInput.vue'
+import JhRate from "../../submit/JhRate.vue";
 import {ElMessage} from "element-plus";
 import {useSurvey} from "../../../store/survey";
 import {refreshComponentIndex} from "../../../api/util";
@@ -79,6 +80,7 @@ export default {
     setup: function () {
         let survey = useSurvey();
         let mouse = reactive(useMouseMove());
+
         let selectData = reactive({
             data: {},
         })
@@ -94,7 +96,7 @@ export default {
 
         let detailCardView = ref(false);
 
-        function setLocation() {
+        function setLocation(e) {
             let ele = document.getElementById('not');
             ele.style.left = (mouse.x + 50) + 'px'
             // 如果超出底部
@@ -113,11 +115,13 @@ export default {
             ele.style.transform = 'translate(0px,-50%)'
         }
 
-        function mouseHover(data) {
+         function mouseHover(data) {
+            console.log('hover....')
+
             setLocation();
 
             detailCardView.value = true;
-
+            // 设置卡片内容
             selectData.data = data;
         }
 
@@ -144,6 +148,14 @@ export default {
 <style scoped>
 :deep(.el-scrollbar__thumb) {
     max-width: 2px;
+}
+
+#not{
+    min-width: 200px;
+}
+*{
+    margin: 0;
+    padding: 0;
 }
 
 .fix {

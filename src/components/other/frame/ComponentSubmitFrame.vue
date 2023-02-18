@@ -2,7 +2,7 @@
     <div class="component-frame">
         <div class="header">
             <div style="display: flex;align-items: baseline">
-                <div style="font-size: 20px" v-if="data && !isHeadCmp">{{ data.sequence + '.&nbsp' }}</div>
+                <div style="font-size: 20px" v-if="data && !isHeadCmp">{{ ItemName }}</div>
                 <read-only-text :data="data.title" :size="isHeadCmp?'30px':'20px'"></read-only-text>
             </div>
             <div style="color: red" v-if="data.sequence && !data.optional">*</div>
@@ -24,6 +24,13 @@ import ReadOnlyText from "../cmp/ReadOnlyText.vue";
 let props = defineProps(['data']);
 let isHeadCmp = computed(() => {
     return props.data.cname === 'jh-head';
+})
+
+let ItemName = computed(()=>{
+    if(props.data.sequence == null){
+        return ''
+    }
+    return props.data.sequence +'.'
 })
 
 </script>

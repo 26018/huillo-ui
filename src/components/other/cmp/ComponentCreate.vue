@@ -1,5 +1,5 @@
 <template>
-    <div class="component-create">
+    <div class="component-create" id="create">
         <el-scrollbar class="scrollbar">
             <component style="margin-top: 8px" :is="questionnaire.cname" :model="questionnaire"/>
             <draggable class="ccv" :list="questionnaire.components" @end="moveEnd" handle=".move" item-key="template"
@@ -28,7 +28,7 @@ import JhLocation from '../../create/JhLocation.vue'
 import JhRate from "../../create/JhRate.vue";
 import JhDateInput from '../../create/JhDateInput.vue'
 import {useSurvey} from "../../../store/survey";
-import {navTo} from "../../../api/util";
+import {navTo, refreshComponentIndex} from "../../../api/util";
 
 export default {
     components: {
@@ -47,7 +47,7 @@ export default {
 
     created() {
         this.questionnaire = useSurvey();
-        this.setIndex(this.questionnaire.components);
+        this.setIndex(this.questionnaire['components']);
     },
     data() {
         return {
@@ -64,6 +64,7 @@ export default {
                     this.questionnaire['components'].splice(i, 1);
                 }
             }
+            refreshComponentIndex(this.questionnaire['components'])
         },
         moveEnd(data) {
             this.setIndex(this.questionnaire.components);
