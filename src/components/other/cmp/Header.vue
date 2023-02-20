@@ -27,11 +27,16 @@ let poems = [
     "我仍守着孤城", "雨纷纷，旧故里草木深", "我只能不停的飞，直到我将你挽回", "转身离开，分手说不出来",
     "做那个人的战士，和他一起去经历", "你是友情，还是错过的爱情？", "情字何解，怎落笔都不对", "我的世界，你不在里面",
     "雨过之后更难忘记", "剑出鞘，恩怨了", "爱恨如写意山水画", "街灯下的橱窗，有一种落寞的悲伤", "没有圆周的钟，失去旋转意义",
-    "你要我在最爱的时候死去", "依旧留着你的笑容"
+    "你要我在最爱的时候死去", "依旧留着你的笑容", "想念还在等待救援", "雨下整夜", "几句是非，也无法将我的热情冷却", "你是我唯一想要的了解",
+    "不懂你的黑色幽默", "远行没有目的，距离不是问题", "不爱了，是你的秘密", "我占据格林威治，守候着你", "'对不起'，这句话打乱了时区",
+    "我越想越清醒", "就让我静静一个人出发", "你的心总有个经纬度会留下", "距今已三千七百多年", "我却在旁静静欣赏你那张我深爱的脸", "美索不达米亚平原",
+    "用楔形文字刻下了永远", "经过苏美女神身边，我以女神之名许愿", "一切又重演", "我沉默，你的话也不多", "只要我们感觉对", "思念变成海", "你好久都没再来",
+    "那时候，我不懂，这叫爱", "琥珀色黄昏像唐，在很美的远方", "园游会永不打烊","紧紧看守这份爱","到得听能你有只","你微笑浏览"
 ];
 
 let colorBox = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#19448e", "#9ba88d", "#ee7800", "#745399", "#028760",
-    "#f73859", "#ff7e67", "#769fcd", "#c5c56a", "#4c6cb3", "#69b076", "#5654a2", "#47885e", "#241a08", "#7209d4", "#2832d4", "#00a5b2"];
+    "#f73859", "#ff7e67", "#769fcd", "#c5c56a", "#4c6cb3", "#69b076", "#5654a2", "#47885e", "#241a08",
+    "#7209d4", "#2832d4", "#00a5b2", "#c5c56a", "#355c7d"];
 
 let currentPoem = ref("");
 let currentColor = ref("");
@@ -41,21 +46,26 @@ let poemBackgroundImage = ref("linear-gradient(90deg, #7209d4, #2832d4 33%, #00a
 
 onMounted(() => {
 
+    let item = localStorage.getItem("currentInterval");
+    clearInterval(item);
+
     let currentIndex = localStorage.getItem('poemIndex');
     let maxLength = Math.max(poems.length, colorBox.length);
-    currentIndex = !(currentIndex == null || isNaN(currentIndex)) ? currentIndex : 0;
-    poemBackgroundImage.value = "linear-gradient(90deg, " + colorBox[currentIndex] + ", " + colorBox[(currentIndex + 1) % poems.length] + " 33%, " + colorBox[(currentIndex + 2) % poems.length] + ")";
+
+    currentIndex = (currentIndex == null || isNaN(currentIndex)) ? 0 : currentIndex;
+    poemBackgroundImage.value = "linear-gradient(90deg, " + colorBox[randomInt(colorBox.length)] + ", " + colorBox[randomInt(colorBox.length)] + " 33%, " + colorBox[randomInt(colorBox.length)] + ")";
 
     currentPoem.value = poems[currentIndex];
     currentColor.value = colorBox[currentIndex];
 
-    setInterval(() => {
+    let currentInterval = setInterval(() => {
         currentIndex = (currentIndex + 1) % maxLength;
         localStorage.setItem('poemIndex', currentIndex);
-        poemBackgroundImage.value = "linear-gradient(90deg, " + colorBox[currentIndex] + ", " + colorBox[(currentIndex + 1) % poems.length] + " 33%, " + colorBox[(currentIndex + 2) % poems.length] + ")";
+        poemBackgroundImage.value = "linear-gradient(90deg, " + colorBox[randomInt(colorBox.length)] + ", " + colorBox[randomInt(colorBox.length)] + " 33%, " + colorBox[randomInt(colorBox.length)] + ")";
+
         currentPoem.value = poems[currentIndex % poems.length];
-        currentColor.value = colorBox[currentIndex % colorBox.length];
     }, duration);
+    localStorage.setItem("currentInterval", currentInterval);
 })
 
 watch(currentPoem, (value, oldValue, onCleanup) => {
@@ -67,6 +77,12 @@ watch(currentPoem, (value, oldValue, onCleanup) => {
 
 function searchPoem() {
     window.open('https://cn.bing.com/search?q=' + currentPoem.value);
+}
+
+function randomInt(biggest) {
+    let number = Math.random();
+    number = Math.floor(number * biggest);
+    return number;
 }
 
 </script>
@@ -87,7 +103,7 @@ function searchPoem() {
 .header {
     display: flex;
     align-items: center;
-    box-shadow: 0 0 4px 0px rgba(0, 0, 0, .4);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .4);
     -webkit-tap-highlight-color: transparent;
     background-color: white;
     z-index: 999;

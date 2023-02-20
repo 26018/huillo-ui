@@ -1,7 +1,6 @@
 import router from "../router";
 
 export function navTo(path) {
-
     if ('number' === typeof path) {
         router.go(path);
         return;
@@ -136,10 +135,10 @@ export function refreshComponentIndex(components) {
     if (components == null) {
         return
     }
-    let len = components.length;
-    for (let i = 1; i <= len; i++) {
-        components[i - 1].sequence = i;
-    }
+    let index = 0;
+    components.forEach(component => {
+        component.sequence = ++index;
+    })
 }
 
 
@@ -162,7 +161,7 @@ export function transformFileSize(limit) {
     let sizeStr = size + "";                        //转成字符串
     let index = sizeStr.indexOf(".");                    //获取小数点处的索引
     let dou = sizeStr.substr(index + 1, 2)            //获取小数点后两位的值
-    if (dou === "00") {  
+    if (dou === "00") {
         size = sizeStr.substring(0, index)
     }
     return [size, units];

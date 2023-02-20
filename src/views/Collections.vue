@@ -76,9 +76,10 @@ let currentOperateData = ref({});
 function closeSurvey(id) {
     survey_close(id).then(res=>{
         if (res.data.code === 200) {
-            ElMessage.success("关闭成功")
+            setTimeout(()=>{
+                ElMessage.success("关闭成功")
+            },100)
             window.location.reload();
-
         }
     })
 }
@@ -86,8 +87,10 @@ function closeSurvey(id) {
 function deleteSurvey(id) {
     survey_delete(id).then(res=>{
         if (res.data.code === 200) {
-            ElMessage.success("删除成功")
             window.location.reload();
+            setTimeout(()=>{
+                ElMessage.success("删除成功")
+            },100)
         }
     })
 }
@@ -100,7 +103,6 @@ onMounted(() => {
     questionnaire_list().then(res => {
         tableData.value = res.data.data;
         tableData.value.forEach(table => {
-            console.log(table)
             // 格式化时间
             if (table.endTime == null) {
                 table.endTime = formatDate(new Date());

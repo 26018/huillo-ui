@@ -10,6 +10,7 @@
                 拖拽或 <em>点击上传</em>
             </div>
         </el-upload>
+        <div style="font-size: 14px;color: gray">您上传的文件将会以 <span style="color: #13ce66">{{ fileNameRule }}</span> 格式命名</div>
     </component-submit-frame>
 </template>
 
@@ -17,13 +18,17 @@
 import ComponentSubmitFrame from "../other/frame/ComponentSubmitFrame.vue";
 import SparkMD5 from "spark-md5";
 import {useUserFile} from "../../store/userfile";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 
 let props = defineProps(['data']);
 let userFile = useUserFile();
-
-onMounted(()=>{
+let fileNameRule = ref("")
+onMounted(() => {
     userFile.uploadFileList = [];
+    props.data.input.forEach(op => {
+        fileNameRule.value += op + " / "
+    })
+    fileNameRule.value = fileNameRule.value.substring(0,fileNameRule.value.lastIndexOf("/"))
 })
 
 function pushFile(file, fileList) {

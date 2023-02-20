@@ -47,7 +47,7 @@ export default {
 
     created() {
         this.questionnaire = useSurvey();
-        this.setIndex(this.questionnaire['components']);
+        refreshComponentIndex(this.questionnaire['components'])
     },
     data() {
         return {
@@ -67,21 +67,11 @@ export default {
             refreshComponentIndex(this.questionnaire['components'])
         },
         moveEnd(data) {
-            this.setIndex(this.questionnaire.components);
+            refreshComponentIndex(this.questionnaire['components'])
         },
 
         goToHome() {
             window.open('https://github.com/26018')
-        },
-
-        setIndex(list) {
-            if (list == null) {
-                return
-            }
-            let len = list.length;
-            for (let i = 1; i <= len; i++) {
-                list[i - 1].sequence = i;
-            }
         },
     },
 }

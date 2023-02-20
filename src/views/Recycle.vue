@@ -37,7 +37,7 @@
 
             <jh-card style="flex: 1;" padding="0">
                 <div class="percentage">
-                    <div>{{ percentage }} <span
+                    <div>{{ percentage + "%" }} <span
                         style="user-select: none;font-size: 16px;background-color: transparent;margin-left: 24px;">{{
                             "总额:50MB"
                         }}</span></div>
@@ -98,8 +98,16 @@ const fileInfo = computed(() => {
     })
     // 计算百分比 50MB
     let all = 50 * 1024 * 1024
-    percentage.value = (total / all * 100).toFixed(2) + "%";
-    percentageStyle.value = "linear-gradient(90deg, #13ce66, #13ce66 " + percentage.value + ", transparent 0)";
+    percentage.value = (total / all * 100).toFixed(2);
+    let backColor = ""
+    if (percentage.value > 80) {
+        backColor = 'red'
+    } else if (percentage.value > 50) {
+        backColor = 'yellow'
+    } else {
+        backColor = '#13ce66'
+    }
+    percentageStyle.value = "linear-gradient(90deg, " + backColor + ", " + backColor + " " + percentage.value + "%" + ", transparent 0)";
 
     return {
         totalSize: transformFileSize(total),

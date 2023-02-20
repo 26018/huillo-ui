@@ -20,7 +20,7 @@
                        </el-row>
                        <el-row>
                            <div>截止日期：</div>
-                           <el-date-picker style="flex: 1" v-model="endTime" placeholder="截止日期"/>
+                           <el-date-picker type="datetime" :default-time="new Date()" style="flex: 1" v-model="endTime" placeholder="截止日期"/>
                        </el-row>
 
 <!--                       <el-row>-->
@@ -73,17 +73,5 @@ onMounted(() => {
     background-color: rgba(243, 246, 249);
     justify-content: space-evenly;
 }
-
-/*.el-row {*/
-/*    align-items: center;*/
-/*    font-size: 16px;*/
-/*}*/
-
-/*.el-row > * {*/
-/*    height: 30px;*/
-/*    align-items: center;*/
-/*    line-height: 30px;*/
-/*}*/
-
 
 </style>

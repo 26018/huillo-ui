@@ -29,14 +29,13 @@
                          @mouseleave="mouseLeave" class="component">{{ data.title }}
                     </div>
                 </el-row>
-                <!-- <div style="height: 200px;"></div> -->
             </div>
         </el-scrollbar>
 
         <teleport to="body">
             <div v-show="detailCardView" id="not">
                 <el-card style="border-radius: 8px;">
-                    <component style="width: 300px;" :is="selectData.data.cname" :data="selectData.data"></component>
+                    <component style="width: 300px;" :is="selectData.data.cname" :model="selectData.data"></component>
                 </el-card>
             </div>
         </teleport>
@@ -50,16 +49,17 @@ import other_components from '../../../data/other_components.json'
 import most_components from '../../../data/most_components.json'
 import useMouseMove from "../../../hooks/useMouseMove";
 import {reactive, ref} from "vue";
-import JhHead from '../../submit/JhHead.vue';
-import JhUploadFile from "../../submit/JhUploadFile.vue";
-import JhDownloadFile from '../../submit/JhDownloadFile.vue'
-import JhDropdownSelect from '../../submit/JhDropdownSelect.vue'
-import JhTextInput from "../../submit/JhTextInput.vue";
-import JhMulti from "../../submit/JhMulti.vue";
-import JhRadio from "../../submit/JhRadio.vue";
-import JhLocation from '../../submit/JhLocation.vue'
-import JhDateInput from '../../submit/JhDateInput.vue'
-import JhRate from "../../submit/JhRate.vue";
+
+import JhHead from '../../create/JhHead.vue';
+import JhUploadFile from "../../create/JhUploadFile.vue";
+import JhDownloadFile from '../../create/JhDownloadFile.vue'
+import JhDropdownSelect from '../../create/JhDropdownSelect.vue'
+import JhTextInput from "../../create/JhTextInput.vue";
+import JhMulti from "../../create/JhMulti.vue";
+import JhRadio from "../../create/JhRadio.vue";
+import JhLocation from '../../create/JhLocation.vue'
+import JhDateInput from '../../create/JhDateInput.vue'
+import JhRate from "../../create/JhRate.vue";
 import {ElMessage} from "element-plus";
 import {useSurvey} from "../../../store/survey";
 import {refreshComponentIndex} from "../../../api/util";
@@ -86,27 +86,34 @@ export default {
         })
 
         function addComponent(data) {
-            survey["components"].push(data)
-            refreshComponentIndex(survey['components']);
+            survey["components"].push(JSON.parse(JSON.stringify(data)))
             ElMessage.success({
                 message: '添加组件成功',
+                duration: 1500,
                 showClose: true,
             });
+            refreshComponentIndex(survey['components']);
         }
 
         let detailCardView = ref(false);
 
-        function setLocation(e) {
+        function setLocation() {
             let ele = document.getElementById('not');
+            ele.style.display = 'block'
+            // 右移50px
             ele.style.left = (mouse.x + 50) + 'px'
+            // console.log('body高度:', document.body.scrollHeight);
+            // console.log('鼠标高度:', mouse.y);
+            // console.log('卡片高度:', ele.clientHeight);
+            // console.log("\n")
+            // 卡片底部距离
+            let computedHeight = (mouse.y + ele.clientHeight / 2)
             // 如果超出底部
-            let computedHeight = (mouse.y + ele.scrollHeight / 2)
-
             if (computedHeight >= document.body.scrollHeight) {
                 // 高出底部10px
-                ele.style.top = (document.body.scrollHeight - ele.scrollHeight / 2 - 10) + 'px';
-            } else if ((computedHeight - ele.scrollHeight) <= 45) {
-                ele.style.top = (45 + ele.scrollHeight / 2) + "px";
+                ele.style.top = (document.body.scrollHeight - ele.clientHeight / 2 - 10) + 'px';
+            } else if ((computedHeight - ele.clientHeight) <= 45) {
+                ele.style.top = (45 + ele.clientHeight / 2) + "px";
             } else {
                 ele.style.top = (mouse.y) + 'px';
             }
@@ -115,14 +122,10 @@ export default {
             ele.style.transform = 'translate(0px,-50%)'
         }
 
-         function mouseHover(data) {
-            console.log('hover....')
-
+        function mouseHover(data) {
             setLocation();
-
+            selectData.data = data
             detailCardView.value = true;
-            // 设置卡片内容
-            selectData.data = data;
         }
 
         function mouseLeave() {
@@ -150,12 +153,8 @@ export default {
     max-width: 2px;
 }
 
-#not{
+#not {
     min-width: 200px;
-}
-*{
-    margin: 0;
-    padding: 0;
 }
 
 .fix {
@@ -165,6 +164,12 @@ export default {
     height: 100%;
     box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
     background-color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .fix {
+        display: none;
+    }
 }
 
 .component-list {

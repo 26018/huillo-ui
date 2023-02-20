@@ -26,11 +26,11 @@ let isHeadCmp = computed(() => {
     return props.data.cname === 'jh-head';
 })
 
-let ItemName = computed(()=>{
-    if(props.data.sequence == null){
+let ItemName = computed(() => {
+    if (props.data.sequence == null) {
         return ''
     }
-    return props.data.sequence +'.'
+    return props.data.sequence + '.'
 })
 
 </script>
@@ -42,14 +42,6 @@ let ItemName = computed(()=>{
     box-sizing: border-box;
     margin: 0 12px;
     padding: 12px;
-}
-
-.operation-frame {
-    margin-left: auto;
-    min-width: 140px;
-    display: flex;
-    align-items: center;
-    justify-content: end
 }
 
 .frame-desc >>> * {

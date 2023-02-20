@@ -1,9 +1,9 @@
 <template>
     <div class="preview">
         <el-scrollbar>
-            <component :is="questionnaire.cname" :data="questionnaire"/>
-            <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
-                <component :is="t.cname" :data="t"/>
+            <component :is="survey.cname" :data="survey"/>
+            <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in survey.components">
+                <component :is="t.cname" :data="t" :key="index"/>
             </div>
             <div style="display: flex;justify-content: center">
                 <el-button style="margin: 16px auto" @click="PreviewSubmit" type="primary">提交</el-button>
@@ -42,11 +42,11 @@ export default {
     },
 
     created() {
-        this.questionnaire = useSurvey();
+        this.survey = useSurvey();
     },
     data() {
         return {
-            questionnaire: {},
+            survey: {},
         }
     },
 
@@ -75,6 +75,12 @@ export default {
     box-sizing: border-box;
     overflow: auto;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+@media screen and (max-width: 900px){
+    .preview{
+        display: none;
+    }
 }
 
 :deep(.el-scrollbar__thumb) {
