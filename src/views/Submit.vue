@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         submit: function () {
-            // // TODO 提交到后台
+            // TODO 提交到后台
             let submitDTO = {
                 id: Number,
                 cname: String,

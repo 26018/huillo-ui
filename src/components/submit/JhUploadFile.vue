@@ -25,9 +25,11 @@ let userFile = useUserFile();
 let fileNameRule = ref("")
 onMounted(() => {
     userFile.uploadFileList = [];
-    props.data.input.forEach(op => {
-        fileNameRule.value += op + " / "
-    })
+    if (props.data.input != null) {
+        props.data.input.forEach(op => {
+            fileNameRule.value += op + " / "
+        });
+    }
     fileNameRule.value = fileNameRule.value.substring(0,fileNameRule.value.lastIndexOf("/"))
 })
 

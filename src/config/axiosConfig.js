@@ -1,6 +1,7 @@
 // 添加请求拦截器
 import axios from "axios";
 import {ElMessage} from "element-plus";
+import {navTo} from "../api/util";
 
 axios.defaults.baseURL = "http://127.0.0.1";
 axios.interceptors.request.use(function (config) {
@@ -17,6 +18,7 @@ axios.interceptors.response.use(function (response) {
         if (response.data.code === 257248) {
             ElMessage.info({message: "您还未登录，请返回首页登录", showClose: true, duration: 3000,});
             localStorage.removeItem('token');
+            navTo('/login')
             return;
         }
         ElMessage.error(response.data.message);

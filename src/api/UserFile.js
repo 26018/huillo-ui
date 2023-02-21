@@ -27,4 +27,9 @@ export function userFile_space(){
     return axios.get('/userfile/space');
 }
 
+export function userFile_delete(id) {
+    return axios.post('/userfile/delete',{
+        id: id,
+    })
+}
 

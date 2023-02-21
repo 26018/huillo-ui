@@ -111,7 +111,7 @@ export default {
             // 如果超出底部
             if (computedHeight >= document.body.scrollHeight) {
                 // 高出底部10px
-                ele.style.top = (document.body.scrollHeight - ele.clientHeight / 2 - 10) + 'px';
+                ele.style.top = (document.body.scrollHeight - Math.max(ele.clientHeight / 2, 50) - 10) + 'px';
             } else if ((computedHeight - ele.clientHeight) <= 45) {
                 ele.style.top = (45 + ele.clientHeight / 2) + "px";
             } else {

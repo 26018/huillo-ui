@@ -39,18 +39,8 @@
             </template>
         </jh-dialog>
         <jh-dialog :title="'群组信息'" :show="shareView" @close="ViewClose(shareView)">
-            <div>
-                <div style="font-size: 18px">{{ shareInfo.title }}</div>
-                <div style="display: flex;margin-top: 16px">
-                    <div style="max-width: 300px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden">
-                        <a style="text-decoration: none" :href="'/manager/groups/add/'+shareInfo.id">{{
-                                axios.defaults.baseURL + '/manager/groups/add/' + shareInfo.id
-                            }}</a>
-                    </div>
-                    <el-button link type="primary" style="margin-left: 8px">复制</el-button>
-                </div>
-                <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+shareInfo.image"/>
-            </div>
+            <share-card :title="shareInfo.title" :link=" axios.defaults.baseURL + '/manager/groups/add/'+ shareInfo.id"
+                        :base64="shareInfo.image"></share-card>
             <template #footer>
                 <el-button type="danger">解散群组</el-button>
             </template>
@@ -67,6 +57,7 @@ import {group_list, group_share} from "../api/group";
 import {ViewClose, ViewOpen} from "../api/util";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
 import axios from "axios";
+import ShareCard from "../components/other/cmp/ShareCard.vue";
 
 let {
     groupData,

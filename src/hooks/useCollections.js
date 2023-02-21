@@ -5,7 +5,7 @@ import {questionnaire_list, questionnaire_share} from "../api/questionnaire";
 export default function () {
 
     let search = ref("");
-    let questionnaireShareInfo = ref({});
+    let SurveyShareInfo = ref({});
     let shareView = reactive({data: false});
     let closeView = reactive({data: false});
     let deleteView = reactive({data: false});
@@ -18,8 +18,7 @@ export default function () {
     const share = (data, viewControl) => {
         viewControl.data = true;
         questionnaire_share(data.id).then(res => {
-            questionnaireShareInfo.value = res.data.data;
-            console.log(questionnaireShareInfo.value)
+            SurveyShareInfo.value = res.data.data;
         })
         shareView.value = true;
     }
@@ -31,7 +30,7 @@ export default function () {
         navTo('collections/detail/' + row.id)
     }
     return {
-        search, tableData, showDetail, questionnaireShareInfo,
+        search, tableData, showDetail, SurveyShareInfo,
         shareView, closeView, deleteView,
          share, analysis
     }

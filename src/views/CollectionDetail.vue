@@ -50,7 +50,8 @@
 
             <jh-card style="flex: 1;min-width: 500px">
                 <div v-show="!emptySet" id="data" style="height: 100%;width: 100%"></div>
-                <div v-show="emptySet" style="font-size: 18px;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center">
+                <div v-show="emptySet"
+                     style="font-size: 18px;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center">
                     暂无统计数据
                 </div>
             </jh-card>
@@ -66,7 +67,8 @@
                     </div>
                 </div>
                 <div style="color: gray;display: flex;align-items: center;height: 100%"
-                     v-show="questionnaire['selectedGroupList'] == null || questionnaire['selectedGroupList'].length === 0">未选择通知群组
+                     v-show="questionnaire['selectedGroupList'] == null || questionnaire['selectedGroupList'].length === 0">
+                    未选择通知群组
                 </div>
             </jh-card>
 
@@ -126,7 +128,8 @@
                 <div style="max-width: 1200px;max-height: 350px;overflow: auto">
                     <el-table :border="true" :data="questionnaire.fileList"
                               style="width: 100%">
-                        <el-table-column  :show-overflow-tooltip="true" :fit="false" prop="name" label="name" width="180"/>
+                        <el-table-column :show-overflow-tooltip="true" :fit="false" prop="name" label="name"
+                                         width="180"/>
                         <el-table-column prop="size" label="size" width="180"/>
                         <el-table-column prop="md5" width="300" label="md5"/>
                         <el-table-column label="操作" align="center" width="60">
@@ -181,11 +184,9 @@
         </jh-dialog>
         <!--分享-->
         <jh-dialog :show="collectionDetail.shareView" :title="'分享问卷'">
-            <el-image style="border-radius: 4px"
-                      :src="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAQAAAABYmaj5AAAA6klEQVR42u3ULXLEMAwFYJvUV4jJ5moJia/gkPyQzRUkYl+tJjEttEhdo2468zK9wIp96D2NZqTqZb7UW3cq6rHMedNIUmlMHAVqD+Y4yGLR9GHvFJnzjSoHF195VxVlmfnV86o2Isdlv4uK3rqHmhxSDX6VzIJUdBgPThVJajFMNiOV+Tks3dQjVTk7b5ihEi3K9xGqDI5Pl5GKaQl+jUjy3UqfnYVKO40x9FDkTT5/9/ur0HWL1ztSy3ecikZqFyOTqEeSGo8kIlA7b4NX9kbPmVzCoodO5KAqcyxjRmrNPtUaeqT31/hXP+bsRmX82btZAAAAAElFTkSuQmCC'"/>
-            <div>
-                <a href="http:fixyou.top/questionnaire/26">http:fixyou.top/questionnaire/26</a>
-            </div>
+            <share-card title="测试" link="http:fixyou.top/questionnaire/26"
+                        :base64="'iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAQAAAABYmaj5AAAA6klEQVR42u3ULXLEMAwFYJvUV4jJ5moJia/gkPyQzRUkYl+tJjEttEhdo2468zK9wIp96D2NZqTqZb7UW3cq6rHMedNIUmlMHAVqD+Y4yGLR9GHvFJnzjSoHF195VxVlmfnV86o2Isdlv4uK3rqHmhxSDX6VzIJUdBgPThVJajFMNiOV+Tks3dQjVTk7b5ihEi3K9xGqDI5Pl5GKaQl+jUjy3UqfnYVKO40x9FDkTT5/9/ur0HWL1ztSy3ecikZqFyOTqEeSGo8kIlA7b4NX9kbPmVzCoodO5KAqcyxjRmrNPtUaeqT31/hXP+bsRmX82btZAAAAAElFTkSuQmCC'">
+            </share-card>
         </jh-dialog>
         <!--结束-->
         <jh-dialog :show="collectionDetail.finishView">
@@ -217,6 +218,7 @@ import {group_notifyNotSubmitMember} from "../api/group";
 import {ElMessage} from "element-plus";
 import {userFile_download} from "../api/UserFile";
 import JhCard from "../components/other/cmp/JhCard.vue";
+import ShareCard from "../components/other/cmp/ShareCard.vue";
 
 let fileListView = reactive({data: false})
 let collectionDetail = useCollectionDetail();
@@ -244,6 +246,10 @@ onMounted(() => {
 
         let myChart = proxy.$echarts.init(document.getElementById('data'));
         let option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: 'line'
+            },
             xAxis: {
                 type: 'time',
                 name: "日期",
@@ -257,14 +263,14 @@ onMounted(() => {
                     rotate: -40,
                     formatter: function (value) {//在这里写你需要的时间格式
                         let t_date = new Date(value);
-                        return [t_date.getFullYear(), t_date.getMonth() + 1, t_date.getDate()].join('-') + " "
-                            + [t_date.getHours(), t_date.getMinutes()].join(':');
+                        return [t_date.getFullYear(), t_date.getMonth() + 1, t_date.getDate()].join('-');
 
                     }
                 }
             },
             yAxis: {
                 type: 'value',
+                name: "总次数"
             },
             series: [
                 {
@@ -275,7 +281,7 @@ onMounted(() => {
         };
 
         let array = questionnaire.value.submitterList;
-        let index = 1;
+        let index = 0;
         let dateArray = []
         if (array != null) {
             array.forEach(a => {

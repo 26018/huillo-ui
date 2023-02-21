@@ -53,7 +53,7 @@
                 <el-table-column label="操作" align="center">
                     <template #default="scope">
                         <el-button link @click="fileDownload(scope.row.md5)" type="primary">下载</el-button>
-                        <el-button link type="danger">删除</el-button>
+                        <el-button link @click="deleteUserFile(scope.row.id)" type="danger">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -66,7 +66,7 @@
 import JhCard from "../components/other/cmp/JhCard.vue";
 
 import {computed, onMounted, ref} from "vue";
-import {userFile_download, userFile_space} from "../api/UserFile";
+import {userFile_delete, userFile_download, userFile_space} from "../api/UserFile";
 import {transformFileSize} from "../api/util";
 import {ElMessage} from "element-plus";
 
@@ -123,7 +123,7 @@ function fileDownload(md5) {
         if (res.data.code === 200) {
             ElMessage.success("下载成功")
         } else {
-            ElMessage.error("下载出错")
+            ElMessage.error("下载出错," + res.data.message);
         }
     });
 }
@@ -137,6 +137,17 @@ function exist(source, arr) {
         }
     });
     return count === arr.length;
+}
+
+function deleteUserFile(id) {
+    userFile_delete(id).then(res => {
+        if (res.data.code === 200) {
+            ElMessage.success("删除成功");
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000)
+        }
+    });
 }
 
 </script>

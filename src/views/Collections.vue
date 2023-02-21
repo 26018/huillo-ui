@@ -22,20 +22,7 @@
         <!--弹窗-->
         <!--分享问卷-->
         <jh-dialog title="分享问卷" :show="shareView" @close="ViewClose(shareView)">
-            <div
-                style="display: flex;align-items: center;width: 100%;height: 30px;margin-bottom: 8px;box-shadow: 0 0 0 1px #dcdfe6 inset;padding:4px 8px;border-radius: 4px">
-                <a :href="questionnaireShareInfo['link']" target="_blank">{{
-                        questionnaireShareInfo['link']
-                    }}</a>
-                <el-button style="margin-left: auto" type="primary" link size="small">复制</el-button>
-            </div>
-            <div class="image-container">
-                <div style="color: white;align-items: center;justify-content: center;">
-                    <p style="font-size: 22px">{{ questionnaireShareInfo.title }}</p>
-                    <p>手机扫描二维码填写内容</p>
-                </div>
-                <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+questionnaireShareInfo.image"/>
-            </div>
+            <share-card :title="SurveyShareInfo.title" :link="SurveyShareInfo.link" :base64="SurveyShareInfo.image"></share-card>
         </jh-dialog>
         <!--关闭问卷-->
         <jh-dialog title="结束问卷" :show="closeView" @close="ViewClose(closeView)">
@@ -65,9 +52,10 @@ import JhDialog from "../components/other/cmp/JhDialog.vue";
 import useCollections from "../hooks/useCollections";
 import {questionnaire_list, survey_close, survey_delete} from "../api/questionnaire";
 import {ElMessage} from "element-plus";
+import ShareCard from "../components/other/cmp/ShareCard.vue";
 
 let {
-    search, tableData, showDetail, questionnaireShareInfo,
+    search, tableData, showDetail, SurveyShareInfo,
     shareView, closeView, deleteView, share, analysis
 } = useCollections();
 
@@ -104,11 +92,11 @@ onMounted(() => {
         tableData.value = res.data.data;
         tableData.value.forEach(table => {
             // 格式化时间
-            if (table.endTime == null) {
-                table.endTime = formatDate(new Date());
-            } else {
-                table.endTime = formatDate(new Date(table.endTime))
-            }
+            // if (table.endTime == null) {
+            //     table.endTime = formatDate(new Date());
+            // } else {
+            //     table.endTime = formatDate(new Date(table.endTime))
+            // }
         })
         copyTable.value = tableData.value;
     })
@@ -132,21 +120,5 @@ watch(search, (o, n) => {
 
 <style scoped>
 
-.image-container {
-    background-image: url('../assets/sea.jpg');
-    background-repeat: no-repeat;
-    background-size: auto;
-    background-position: center;
-    border-radius: 4px;
-    padding: 4px 8px;
-    display: flex;
-    width: 100%;
-    outline: none;
-    justify-content: space-between
-}
-
-:deep(.el-table__row) {
-    cursor: pointer;
-}
 
 </style>
