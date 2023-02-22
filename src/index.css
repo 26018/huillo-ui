@@ -22,3 +22,7 @@ body{
 .green {
   color: #13ce66;
 }
+
+.deep > *{
+  border: 1px solid #13ce66;
+}

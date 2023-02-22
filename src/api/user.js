@@ -11,3 +11,8 @@ export function login(data) {
 export function user_ChangePassword(newP, oldP) {
     return axios.post('/user/update',{newPassword:newP, oldPassword: oldP})
 }
+export  function user_sendCode(account){
+    return axios.post('/user/sendCode',{
+        account: account,
+    })
+}

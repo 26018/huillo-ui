@@ -1,31 +1,48 @@
 <template>
     <Header :height="'50px'" @iconActive="navTo('/')"></Header>
-    <div style="max-width: 400px;margin:0 auto;transform: translate(0,30%)">
-        <el-card>
-            <template #header>
-                <div style="font-weight: 600;font-size: 24px">登录</div>
-            </template>
-            <template #default>
-                <div>
-                    <div class="label">账号</div>
-                    <el-input v-model="account"></el-input>
-                    <div class="label">密码</div>
-                    <el-input type="password" show-password v-model="password"></el-input>
+    <div style="width: 100%;height: calc(100vh - 50px)">
+        <div
+            style="height: 100%;display: flex; background-image: linear-gradient(90deg, rgb(249,244,244), rgb(244,246,250) 50%, rgb(244,246,250))"
+            class="deep.">
+            <div style="flex: 1;height: 100%;">
+                <div
+                    style="height: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center">
+                    <div style="font-size: 45px; font-family: '华文行楷', serif; ">Huillo</div>
+                    <img src="/src/assets/survey.png" alt="" width="400">
                 </div>
-                <div style="display:flex;">
-                    <el-button @click="userLogin()" type="primary" style="margin-top: 8px">登录</el-button>
-                    <el-button link type="warning" @click="navTo('/register')"
-                               style="margin-left: auto;margin-top: 8px">没有账号？去注册
-                    </el-button>
+            </div>
+            <div style="width: 50%;display:flex;align-items: center">
+                <div style="background-color: white">
+                    <jh-card width="400px" height="360px" border-radius="8px">
+                        <div style="height: 100%;display: flex;flex-direction: column;justify-content: space-between">
+                            <div>
+                                <div style="font-family: deyihei;font-size: 24px;margin-bottom: 16px">欢迎使用Huillo
+                                </div>
+                                <div class="label">邮箱</div>
+                                <el-input/>
+                                <div class="label">密码</div>
+                                <el-input/>
+                            </div>
+
+                            <div>
+                                <el-button style="margin-top: 24px;width: 100%" type="primary">登 录</el-button>
+                                <el-button @click="navTo('/register')" link style="margin-top: 16px;width: 100%"
+                                           type="primary">
+                                    还没有huillo账号？去注册
+                                </el-button>
+                            </div>
+                        </div>
+                    </jh-card>
                 </div>
-            </template>
-        </el-card>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
 import {navTo} from "../api/util";
 import Header from "../components/other/cmp/Header.vue";
+import JhCard from "../components/other/cmp/JhCard.vue";
 import {ref} from "vue";
 import {login} from "../api/user";
 import {ElMessage} from "element-plus";
@@ -39,7 +56,6 @@ function userLogin() {
         password: password.value
     }
     login(data).then(res => {
-
         if (res.data.code === 200) {
             localStorage.setItem('token', res.data.data)
             ElMessage.success({
@@ -61,6 +77,9 @@ function userLogin() {
 <style scoped>
 .label {
     margin-top: 8px;
+    margin-bottom: 4px;
     font-size: 16px;
+    color: rgb(139, 139, 141);
+    font-family: siyuan, deyihei;
 }
 </style>

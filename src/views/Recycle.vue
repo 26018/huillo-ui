@@ -52,7 +52,8 @@
                 <el-table-column prop="md5" width="300" label="md5"/>
                 <el-table-column label="操作" align="center">
                     <template #default="scope">
-                        <el-button link @click="fileDownload(scope.row.md5)" type="primary">下载</el-button>
+                        <el-button link @click="fileDownload(scope.row)" type="primary">下载
+                        </el-button>
                         <el-button link @click="deleteUserFile(scope.row.id)" type="danger">删除</el-button>
                     </template>
                 </el-table-column>
@@ -67,7 +68,7 @@ import JhCard from "../components/other/cmp/JhCard.vue";
 
 import {computed, onMounted, ref} from "vue";
 import {userFile_delete, userFile_download, userFile_space} from "../api/UserFile";
-import {transformFileSize} from "../api/util";
+import {download, transformFileSize} from "../api/util";
 import {ElMessage} from "element-plus";
 
 let uploadFileList = ref([])
@@ -117,11 +118,11 @@ const fileInfo = computed(() => {
     };
 });
 
-function fileDownload(md5) {
-    console.log(md5)
-    userFile_download({"md5": md5}).then(res => {
-        if (res.data.code === 200) {
+function fileDownload(fileObject) {
+    userFile_download(fileObject).then(res => {
+        if (res.status === 200) {
             ElMessage.success("下载成功")
+            download(res.data, null, fileObject.title)
         } else {
             ElMessage.error("下载出错," + res.data.message);
         }

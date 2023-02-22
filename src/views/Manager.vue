@@ -3,7 +3,7 @@
         <div class="nav-bar">
             <div v-for="(nav,index) in navData" class="nav-item" :id="'Manager:'+index" @click="ManagerNav(nav,index)">
                 <img :src="nav.icon">
-                <div style="margin-left: 4px">{{ nav.text }}</div>
+                <div style="margin-left: 12px">{{ nav.text }}</div>
             </div>
         </div>
         <div style="padding: 4px"></div>

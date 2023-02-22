@@ -12,7 +12,7 @@ export default {
 <style>
 
 .home {
-    background-color: rgba(243, 246, 249);
+    background-color: rgb(241,244,249);
     width: 100%;
 }
 

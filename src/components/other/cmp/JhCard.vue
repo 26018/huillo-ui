@@ -1,20 +1,19 @@
 <template>
-<div>
-
-    <div class="card" :style="{
-        width:width,
-        height:height,
-        minWidth:minWidth,padding:padding }">
-        <slot></slot>
+    <div>
+        <div class="card" :style="{
+                width:width,
+                height:height,
+                minWidth:minWidth,padding:padding,
+                borderRadius:borderRadius}">
+            <slot></slot>
+        </div>
     </div>
-
-</div>
 </template>
 
 <script>
 export default {
     name: "JhCard",
-    props: ['width', 'height', 'minWidth','padding'],
+    props: ['width', 'height', 'minWidth', 'padding', 'borderRadius'],
 }
 </script>
 
