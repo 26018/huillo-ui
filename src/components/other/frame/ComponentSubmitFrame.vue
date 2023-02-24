@@ -1,16 +1,19 @@
 <template>
     <div class="component-frame">
-        <div class="header">
-            <div style="display: flex;align-items: baseline">
-                <div style="font-size: 20px" v-if="data && !isHeadCmp">{{ ItemName }}</div>
-                <read-only-text :data="data.title" :size="isHeadCmp?'30px':'20px'"></read-only-text>
-            </div>
-            <div style="color: red" v-if="data.sequence && !data.optional">*</div>
-        </div>
-        <div class="frame-desc">
-            <read-only-text :data="data.description"></read-only-text>
-        </div>
         <div>
+            <text-read :pre="true" :text="data.title" :font-size="fontSize_title">
+                <template #prefix>
+                    <div>{{ componentSequence }}</div>
+                </template>
+                <template #suffix>
+                    <span v-if="notHeadComponent && !optional" class="suffix">*</span>
+                </template>
+            </text-read>
+        </div>
+        <div style="color: gray">
+            <text-read :pre="true" v-if="data.description" :text="data.description"></text-read>
+        </div>
+        <div class="submit-slot">
             <slot></slot>
         </div>
     </div>
@@ -19,57 +22,34 @@
 <script setup>
 
 import {computed} from "vue";
-import ReadOnlyText from "../cmp/ReadOnlyText.vue";
+import TextRead from "../cmp/TextRead.vue";
 
 let props = defineProps(['data']);
-let isHeadCmp = computed(() => {
-    return props.data.cname === 'jh-head';
+
+// 是否是头部组件
+let notHeadComponent = computed(() => {
+    return !props.data || props.data.cname !== 'jh-head';
 })
 
-let ItemName = computed(() => {
-    if (props.data.sequence == null) {
-        return ''
-    }
-    return props.data.sequence + '.'
+let optional = computed(() => {
+    return props.data.optional
 })
+
+// 标题字体大小
+let fontSize_title = computed(() => {
+    return notHeadComponent.value ? '18px' : '28px'
+})
+
+// 顺序
+const componentSequence = computed(() => {
+    return notHeadComponent.value ? props.data.sequence + "." : "";
+})
+
 
 </script>
 
 <style scoped>
-
-.component-frame {
-    border-bottom: 2px dashed rgba(220 220 220);
-    box-sizing: border-box;
-    margin: 0 12px;
-    padding: 12px;
+.suffix{
+    color: red;
 }
-
-.frame-desc >>> * {
-    color: rgba(96, 98, 102);
-}
-
-.header {
-    display: flex;
-}
-
-.head {
-    font-size: 30px;
-    width: 100%;
-    color: rgba(96, 98, 102);
-}
-
-.head >>> * {
-    font-size: 20px;
-}
-
-
-.tt {
-    width: 100%;
-    color: rgba(96, 98, 102);
-}
-
-.tt >>> * {
-    font-size: 20px;
-}
-
 </style>

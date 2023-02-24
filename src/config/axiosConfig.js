@@ -3,7 +3,7 @@ import axios from "axios";
 import {ElMessage} from "element-plus";
 import {navTo} from "../api/util";
 
-axios.defaults.baseURL = "http://127.0.0.1";
+axios.defaults.baseURL = "http://localhost";
 axios.interceptors.request.use(function (config) {
     config.headers = {
         token: localStorage.getItem("token"),

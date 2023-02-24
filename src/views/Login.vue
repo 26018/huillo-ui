@@ -12,20 +12,22 @@
                 </div>
             </div>
             <div style="width: 50%;display:flex;align-items: center">
-                <div style="background-color: white">
+                <div style="background-color: white;border-radius: 8px">
                     <jh-card width="400px" height="360px" border-radius="8px">
                         <div style="height: 100%;display: flex;flex-direction: column;justify-content: space-between">
                             <div>
                                 <div style="font-family: deyihei;font-size: 24px;margin-bottom: 16px">欢迎使用Huillo
                                 </div>
                                 <div class="label">邮箱</div>
-                                <el-input/>
+                                <el-input v-model="account" clearable/>
                                 <div class="label">密码</div>
-                                <el-input/>
+                                <el-input v-model="password" clearable show-password type="password"/>
                             </div>
 
                             <div>
-                                <el-button style="margin-top: 24px;width: 100%" type="primary">登 录</el-button>
+                                <el-button @click="userLogin" style="margin-top: 24px;width: 100%" type="primary">登
+                                    录
+                                </el-button>
                                 <el-button @click="navTo('/register')" link style="margin-top: 16px;width: 100%"
                                            type="primary">
                                     还没有huillo账号？去注册
@@ -59,11 +61,11 @@ function userLogin() {
         if (res.data.code === 200) {
             localStorage.setItem('token', res.data.data)
             ElMessage.success({
-                message: "登录成功,3s后跳转",
+                message: "登录成功,2s后跳转",
                 showClose: true,
                 duration: 2000,
             })
-            setInterval(() => {
+            setTimeout(() => {
                 navTo('/create')
             }, 2000)
         } else {
@@ -80,6 +82,6 @@ function userLogin() {
     margin-bottom: 4px;
     font-size: 16px;
     color: rgb(139, 139, 141);
-    font-family: siyuan, deyihei;
+    font-family: siyuan, deyihei,sans-serif;
 }
 </style>

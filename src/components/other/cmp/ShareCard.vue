@@ -4,7 +4,7 @@
         style="
         display: flex;align-items: center;max-width: 300px;
         width: 100%;height: 30px;margin-bottom: 8px;
-        box-shadow: 0 0 0 1px #dcdfe6 inset;padding:8px;
+        box-shadow: 0 0 0 1px #dcdfe6 inset;padding:4px 8px;
         border-radius: 4px;">
         <a :href="link" target="_blank">{{ link }}</a>
         <el-button class="btn" style="margin-left: auto;padding-left: 8px"

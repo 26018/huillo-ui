@@ -58,7 +58,7 @@ export default defineComponent({
             // 请求组件分析数据
             questionnaire_component_analysis(props.id).then(res => {
                 let retDataList = res.data.data;
-                if (retDataList.length === 0) {
+                if (retDataList == null || retDataList.length === 0) {
                     showTip.value = true;
                     return
                 }

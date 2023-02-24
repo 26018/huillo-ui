@@ -1,9 +1,10 @@
 <template>
-    <component-frame :model="model"/>
+    <component-create-frame :model="model"/>
 </template>
 
 <script setup>
-import ComponentFrame from "../other/frame/ComponentCreateFrame.vue";
+
+import ComponentCreateFrame from "../other/frame/ComponentCreateFrame.vue";
 
 let props = defineProps(['model'])
 
@@ -14,5 +15,4 @@ let props = defineProps(['model'])
 .head-input :deep(*) {
     font-size: 32px;
 }
-
 </style>

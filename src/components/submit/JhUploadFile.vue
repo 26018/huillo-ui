@@ -25,7 +25,8 @@ let userFile = useUserFile();
 let fileNameRule = ref("")
 onMounted(() => {
     userFile.uploadFileList = [];
-    if (props.data.input != null) {
+    if (props.data.input != null && typeof props.data.input === 'string') {
+        props.data.input = JSON.parse(props.data.input.toString());
         props.data.input.forEach(op => {
             fileNameRule.value += op + " / "
         });

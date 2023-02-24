@@ -152,8 +152,6 @@ function randomInt(biggest) {
     font-family: deyihei, serif;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    /*background-image: v-bind(linear-gradient(90deg, #7209d4, #2832d4 33%, #00a5b2));*/
-    /*background-image: linear-gradient(90deg, #7209d4, #2832d4 33%, #00a5b2);*/
     background-image: v-bind('poemBackgroundImage');
 }
 

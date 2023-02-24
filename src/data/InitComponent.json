@@ -9,11 +9,6 @@
   "anonymous": false,
   "verify": [],
   "components": [
-    {
-      "cname": "jh-radio",
-      "title": "单选",
-      "options": ["选项1","选项2"],
-      "preselectedAnswer": ""
-    }
+
   ]
 }

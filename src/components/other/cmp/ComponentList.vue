@@ -55,6 +55,7 @@ import JhUploadFile from "../../create/JhUploadFile.vue";
 import JhDownloadFile from '../../create/JhDownloadFile.vue'
 import JhDropdownSelect from '../../create/JhDropdownSelect.vue'
 import JhTextInput from "../../create/JhTextInput.vue";
+import JhTextareaInput from "../../create/JhTextareaInput.vue";
 import JhMulti from "../../create/JhMulti.vue";
 import JhRadio from "../../create/JhRadio.vue";
 import JhLocation from '../../create/JhLocation.vue'
@@ -67,6 +68,7 @@ import {refreshComponentIndex} from "../../../api/util";
 export default {
     components: {
         JhTextInput,
+        JhTextareaInput,
         JhRate,
         JhDropdownSelect,
         JhLocation,
@@ -102,10 +104,6 @@ export default {
             ele.style.display = 'block'
             // 右移50px
             ele.style.left = (mouse.x + 50) + 'px'
-            // console.log('body高度:', document.body.scrollHeight);
-            // console.log('鼠标高度:', mouse.y);
-            // console.log('卡片高度:', ele.clientHeight);
-            // console.log("\n")
             // 卡片底部距离
             let computedHeight = (mouse.y + ele.clientHeight / 2)
             // 如果超出底部
@@ -123,13 +121,14 @@ export default {
         }
 
         function mouseHover(data) {
+            detailCardView.value = true;
             setLocation();
             selectData.data = data
-            detailCardView.value = true;
         }
 
         function mouseLeave() {
             detailCardView.value = false;
+            selectData.data = {}
         }
 
         return {
@@ -151,6 +150,7 @@ export default {
 <style scoped>
 :deep(.el-scrollbar__thumb) {
     max-width: 2px;
+    margin-left: auto;
 }
 
 #not {
@@ -210,6 +210,7 @@ export default {
     background-color: white;
     z-index: 1;
     margin-left: 8px;
+    margin-top: 8px;
     overflow: hidden;
     user-select: none;
 }

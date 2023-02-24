@@ -1,0 +1,33 @@
+.component-frame {
+    border-bottom: 2px dashed rgba(220 220 220);
+    box-sizing: border-box;
+    margin: 4px 64px;
+    padding: 24px 0;
+}
+
+
+.operation-frame {
+    margin-left: auto;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    color: darkgray;
+}
+
+.operation-frame > * {
+    margin-left: 20px;
+}
+
+.operation-frame .el-checkbox .el-checkbox__label {
+    color: darkgray;
+}
+
+.operation-frame .el-checkbox .el-checkbox__label:hover {
+    color: black;
+}
+
+.operation-frame > *:hover {
+    color: black;
+    cursor: pointer;
+}

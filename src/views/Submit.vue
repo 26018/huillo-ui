@@ -1,21 +1,22 @@
 <template>
-       <div class="submit">
-           <el-scrollbar>
-               <component :is="questionnaire.cname" :data="questionnaire"/>
-               <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
-                   <component :is="t.cname" :data="t"/>
-               </div>
-               <div style="display: flex;justify-content: center">
-                   <el-button style="margin: 16px auto" @click="submit" type="primary">提交</el-button>
-               </div>
-           </el-scrollbar>
-       </div>
+    <div class="submit">
+        <el-scrollbar>
+            <component :is="questionnaire.cname" :data="questionnaire"/>
+            <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in questionnaire.components">
+                <component :is="t.cname" :data="t"/>
+            </div>
+            <div style="display: flex;justify-content: center">
+                <el-button style="margin: 16px auto" @click="submit" type="primary">提交</el-button>
+            </div>
+        </el-scrollbar>
+    </div>
 </template>
 
 <script>
 import {questionnaire_getById, questionnaire_submit} from "../api/questionnaire";
 import JhHead from '../components/submit/JhHead.vue';
 import JhTextInput from "../components/submit/JhTextInput.vue";
+import JhTextareaInput from "../components/submit/JhTextareaInput.vue";
 import JhMulti from "../components/submit/JhMulti.vue";
 import JhRadio from "../components/submit/JhRadio.vue";
 import JhRate from '../components/submit/JhRate.vue';
@@ -37,6 +38,7 @@ export default {
         JhUploadFile,
         JhDropdownSelect,
         JhTextInput,
+        JhTextareaInput,
         JhRate,
         JhLocation,
         JhDateInput
@@ -100,5 +102,15 @@ export default {
     border-left: 1px solid gainsboro;
     border-right: 1px solid gainsboro;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+:deep(.el-scrollbar__view) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:deep(.el-scrollbar__view) > *:last-child {
+    margin-top: auto;
 }
 </style>

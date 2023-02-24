@@ -26,7 +26,6 @@
 <script setup>
 import ComponentCreateFrame from "../other/frame/ComponentCreateFrame.vue";
 import {ElMessage} from "element-plus";
-import {watch} from "vue";
 import {useSurvey} from "../../store/survey";
 
 let props = defineProps(['model'])
@@ -35,7 +34,7 @@ function selectFileNameRule(val) {
     if (val) {
         props.model.options = [];
         survey['components'].forEach(component => {
-            if (component.cname === 'jh-text-input') {
+            if (component.cname === 'jh-text-input' || component.cname === 'jh-radio') {
                 props.model.options.push(component.title)
             }
         })

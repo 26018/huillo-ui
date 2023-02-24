@@ -2,14 +2,14 @@
     <div style="padding: 16px;box-sizing: border-box;">
         <div style="width: 80%;margin: 0 auto">
             <div class="title">基本信息</div>
-            <div class="content">ID：1613472073828253697</div>
+            <div class="content">ID：{{ currentUserId }}</div>
             <div class="content">
-                <div>昵称：Lsk</div>
+                <div>昵称：{{ currentUsername }}</div>
                 <el-button style="margin-left: auto" link type="primary" @click="()=>{ViewOpen(nicknameView)}">更改
                 </el-button>
             </div>
             <div class="content">
-                <div>邮箱：2033471349@qq.com</div>
+                <div>邮箱：{{ currentAccount }}</div>
                 <el-button style="margin-left: auto" link type="primary" @click="()=>{ViewOpen(accountView)}">更改
                 </el-button>
             </div>
@@ -57,7 +57,7 @@
             <div style="font-weight: 600;">真的要退出登录吗？</div>
             <template #footer>
                 <el-button @click="()=>{ViewClose(exitView)}">取 消</el-button>
-                <el-button type="primary" @click="()=>{}">确 定</el-button>
+                <el-button type="primary" @click="exitLogin">确 定</el-button>
             </template>
         </jh-dialog>
 
@@ -66,11 +66,15 @@
 
 <script setup>
 
-import {reactive, ref} from "vue";
-import {user_ChangePassword} from "../api/user";
+import {onMounted, reactive, ref} from "vue";
+import {user_ChangePassword, user_info} from "../api/user";
 import JhDialog from "../components/other/cmp/JhDialog.vue";
-import {ViewClose, ViewOpen} from "../api/util";
+import {navTo, ViewClose, ViewOpen} from "../api/util";
 
+
+let currentAccount = ref("");
+let currentUsername = ref("");
+let currentUserId = ref("");
 
 let newPassword = ref("");
 let oldPassword = ref("");
@@ -81,6 +85,20 @@ let nicknameView = reactive({data: false})
 let accountView = reactive({data: false})
 let modifyPasswordView = reactive({data: false})
 let exitView = reactive({data: false})
+
+function exitLogin() {
+    localStorage.removeItem('token');
+    navTo('/')
+}
+
+onMounted(() => {
+    user_info().then(res => {
+        const {account, username, id} = res.data.data;
+        currentAccount.value = account;
+        currentUsername.value = username;
+        currentUserId.value = id;
+    })
+})
 
 </script>
 

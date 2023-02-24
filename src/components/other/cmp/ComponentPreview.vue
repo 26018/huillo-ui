@@ -2,7 +2,7 @@
     <div class="preview">
         <el-scrollbar>
             <component :is="survey.cname" :data="survey"/>
-            <div style="width: 98%;box-sizing: border-box" v-for="(t,index) in survey.components">
+            <div v-for="(t,index) in survey.components">
                 <component :is="t.cname" :data="t" :key="index"/>
             </div>
             <div style="display: flex;justify-content: center">
@@ -16,6 +16,7 @@
 
 import JhHead from '../../submit/JhHead.vue';
 import JhTextInput from "../../submit/JhTextInput.vue";
+import JhTextareaInput from "../../submit/JhTextareaInput.vue";
 import JhMulti from "../../submit/JhMulti.vue";
 import JhRadio from "../../submit/JhRadio.vue";
 import JhRate from '../../submit/JhRate.vue';
@@ -36,6 +37,7 @@ export default {
         JhUploadFile,
         JhDropdownSelect,
         JhTextInput,
+        JhTextareaInput,
         JhRate,
         JhLocation,
         JhDateInput
@@ -63,9 +65,6 @@ export default {
 </script>
 
 <style scoped>
-* {
-    background-color: white;
-}
 
 .preview {
     display: flex;
@@ -74,13 +73,25 @@ export default {
     height: 100%;
     box-sizing: border-box;
     overflow: auto;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
+    background-color: white;
 }
 
-@media screen and (max-width: 900px){
-    .preview{
+.component-frame {
+    border-bottom: 2px dashed rgba(220 220 220);
+    box-sizing: border-box;
+    margin: 4px 32px;
+    padding: 24px 0;
+}
+
+@media screen and (max-width: 900px) {
+    .preview {
         display: none;
     }
+}
+
+:deep(.el-scrollbar) {
+    width: 100%;
 }
 
 :deep(.el-scrollbar__thumb) {
@@ -88,5 +99,15 @@ export default {
     margin-left: auto;
 }
 
+:deep(.el-scrollbar__view) {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:deep(.el-scrollbar__view) > *:last-child {
+    margin-top: auto;
+}
 
 </style>

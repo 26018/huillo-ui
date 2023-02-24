@@ -1,17 +1,19 @@
-import {createApp} from 'vue'
-import App from './App.vue'
-import './index.css'
-import './style/font.css'
-import router from './router/index.js'
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import {createApp} from 'vue';
+import App from './App.vue';
+import './style/index.css';
+import './style/font.css';
+import './style/frame.css';
+
+import router from './router/index.js';
+import ElementPlus from 'element-plus';
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import 'element-plus/dist/index.css';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import * as echarts from 'echarts';
 import "./config/axiosConfig.js";
 
 import {createPinia} from "pinia";
-import piniaPersist from 'pinia-plugin-persist'
+import piniaPersist from 'pinia-plugin-persist';
 
 const pinia = createPinia();
 pinia.use(piniaPersist);

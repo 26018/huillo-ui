@@ -89,6 +89,7 @@ const fileInfo = computed(() => {
     uploadFileList.value.forEach(file => {
         let fileSize = parseInt(file.size);
         total += fileSize;
+        // 计算各种类型
         if (exist(file.title, ['.png', '.jpg'])) {
             imageSize += fileSize;
         } else if (exist(file.title, ['.word'])) {

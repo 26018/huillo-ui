@@ -34,27 +34,35 @@ import {navTo} from "../api/util";
 .create {
     margin-top: 32px;
     width: 100%;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
-    font-family: deyihei;
+    user-select: none;
+    font-family: deyihei, sans-serif;
 }
 
 .create:hover {
-    transition-duration: .3s;
+    transition-duration: .5s;
     color: #13ce66;
     cursor: pointer;
     text-decoration: underline;
+    text-underline-offset: 8px;
 }
 
-.other{
+.other {
+    user-select: none;
     font-size: 24px;
     margin-top: 4px;
-    font-family: siyuan;
+    font-family: siyuan, sans-serif;
     font-weight: 600;
+    background-image: linear-gradient(45deg, #355c7d, #13ce66 33%, #ff7e67);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-color: transparent;
 }
 
-img{
+img {
     width: 80%;
+    user-select: none;
 }
 
 </style>

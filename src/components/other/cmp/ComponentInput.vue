@@ -18,7 +18,7 @@ defineProps(['data', 'size', 'type']);
 }
 
 :deep(.el-input__inner) {
-    height: auto;
+    height: fit-content;
 }
 
 :deep(.el-input__wrapper.is-focus) {

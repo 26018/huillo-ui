@@ -27,11 +27,14 @@ import JhRadio from "../../create/JhRadio.vue";
 import JhLocation from '../../create/JhLocation.vue'
 import JhRate from "../../create/JhRate.vue";
 import JhDateInput from '../../create/JhDateInput.vue'
+import JhTextareaInput from "../../create/JhTextareaInput.vue";
 import {useSurvey} from "../../../store/survey";
 import {navTo, refreshComponentIndex} from "../../../api/util";
+import TextInput from "./TextInput.vue";
 
 export default {
     components: {
+        TextInput,
         draggable,
         JhHead,
         JhMulti,
@@ -41,6 +44,7 @@ export default {
         JhDownloadFile,
         JhDateInput,
         JhTextInput,
+        JhTextareaInput,
         JhLocation,
         JhRate
     },

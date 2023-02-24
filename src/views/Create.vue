@@ -22,12 +22,6 @@
                            <div>截止日期：</div>
                            <el-date-picker type="datetime" :default-time="new Date()" style="flex: 1" v-model="endTime" placeholder="截止日期"/>
                        </el-row>
-
-<!--                       <el-row>-->
-<!--                           <div>允许匿名填写：</div>-->
-<!--                           <el-switch inline-prompt v-model="anonymous" :active-text="'是'"-->
-<!--                                      :inactive-text="'否'"></el-switch>-->
-<!--                       </el-row>-->
                    </el-space>
                </div>
            </template>
@@ -53,7 +47,7 @@ import {storeToRefs} from "pinia";
 import {useSurvey} from "../store/survey";
 
 let {navData, groupList, publishAble, publish} = useCreateNav();
-let {selectedGroupList, anonymous, endTime} = storeToRefs(useSurvey());
+let {selectedGroupList, endTime} = storeToRefs(useSurvey());
 
 onMounted(() => {
 
@@ -65,13 +59,15 @@ onMounted(() => {
 <style scoped>
 
 .pc-create {
-    padding: 8px 0 8px 0;
+    padding: 8px 0;
     box-sizing: border-box;
     overflow: hidden;
     height: calc(100vh - 45px);
     display: flex;
     background-color: rgba(243, 246, 249);
     justify-content: space-evenly;
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
 </style>
