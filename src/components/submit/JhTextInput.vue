@@ -9,9 +9,6 @@ import ComponentSubmitFrame from "../other/frame/ComponentSubmitFrame.vue";
 
 let props = defineProps(['data']);
 
-function re() {
-    console.log("remove")
-}
 </script>
 
 <style scoped>

@@ -76,7 +76,7 @@
                 <jh-card style="height: 50%">
                     <div style="display: flex;flex-direction: column;justify-content: center">
                         <div style="font-size: 18px;margin-bottom: 8px">开始时间</div>
-                        <div style="font-size: 30px;color: rgb(0,217,89)"> {{
+                        <div style="font-size: 30px;font-weight: 600;color: rgb(0,217,89)"> {{
                                 simpleFormatDate(new Date(questionnaire.startTime))
                             }}
                         </div>
@@ -86,7 +86,7 @@
                 <jh-card style="height: 50%">
                     <div style="display: flex;flex-direction: column;justify-content: center">
                         <div style="font-size: 18px;margin-bottom: 8px">截止时间</div>
-                        <div style="font-size: 30px;color: orangered">{{
+                        <div style="font-size: 30px;font-weight:600;color: orangered">{{
                                 simpleFormatDate(new Date(questionnaire.endTime))
                             }}
                         </div>

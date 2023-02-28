@@ -20,7 +20,7 @@ let userLocation = reactive({
 });
 
 const locatonText = computed(()=>{
-    if(props.data.preselectedAnswer == null || props.data.preselectedAnswer.length == 0){
+    if(props.data.preselectedAnswer === null || props.data.preselectedAnswer.length === 0){
         return "暂无位置信息"
     }
     // todo 查询坐标api，将经纬度变为位置信息
@@ -29,7 +29,7 @@ const locatonText = computed(()=>{
 })
 
 onMounted(()=>{
-    console.log(props.data)
+    // console.log(props.data)
     // console.log("props:",props.data)
     // console.log("location:",userLocation.data)
 })

@@ -28,7 +28,6 @@ import { download, transformFileSize } from "../../api/util";
 let props = defineProps(["data"]);
 onMounted(() => {
   props.data.optional = true;
-  console.log(props.data.options)
   if (
     props.data.options != null &&
     typeof props.data.options !== "object" &&

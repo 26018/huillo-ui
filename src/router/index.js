@@ -18,6 +18,7 @@ const routes = [
     {path: "/login", components: {home_view: () => import('../views/user_pages/user_login.vue')}},
     {path: "/register", components: {home_view: () => import('../views/user_pages/user_register.vue')}},
     {path: '/survey', components: {home_view: () => import('../views/survey_pages/survey_create.vue')}},
+    {path: '/survey/:id', components: {home_view: () => import('../views/survey_pages/survey_submit.vue')}},
     {
         path: "/management",
         components: {home_view: () => import('../views/single_pages/Manager.vue')},

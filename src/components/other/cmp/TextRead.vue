@@ -13,7 +13,7 @@ import {onMounted} from "vue";
 
 let props = defineProps(['text', 'fontSize', 'pre']);
 onMounted(() => {
-    console.log(props.pre)
+
 })
 
 </script>
@@ -45,6 +45,4 @@ pre {
     width: 100%;
     white-space: v-bind('props.pre?' pre-wrap ':' normal '');
 }
-
-
 </style>

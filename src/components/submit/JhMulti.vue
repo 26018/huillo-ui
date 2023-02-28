@@ -3,7 +3,7 @@
         <el-checkbox-group style="width: 100%;" v-model="data.input">
             <el-checkbox style="width: 100%;" v-for="(option,index) in data.options" :key="index"
                          :label="option">
-                <read-only-text :data="data.options[index]"/>
+                <text-read :text="data.options[index]"></text-read>
             </el-checkbox>
         </el-checkbox-group>
     </component-submit-frame>
@@ -11,15 +11,21 @@
 
 <script setup>
 import ComponentSubmitFrame from "../other/frame/ComponentSubmitFrame.vue";
-import ReadOnlyText from "../other/cmp/ReadOnlyText.vue";
-import {onMounted, provide} from "vue";
+import {onBeforeMount} from "vue";
+import TextRead from "../other/cmp/TextRead.vue";
 
 let props = defineProps(['data']);
-onMounted(() => {
-    props.data.input = []
+
+onBeforeMount(() => {
     if ('string' === typeof props.data.options) {
         props.data.options = JSON.parse(props.data.options);
     }
+    if ('string' === typeof props.data.input) {
+        props.data.input = JSON.parse(props.data.input)
+    }
+    // if (router.currentRoute.value.path.includes("management/submissions")) {
+    //     props.data.options = props.data.input;
+    // }
 })
 </script>
 

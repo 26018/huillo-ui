@@ -2,17 +2,17 @@
     <el-scrollbar>
         <el-table :data="tableData" :show-overflow-tooltip="true" :highlight-current-row="true" @row-click="showDetail"
                   :stripe="false">
-            <el-table-column fixed prop="title" label="收集标题" width="180"/>
+            <el-table-column :show-overflow-tooltip="true" fixed prop="title" label="收集标题" width="200"/>
             <el-table-column prop="status" sortable align="center" label="状态" width="180"/>
             <el-table-column prop="commitCount" sortable align="center" label="提交次数" width="180"/>
             <el-table-column prop="endTime" sortable align="center" label="截止日期" width="180"/>
-            <el-table-column align="center">
+            <el-table-column align="center" min-width="280">
                 <template #header>
                     <el-input v-model="search" style="width: 230px" clearable prefix-icon="Search"
                               placeholder='搜索问卷'/>
                 </template>
                 <template #default="scope">
-                    <div style="display: flex;width: 100%;justify-content: center;z-index: 9999">
+                    <div style="display: flex;width: 100%;justify-content: center">
                         <el-button type="success" size="small" @click="share(scope.row,shareView)">分享</el-button>
                         <el-button type="primary" size="small" @click="analysis(scope.row)">分析</el-button>
                         <el-button type="warning" size="small"

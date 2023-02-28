@@ -44,7 +44,9 @@ onMounted(() => {
     if (props.data.input == null) {
         props.data.input = [];
     }
-    console.log(props.data.mode)
+    if (props.data.mode === null) {
+        props.data.mode = [];
+    }
     if (typeof props.data.mode === 'string') {
         props.data.mode = JSON.parse(props.data.mode);
     }
