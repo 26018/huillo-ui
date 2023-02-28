@@ -7,7 +7,7 @@
             <div style="height: fit-content;width: 400px;">
                 <div class="other">问卷调查</div>
                 <div class="other">选择Huillo</div>
-                <div class="create" @click="navTo('/create')">立即创建</div>
+                <div class="create" @click="navTo('/survey')">立即创建</div>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
 
 <script setup>
 
-import {navTo} from "../api/util";
+import {navTo} from "../../api/util";
 </script>
 
 <style scoped>
@@ -23,12 +23,6 @@ import {navTo} from "../api/util";
     width: 100%;
     height: calc(100vh - 45px);
     display: flex;
-}
-
-.index {
-    max-width: 600px;
-    margin: 0 auto;
-    color: gray;
 }
 
 .create {
@@ -54,7 +48,7 @@ import {navTo} from "../api/util";
     margin-top: 4px;
     font-family: siyuan, sans-serif;
     font-weight: 600;
-    background-image: linear-gradient(45deg, #355c7d, #13ce66 33%, #ff7e67);
+    background-image: linear-gradient(90deg, #13ce66, cornflowerblue 53%, #ff7e67);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-color: transparent;

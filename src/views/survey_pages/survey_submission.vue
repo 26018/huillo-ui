@@ -24,8 +24,8 @@
 
 <script setup>
 import {onMounted, ref, watch} from "vue";
-import {submission_commitList, submission_delete} from "../api/submission";
-import {formatDate, navTo} from "../api/util";
+import {submission_commitList, submission_delete} from "../../api/submission";
+import {formatDate, navTo} from "../../api/util";
 import {ElMessage} from "element-plus";
 
 let tableData = ref([]);
@@ -76,10 +76,10 @@ watch(search, (o, n) => {
 
 const showDetail = (row, column, event) => {
     // TODO 拿到data的id
-    if (column.label === '' || column.label == undefined) {
+    if (column.label === '' || column.label === undefined) {
         return;
     }
-    navTo('/manager/collections/committed/detail/' + row.id)
+    navTo('/management/submissions/' + row.id)
 }
 
 const deleteSubmit = (id) => {

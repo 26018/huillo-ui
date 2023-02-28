@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import useManagerNav from "../hooks/useManagerNav";
+import useManagerNav from "../../hooks/useManagerNav";
 import {onMounted} from "vue";
 
 let navData = useManagerNav()

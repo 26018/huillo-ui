@@ -17,27 +17,26 @@
                 <div style="margin-top: 32px;width: 100%;display: flex;align-items: center;justify-content: center;"
                      v-show="showTip">暂无数据分析
                 </div>
-
             </el-space>
         </el-scrollbar>
     </div>
 </template>
 
 <script>
-import {navTo} from "../api/util";
-import ReadOnlyText from "../components/other/cmp/ReadOnlyText.vue";
-import BarChart from "../components/echarts/BarChart.vue";
-import CircleChart from "../components/echarts/CircleChart.vue";
-import LineChart from "../components/echarts/LineChart.vue";
+import {navTo} from "../../api/util";
+import ReadOnlyText from "../../components/other/cmp/ReadOnlyText.vue";
+import BarChart from "../../components/echarts/BarChart.vue";
+import CircleChart from "../../components/echarts/CircleChart.vue";
+import LineChart from "../../components/echarts/LineChart.vue";
 import {defineComponent, onMounted, ref} from "vue";
-import {questionnaire_component_analysis} from "../api/questionnaire";
-import mapCnameCharts from '../data/map_cname_charts.json';
-import router from "../router";
+import {questionnaire_component_analysis} from "../../api/questionnaire";
+import mapCnameCharts from '../../data/map_cname_charts.json';
+import router from "../../router";
 
 export default defineComponent({
     props: ['id'],
     components: {
-        ReadOnlyText, BarChart, CircleChart,LineChart
+        ReadOnlyText, BarChart, CircleChart, LineChart
     },
     setup(props) {
         let dataList = ref([])
@@ -52,9 +51,7 @@ export default defineComponent({
             ele[0].style.overflow = 'hidden'
             ele[0].style.backgroundColor = 'white'
             ele[0].style.zIndex = '999'
-
             title.value = router.currentRoute.value.query.title
-
             // 请求组件分析数据
             questionnaire_component_analysis(props.id).then(res => {
                 let retDataList = res.data.data;
@@ -74,7 +71,6 @@ export default defineComponent({
                 });
             })
         })
-
         return {
             showTip, dataList, title, mapCnameCharts, navTo,
         }

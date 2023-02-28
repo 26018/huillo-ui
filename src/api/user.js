@@ -21,3 +21,7 @@ export function user_sendCode(account) {
 export function user_info() {
     return axios.get('/user/info');
 }
+
+export function userUpdate(updateInfo) {
+    return axios.post('/user/update', updateInfo);
+}

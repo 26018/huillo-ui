@@ -2,21 +2,20 @@
     <div
         id="sharelink"
         style="
-        display: flex;align-items: center;max-width: 300px;
+        display: flex;align-items: center;max-width: 400px;
         width: 100%;height: 30px;margin-bottom: 8px;
         box-shadow: 0 0 0 1px #dcdfe6 inset;padding:4px 8px;
         border-radius: 4px;">
-        <a :href="link" target="_blank">{{ link }}</a>
+        <div class="shareLink">{{ link }}</div>
         <el-button class="btn" style="margin-left: auto;padding-left: 8px"
                    type="primary" link size="small"
-                   data-clipboard-target="#sharelink"
-        >复制
+                   data-clipboard-target="#sharelink">复制
         </el-button>
     </div>
     <div class="image-container">
         <div style="color: white;align-items: center;justify-content: center;">
-            <p style="font-size: 22px">{{ title }}</p>
-            <p>手机扫描二维码填写内容</p>
+            <div style="font-size: 22px;max-width: 250px">{{ title }}</div>
+            <div style="margin-top: 12px">手机扫描二维码填写内容</div>
         </div>
         <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+base64"/>
     </div>
@@ -41,7 +40,7 @@ clipboard.on('error', function (e) {
     console.error('Trigger:', e.trigger);
 });
 
-onUnmounted(()=>{
+onUnmounted(() => {
     clipboard.destroy();
 })
 
@@ -58,6 +57,7 @@ onUnmounted(()=>{
     display: flex;
     width: 100%;
     outline: none;
+    align-items: center;
     justify-content: space-between
 }
 
@@ -65,9 +65,16 @@ onUnmounted(()=>{
     cursor: pointer;
 }
 
-a {
-    text-decoration: none;
-
+#sharelink > * {
+    /*border: 1px solid red;*/
 }
+
+.shareLink {
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: clip;
+    text-overflow: ellipsis;
+}
+
 
 </style>

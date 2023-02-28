@@ -8,10 +8,10 @@
 <script setup>
 
 import {onMounted, ref} from "vue";
-import {group_add_member} from "../api/group";
+import {group_add_member} from "../../api/group";
 import {ElMessage} from "element-plus";
-import {navTo} from "../api/util";
-import router from "../router";
+import {navTo} from "../../api/util";
+import router from "../../router";
 
 let status = ref(false);
 

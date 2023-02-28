@@ -38,8 +38,8 @@
                 </div>
             </template>
         </jh-dialog>
-        <jh-dialog :title="'群组信息'" :show="shareView" @close="ViewClose(shareView)">
-            <share-card :title="shareInfo.title" :link=" axios.defaults.baseURL + '/manager/groups/add/'+ shareInfo.id"
+        <jh-dialog title="群组信息" :show="shareView" @close="ViewClose(shareView)">
+            <share-card :title="shareInfo.title" :link="proxy.$local_host+'/manager/groups/add/'+ shareInfo.id"
                         :base64="shareInfo.image"></share-card>
             <template #footer>
                 <el-button type="danger">解散群组</el-button>
@@ -51,13 +51,13 @@
 
 <script setup>
 
-import {onMounted, reactive, ref} from "vue";
-import useGroups from "../hooks/useGroups";
-import {group_list, group_share} from "../api/group";
-import {ViewClose, ViewOpen} from "../api/util";
-import JhDialog from "../components/other/cmp/JhDialog.vue";
+import {getCurrentInstance, onMounted, reactive, ref} from "vue";
+import useGroups from "../../hooks/useGroups";
+import {group_list, group_share} from "../../api/group";
+import {ViewClose, ViewOpen} from "../../api/util";
+import JhDialog from "../../components/other/cmp/JhDialog.vue";
 import axios from "axios";
-import ShareCard from "../components/other/cmp/ShareCard.vue";
+import ShareCard from "../../components/other/cmp/ShareCard.vue";
 
 let {
     groupData,
@@ -82,6 +82,8 @@ function groupInfo(groupId) {
         shareInfo.value = res.data.data
     });
 }
+
+const {proxy} = getCurrentInstance();
 
 </script>
 

@@ -55,12 +55,12 @@
 <script setup>
 
 import {onMounted, ref, watch} from "vue";
-import { ViewClose, ViewOpen} from "../api/util";
-import JhDialog from "../components/other/cmp/JhDialog.vue";
-import useCollections from "../hooks/useCollections";
-import {questionnaire_list, survey_close, survey_delete} from "../api/questionnaire";
+import {ViewClose, ViewOpen} from "../../api/util";
+import JhDialog from "../../components/other/cmp/JhDialog.vue";
+import useCollections from "../../hooks/useCollections";
+import {questionnaire_list, survey_close, survey_delete} from "../../api/questionnaire";
 import {ElMessage} from "element-plus";
-import ShareCard from "../components/other/cmp/ShareCard.vue";
+import ShareCard from "../../components/other/cmp/ShareCard.vue";
 
 let {
     search, tableData, showDetail, SurveyShareInfo,

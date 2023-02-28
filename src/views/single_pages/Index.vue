@@ -4,8 +4,8 @@
 </template>
 
 <script setup>
-import Header from "../components/other/cmp/Header.vue";
-import useIndexNav from "../hooks/useIndexNav";
+import Header from "../../components/other/cmp/Header.vue";
+import useIndexNav from "../../hooks/useIndexNav";
 
 let navData = useIndexNav();
 

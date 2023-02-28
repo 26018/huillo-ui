@@ -27,7 +27,9 @@
             </div>
             <template #footer>
                 <el-button @click="()=>{ViewClose(nicknameView)}">取 消</el-button>
-                <el-button type="primary" @click="()=>{}">确认修改</el-button>
+                <el-button type="primary" @click="changeUserInfo(
+                    {id:currentUserId,username:newNickName})">确认修改
+                </el-button>
             </template>
         </jh-dialog>
         <jh-dialog title="修改信息" :show="accountView">
@@ -36,7 +38,11 @@
             </div>
             <template #footer>
                 <el-button @click="()=>{ViewClose(accountView)}">取 消</el-button>
-                <el-button type="primary" @click="()=>{}">确认修改</el-button>
+                <el-button type="primary" @click="changeUserInfo({
+                id:currentUserId,
+                account:newAccount
+                })">确认修改
+                </el-button>
             </template>
         </jh-dialog>
 
@@ -67,9 +73,10 @@
 <script setup>
 
 import {onMounted, reactive, ref} from "vue";
-import {user_ChangePassword, user_info} from "../api/user";
-import JhDialog from "../components/other/cmp/JhDialog.vue";
-import {navTo, ViewClose, ViewOpen} from "../api/util";
+import {user_ChangePassword, user_info, userUpdate} from "../../api/user";
+import JhDialog from "../../components/other/cmp/JhDialog.vue";
+import {navTo, ViewClose, ViewOpen} from "../../api/util";
+import {ElMessage} from "element-plus";
 
 
 let currentAccount = ref("");
@@ -90,6 +97,15 @@ function exitLogin() {
     localStorage.removeItem('token');
     navTo('/')
 }
+
+function changeUserInfo(update) {
+    userUpdate(update).then(res => {
+        if (res.data.code === 200) {
+            ElMessage.success("修改成功");
+        }
+    });
+}
+
 
 onMounted(() => {
     user_info().then(res => {

@@ -39,7 +39,7 @@
                 <div class="percentage">
                     <div>{{ percentage + "%" }} <span
                         style="user-select: none;font-size: 16px;background-color: transparent;margin-left: 24px;">{{
-                            "总额:50MB"
+                            "总额:" + transformFileSize(parseInt(spaceTotal))[0] + unit
                         }}</span></div>
                 </div>
             </jh-card>
@@ -64,20 +64,25 @@
 </template>
 
 <script setup>
-import JhCard from "../components/other/cmp/JhCard.vue";
+import JhCard from "../../components/other/cmp/JhCard.vue";
 
 import {computed, onMounted, ref} from "vue";
-import {userFile_delete, userFile_download, userFile_space} from "../api/UserFile";
-import {download, transformFileSize} from "../api/util";
+import {userFile_delete, userFile_download, userFile_space} from "../../api/UserFile";
+import {download, transformFileSize} from "../../api/util";
 import {ElMessage} from "element-plus";
 
 let uploadFileList = ref([])
 let percentage = ref("0%")
 let percentageStyle = ref("linear-gradient(90deg, #13ce66, #13ce66 " + percentage.value + ", transparent 0)");
+let spaceTotal = ref("");
+let unit = ref("");
 
 onMounted(() => {
     userFile_space().then(res => {
-        uploadFileList.value = res.data.data;
+        let fs = transformFileSize(res.data.data.total);
+        spaceTotal.value = res.data.data.total;
+        unit.value = fs[1];
+        uploadFileList.value = res.data.data.list;
     });
 });
 
@@ -98,10 +103,11 @@ const fileInfo = computed(() => {
             otherSize += fileSize;
         }
     })
-    // 计算百分比 50MB
-    let all = 50 * 1024 * 1024
-    percentage.value = (total / all * 100).toFixed(2);
-    let backColor = ""
+
+    // 计算百分比
+    let all = parseInt(spaceTotal.value);
+    percentage.value = Math.min((total / all * 100).toFixed(2), 100);
+    let backColor;
     if (percentage.value > 80) {
         backColor = 'red'
     } else if (percentage.value > 50) {
@@ -110,7 +116,6 @@ const fileInfo = computed(() => {
         backColor = '#13ce66'
     }
     percentageStyle.value = "linear-gradient(90deg, " + backColor + ", " + backColor + " " + percentage.value + "%" + ", transparent 0)";
-
     return {
         totalSize: transformFileSize(total),
         imageSize: transformFileSize(imageSize),

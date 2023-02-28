@@ -5,38 +5,38 @@ export default function () {
     let navData = reactive([{
         text: '返回创建',
         fontColor: 'dodgerblue',
-        args: '/create',
-        icon: '/src/assets/return.png',
+        args: '/survey',
+        icon: '/return.png',
         action: navTo
     }, {
         text: '收集记录',
         fontColor: 'green',
-        icon: '/src/assets/quesLog.png',
-        args: '/manager/collections',
+        icon: '/quesLog.png',
+        args: '/management/surveys',
         action: navTo
     }, {
         text: '提交记录',
-        icon: '/src/assets/commitLog.png',
+        icon: '/commitLog.png',
         fontColor: 'green',
-        args: '/manager/submission',
+        args: '/management/submissions',
         action: navTo
     }, {
         text: '我的小组',
         fontColor: 'green',
-        icon: '/src/assets/group.png',
-        args: '/manager/groups',
+        icon: '/group.png',
+        args: '/management/groups',
         action: navTo
     }, {
         text: '文件空间',
         fontColor: 'green',
-        icon: '/src/assets/recycle.png',
-        args: '/manager/recycle',
+        icon: '/recycle.png',
+        args: '/management/file-space',
         action: navTo
     }, {
         text: '账号管理',
-        icon: '/src/assets/setting.png',
+        icon: '/setting.png',
         fontColor: 'green',
-        args: '/manager/user-settings',
+        args: '/management/setting',
         action: navTo
     }
     ]);

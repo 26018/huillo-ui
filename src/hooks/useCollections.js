@@ -13,7 +13,7 @@ export default function () {
 
     // 点击按钮的方法
     const analysis = (data) => {
-        navTo('collections/analysis/' + data.id + "?title=" + data.title);
+        navTo('/management/surveys/analysis/' + data.id + "?title=" + data.title);
     };
     const share = (data, viewControl) => {
         viewControl.data = true;
@@ -27,7 +27,7 @@ export default function () {
         if (column.label === '' || column.label === undefined) {
             return;
         }
-        navTo('collections/detail/' + row.id)
+        navTo('surveys/' + row.id)
     }
     return {
         search, tableData, showDetail, SurveyShareInfo,

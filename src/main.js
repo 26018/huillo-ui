@@ -31,5 +31,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 app.config.globalProperties.$echarts = echarts;
-
+app.config.globalProperties.$local_host = "http://localhost:3000"
 app.mount('#app')

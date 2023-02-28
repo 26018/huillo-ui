@@ -24,19 +24,24 @@
                             <div>
                                 <div style="font-family: deyihei;font-size: 24px;margin-bottom: 16px">注册Huillo</div>
                                 <div class="label">邮箱</div>
-                                <el-input/>
+                                <el-input v-model="account"/>
                                 <div class="label">验证码</div>
                                 <div style="display: flex">
-                                    <el-input/> <el-button style="margin-left: 8px;width: 40%;" type="primary">请 求</el-button>
+                                    <el-input v-model="verify_code"/>
+                                    <el-button style="margin-left: 8px;width: 40%;" type="primary">请 求</el-button>
                                 </div>
+                                <div class="label">昵称</div>
+                                <el-input v-model="username"/>
                                 <div class="label">密码</div>
-                                <el-input v-model="password" type="password"/>
+                                <el-input v-model="password" show-password type="password"/>
                                 <div class="label">确认密码</div>
-                                <el-input v-model="password" type="password"/>
+                                <el-input v-model="repeatPassword" show-password type="password"/>
                             </div>
 
                             <div style="">
-                                <el-button style="margin-top: 24px;width: 100%" type="primary">注 册</el-button>
+                                <el-button @click="userRegister" style="margin-top: 24px;width: 100%" type="primary">注
+                                    册
+                                </el-button>
                                 <el-button @click="navTo('/login')" link type="primary"
                                            style="margin-top: 16px;width: 100%">
                                     已有huillo账号？去登录
@@ -51,36 +56,37 @@
 </template>
 
 <script setup>
-import {navTo} from "../api/util";
-import Header from "../components/other/cmp/Header.vue";
-import JhCard from "../components/other/cmp/JhCard.vue";
+import {navTo} from "../../api/util";
+import Header from "../../components/other/cmp/Header.vue";
+import JhCard from "../../components/other/cmp/JhCard.vue";
 import {ref} from "vue";
-import {login} from "../api/user";
+import {login, register} from "../../api/user";
 import {ElMessage} from "element-plus";
 
 let account = ref("");
+let username = ref("");
 let password = ref("");
+let repeatPassword = ref("");
+let verify_code = ref("");
 
-function userLogin() {
-    let data = {
-        account: account.value,
-        password: password.value
+
+function userRegister() {
+    if (password.value !== repeatPassword.value) {
+        ElMessage.error("两次密码不一致");
+        return false;
     }
-    login(data).then(res => {
+    let user = {
+        username: username.value,
+        account: account.value,
+        password: password.value,
+        verifyCode: verify_code.value,
+    }
+    register(user).then(res => {
         if (res.data.code === 200) {
-            localStorage.setItem('token', res.data.data)
-            ElMessage.success({
-                message: "登录成功,3s后跳转",
-                showClose: true,
-                duration: 2000,
-            })
-            setInterval(() => {
-                navTo('/create')
-            }, 2000)
-        } else {
-            ElMessage.error(res.data.message)
+            ElMessage.info("注册成功");
         }
     })
+
 }
 
 </script>
@@ -90,7 +96,7 @@ function userLogin() {
     margin-top: 8px;
     margin-bottom: 4px;
     font-size: 16px;
-    color: rgb(139,139,141);
-    font-family: siyuan, deyihei;
+    color: rgb(139, 139, 141);
+    font-family: siyuan, deyihei, sans-serif;
 }
 </style>

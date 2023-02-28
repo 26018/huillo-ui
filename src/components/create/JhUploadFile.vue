@@ -9,7 +9,7 @@
                 拖拽或 <em>点击上传</em>
             </div>
         </el-upload>
-        <el-select v-model="model.input"
+        <el-select v-model="model.mode"
                    :multiple="true"
                    @visible-change="selectFileNameRule"
                    placeholder="选择文件命名格式">

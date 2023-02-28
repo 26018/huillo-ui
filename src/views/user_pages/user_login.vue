@@ -42,11 +42,11 @@
 </template>
 
 <script setup>
-import {navTo} from "../api/util";
-import Header from "../components/other/cmp/Header.vue";
-import JhCard from "../components/other/cmp/JhCard.vue";
+import {navTo} from "../../api/util";
+import Header from "../../components/other/cmp/Header.vue";
+import JhCard from "../../components/other/cmp/JhCard.vue";
 import {ref} from "vue";
-import {login} from "../api/user";
+import {login} from "../../api/user";
 import {ElMessage} from "element-plus";
 
 let account = ref("");

@@ -13,21 +13,21 @@
 </template>
 
 <script>
-import {questionnaire_getById, questionnaire_submit} from "../api/questionnaire";
-import JhHead from '../components/submit/JhHead.vue';
-import JhTextInput from "../components/submit/JhTextInput.vue";
-import JhTextareaInput from "../components/submit/JhTextareaInput.vue";
-import JhMulti from "../components/submit/JhMulti.vue";
-import JhRadio from "../components/submit/JhRadio.vue";
-import JhRate from '../components/submit/JhRate.vue';
-import JhLocation from '../components/submit/JhLocation.vue'
-import JhDateInput from '../components/submit/JhDateInput.vue'
-import JhDropdownSelect from '../components/submit/JhDropdownSelect.vue'
-import JhDownloadFile from '../components/submit/JhDownloadFile.vue';
-import JhUploadFile from '../components/submit/JhUploadFile.vue';
+import {questionnaire_getById, questionnaire_submit} from "../../api/questionnaire";
+import JhHead from '../../components/submit/JhHead.vue';
+import JhTextInput from "../../components/submit/JhTextInput.vue";
+import JhTextareaInput from "../../components/submit/JhTextareaInput.vue";
+import JhMulti from "../../components/submit/JhMulti.vue";
+import JhRadio from "../../components/submit/JhRadio.vue";
+import JhRate from '../../components/submit/JhRate.vue';
+import JhLocation from '../../components/submit/JhLocation.vue'
+import JhDateInput from '../../components/submit/JhDateInput.vue'
+import JhDropdownSelect from '../../components/submit/JhDropdownSelect.vue'
+import JhDownloadFile from '../../components/submit/JhDownloadFile.vue';
+import JhUploadFile from '../../components/submit/JhUploadFile.vue';
 import {ElMessage} from "element-plus";
-import {useUserFile} from "../store/userfile";
-import {addJsonAndFile} from "../api/util";
+import {useUserFile} from "../../store/userfile";
+import {addJsonAndFile, navTo} from "../../api/util";
 
 export default {
     components: {
@@ -70,16 +70,18 @@ export default {
             this.questionnaire.components.forEach(cp => {
                 let obj = {};
                 obj.id = cp.id;
+                obj.title = cp.title
                 obj.optional = cp.optional
                 obj.cname = cp.cname
                 obj.input = cp.input
+                obj.mode = cp.mode;
                 submitDTO.components.push(obj);
             })
             let userFile = useUserFile();
             let jsonAndFile = addJsonAndFile(submitDTO, 'submitSurvey', userFile.uploadFileList, 'uploadFiles');
             questionnaire_submit(jsonAndFile).then(res => {
                 if (res.data.code === 200) {
-                    ElMessage.success("提交成功");
+                    navTo('/submit-success');
                 }
             });
             userFile.uploadFileList = []

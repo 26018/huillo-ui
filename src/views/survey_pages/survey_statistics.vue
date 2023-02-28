@@ -209,16 +209,16 @@
 </template>
 
 <script setup>
-import {download, navTo, simpleFormatDate, ViewClose, ViewOpen} from "../api/util";
-import JhDialog from "../components/other/cmp/JhDialog.vue";
-import useCollectionDetail from "../hooks/useCollectionDetail";
+import {download, navTo, simpleFormatDate, ViewClose, ViewOpen} from "../../api/util";
+import JhDialog from "../../components/other/cmp/JhDialog.vue";
+import useCollectionDetail from "../../hooks/useCollectionDetail";
 import {getCurrentInstance, onMounted, reactive, ref} from "vue";
-import {questionnaire_detail} from "../api/questionnaire";
-import {group_notifyNotSubmitMember} from "../api/group";
+import {questionnaire_detail} from "../../api/questionnaire";
+import {group_notifyNotSubmitMember} from "../../api/group";
 import {ElMessage} from "element-plus";
-import {userFile_download} from "../api/UserFile";
-import JhCard from "../components/other/cmp/JhCard.vue";
-import ShareCard from "../components/other/cmp/ShareCard.vue";
+import {userFile_download} from "../../api/UserFile";
+import JhCard from "../../components/other/cmp/JhCard.vue";
+import ShareCard from "../../components/other/cmp/ShareCard.vue";
 
 let fileListView = reactive({data: false})
 let collectionDetail = useCollectionDetail();

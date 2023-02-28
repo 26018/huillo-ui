@@ -15,12 +15,12 @@ export default function () {
         {
             text: '我的',
             fontColor: 'black',
-            args: '/manager',
+            args: '/management',
             action: navTo
         },
 
         {
-            text: '清空所有缓存',
+            text: '清空问卷',
             fontColor: 'red',
             args: '',
             action: clearAll

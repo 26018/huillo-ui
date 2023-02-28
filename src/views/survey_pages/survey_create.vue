@@ -35,16 +35,16 @@
 </template>
 
 <script setup>
-import Header from "../components/other/cmp/Header.vue";
-import ComponentList from "../components/other/cmp/ComponentList.vue";
-import ComponentCreate from "../components/other/cmp/ComponentCreate.vue";
-import ComponentPreview from '../components/other/cmp/ComponentPreview.vue'
-import useCreateNav from "../hooks/useCreateNav";
+import Header from "../../components/other/cmp/Header.vue";
+import ComponentList from "../../components/other/cmp/ComponentList.vue";
+import ComponentCreate from "../../components/other/cmp/ComponentCreate.vue";
+import ComponentPreview from '../../components/other/cmp/ComponentPreview.vue'
+import useCreateNav from "../../hooks/useCreateNav";
 import {onMounted} from "vue";
-import JhDialog from "../components/other/cmp/JhDialog.vue";
-import {ViewClose} from "../api/util";
+import JhDialog from "../../components/other/cmp/JhDialog.vue";
+import {ViewClose} from "../../api/util";
 import {storeToRefs} from "pinia";
-import {useSurvey} from "../store/survey";
+import {useSurvey} from "../../store/survey";
 
 let {navData, groupList, publishAble, publish} = useCreateNav();
 let {selectedGroupList, endTime} = storeToRefs(useSurvey());

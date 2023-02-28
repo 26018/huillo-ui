@@ -1,51 +1,68 @@
 import {createRouter, createWebHistory} from "vue-router"
-import index from '../views/Index.vue'
-import about from '../views/AboutHuillo.vue'
-import introduction from '../views/Introduction.vue'
-import login from "../views/Login.vue";
-import register from "../views/Register.vue";
-import create from "../views/Create.vue";
-import submit from "../views/Submit.vue";
-import manager from "../views/Manager.vue";
-import collections from "../views/Collections.vue";
-import submission from "../views/Submission.vue";
-import groups from "../views/Groups.vue";
-import recycle from "../views/Recycle.vue";
-import detail from '../views/CollectionDetail.vue';
-import analysis from '../views/Analysis.vue';
-import commitDetail from "../views/CommitDetail.vue";
-import userSettings from "../views/UserSettings.vue";
-import groupAddMember from '../views/GroupAddMember.vue';
 
 const routes = [
     {path: "/", redirect: '/index'},
 
     {
         path: "/index",
-        components: {home_view: index},
+        components: {home_view: () => import('../views/single_pages/Index.vue')},
         children: [
-            {path: '', components: {content_view: introduction},},
+            {path: '', components: {content_view: () => import('../views/single_pages/Introduction.vue')},},
         ]
     },
-    {path: "/login", components: {home_view: login}},
-    {path: "/register", components: {home_view: register}},
-    {path: "/create", components: {home_view: create}},
-    {path: "/submit/:id", components: {home_view: submit}},
-    {path: "/about", components: {home_view: about}},
     {
-        path: "/manager", components: {home_view: manager}, redirect: '/manager/collections', children: [
-            {path: "collections", components: {manager_view: collections}},
-            {path: "collections/detail/:id", props: {manager_view: true}, components: {manager_view: detail}},
-            {path: "collections/analysis/:id", props: {manager_view: true}, components: {manager_view: analysis}},
-            {path: "collections/committed/detail/:id", props: {manager_view: true}, components: {manager_view: commitDetail}},
-            {path: "submission", components: {manager_view: submission}},
-            {path: "groups", components: {manager_view: groups}},
-            {path: "groups/add/:id", components: {manager_view: groupAddMember}},
-            {path: "recycle", components: {manager_view: recycle}},
-            {path: "user-settings", components: {manager_view: userSettings}},
-        ]
+        path: "/about",
+        components: {home_view: () => import('../views/single_pages/AboutHuillo.vue')},
     },
-];
+
+    {path: "/login", components: {home_view: () => import('../views/user_pages/user_login.vue')}},
+    {path: "/register", components: {home_view: () => import('../views/user_pages/user_register.vue')}},
+    {path: '/survey', components: {home_view: () => import('../views/survey_pages/survey_create.vue')}},
+    {
+        path: "/management",
+        components: {home_view: () => import('../views/single_pages/Manager.vue')},
+        redirect: '/management/surveys',
+        children: [
+            {
+                path: 'surveys',
+                components: {manager_view: () => import('../views/survey_pages/survey_list.vue')},
+            },
+            {
+                path: 'surveys/:id',
+                props: {manager_view: true},
+                components: {manager_view: () => import('../views/survey_pages/survey_statistics.vue')}
+            },
+            {
+                path: 'surveys/analysis/:id',
+                props: {manager_view: true},
+                components: {manager_view: () => import('../views/survey_pages/survey_analysis.vue')}
+            },
+            {
+                path: 'submissions',
+                components: {manager_view: () => import('../views/survey_pages/survey_submission.vue')}
+            },
+
+            {
+                path: 'submissions/:id',
+                props: {manager_view: true},
+                components: {manager_view: () => import('../views/survey_pages/survey_submission_detail.vue')}
+            },
+
+            {
+                path: 'groups',
+                components: {manager_view: () => import('../views/group_pages/group_list.vue')}
+            },
+            {
+                path: 'file-space',
+                components: {manager_view: () => import('../views/user_pages/user_filespace.vue')}
+            },
+            {
+                path: 'setting',
+                components: {manager_view: () => import('../views/user_pages/user_setting.vue')}
+            },
+        ]
+    }
+]
 
 const router = createRouter({
     history: createWebHistory(),

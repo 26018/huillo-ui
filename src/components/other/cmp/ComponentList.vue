@@ -102,6 +102,7 @@ export default {
         function setLocation() {
             let ele = document.getElementById('not');
             ele.style.display = 'block'
+
             // 右移50px
             ele.style.left = (mouse.x + 50) + 'px'
             // 卡片底部距离
@@ -151,10 +152,6 @@ export default {
 :deep(.el-scrollbar__thumb) {
     max-width: 2px;
     margin-left: auto;
-}
-
-#not {
-    min-width: 200px;
 }
 
 .fix {
