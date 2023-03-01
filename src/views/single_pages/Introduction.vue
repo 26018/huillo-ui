@@ -48,10 +48,6 @@ import {navTo} from "../../api/util";
     margin-top: 4px;
     font-family: siyuan, sans-serif;
     font-weight: 600;
-    background-image: linear-gradient(90deg, #13ce66, cornflowerblue 53%, #ff7e67);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-color: transparent;
 }
 
 img {

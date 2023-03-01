@@ -2,29 +2,34 @@
   {
     "cname": "jh-date-input",
     "title": "日期",
-    "description": ""
+    "description": "",
+    "tag": "日期"
   },
   {
     "cname": "jh-textarea-input",
     "title": "文本域",
-    "description": ""
+    "description": "",
+    "tag": "简答"
   },
   {
     "cname": "jh-text-input",
     "title": "问答",
-    "description": ""
+    "description": "",
+    "tag": "问答"
   },
   {
     "cname": "jh-radio",
     "title": "单选",
     "options": ["单选一","单选二"],
-    "preselectedAnswer": ""
+    "preselectedAnswer": "",
+    "tag": "单选"
   },
   {
     "cname": "jh-multi",
     "title": "多选",
     "options": ["多选一","多选二"],
-    "preselectedAnswer": []
+    "preselectedAnswer": [],
+    "tag": "多选"
   },
   {
     "cname": "jh-radio",
@@ -33,13 +38,15 @@
       "正确",
       "错误"
     ],
-    "preselectedAnswer": ""
+    "preselectedAnswer": "",
+    "tag": "判断"
   },
   {
     "cname": "jh-dropdown-select",
     "title": "下拉选择",
     "options": [],
     "mode": "radio",
-    "preselectedAnswer": []
+    "preselectedAnswer": [],
+    "tag": "下拉选择"
   }
 ]

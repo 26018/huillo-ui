@@ -3,12 +3,14 @@
         "cname": "jh-location",
         "title": "位置信息",
         "description": "点击按钮获取位置信息",
-        "preselectedAnswer": ""
+        "preselectedAnswer": "",
+        "tag": "位置"
     },
 
     {
         "cname": "jh-rate",
         "title": "评价",
-        "preselectedAnswer": 0
+        "preselectedAnswer": 0,
+        "tag": "问答"
     }
 ]

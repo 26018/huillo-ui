@@ -18,7 +18,8 @@ const routes = [
     {path: "/login", components: {home_view: () => import('../views/user_pages/user_login.vue')}},
     {path: "/register", components: {home_view: () => import('../views/user_pages/user_register.vue')}},
     {path: '/survey', components: {home_view: () => import('../views/survey_pages/survey_create.vue')}},
-    {path: '/survey/:id', components: {home_view: () => import('../views/survey_pages/survey_submit.vue')}},
+    {path: '/surveys/:id(\\d+)/', components: {home_view: () => import('../views/survey_pages/survey_submit.vue')}},
+    {path: '/surveys/:id(\\d+)/submit-success', props: {manager_view: true}, components: {home_view: () => import('../views/status_pages/SubmitSuccess.vue')}},
     {
         path: "/management",
         components: {home_view: () => import('../views/single_pages/Manager.vue')},
@@ -29,7 +30,7 @@ const routes = [
                 components: {manager_view: () => import('../views/survey_pages/survey_list.vue')},
             },
             {
-                path: 'surveys/:id',
+                path: 'surveys/:id(\\d+)/',
                 props: {manager_view: true},
                 components: {manager_view: () => import('../views/survey_pages/survey_statistics.vue')}
             },
@@ -52,6 +53,11 @@ const routes = [
             {
                 path: 'groups',
                 components: {manager_view: () => import('../views/group_pages/group_list.vue')}
+            },
+            {
+                path: 'groups/:id/members',
+                props: {manager_view: true},
+                components: {manager_view: () => import('../views/group_pages/group_member_add.vue')}
             },
             {
                 path: 'file-space',

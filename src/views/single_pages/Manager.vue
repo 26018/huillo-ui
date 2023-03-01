@@ -10,7 +10,6 @@
         <div style="padding: 0px;box-sizing: border-box;width: calc(100% - 200px);">
             <router-view class="manager-view" name="manager_view"/>
         </div>
-
     </div>
 </template>
 
@@ -52,7 +51,8 @@ onMounted(() => {
 
 <style scoped>
 .nav-bar {
-    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
     padding: 8px;
     box-sizing: border-box;
     border-radius: 8px;

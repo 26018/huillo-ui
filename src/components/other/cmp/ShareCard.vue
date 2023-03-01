@@ -6,7 +6,7 @@
         width: 100%;height: 30px;margin-bottom: 8px;
         box-shadow: 0 0 0 1px #dcdfe6 inset;padding:4px 8px;
         border-radius: 4px;">
-        <div class="shareLink">{{ link }}</div>
+        <div @click="navTo(link)" class="shareLink">{{ link }}</div>
         <el-button class="btn" style="margin-left: auto;padding-left: 8px"
                    type="primary" link size="small"
                    data-clipboard-target="#sharelink">复制
@@ -19,6 +19,7 @@
         </div>
         <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+base64"/>
     </div>
+
 </template>
 
 <script setup>
@@ -26,6 +27,7 @@
 import ClipboardJS from "clipboard";
 import {ElMessage} from "element-plus";
 import {onUnmounted} from "vue";
+import {navTo} from "../../../api/util";
 
 let props = defineProps(['title', 'link', 'base64']);
 
@@ -56,6 +58,7 @@ onUnmounted(() => {
     padding: 4px 8px;
     display: flex;
     width: 100%;
+    max-width: 400px;
     outline: none;
     align-items: center;
     justify-content: space-between
@@ -74,7 +77,11 @@ onUnmounted(() => {
     white-space: nowrap;
     overflow: clip;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 
+.shareLink:hover {
+    color: dodgerblue;
+}
 
 </style>

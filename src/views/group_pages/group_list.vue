@@ -39,7 +39,7 @@
             </template>
         </jh-dialog>
         <jh-dialog title="群组信息" :show="shareView" @close="ViewClose(shareView)">
-            <share-card :title="shareInfo.title" :link="proxy.$local_host+'/manager/groups/add/'+ shareInfo.id"
+            <share-card :title="shareInfo.title" :link="proxy.$local_host+'/management/groups/'+ shareInfo.id+'/members'"
                         :base64="shareInfo.image"></share-card>
             <template #footer>
                 <el-button type="danger">解散群组</el-button>

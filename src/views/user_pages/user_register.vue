@@ -28,7 +28,9 @@
                                 <div class="label">验证码</div>
                                 <div style="display: flex">
                                     <el-input v-model="verify_code"/>
-                                    <el-button style="margin-left: 8px;width: 40%;" type="primary">请 求</el-button>
+                                    <el-button @click="sendVerifyCode" style="margin-left: 8px;width: 40%;"
+                                               type="primary">请 求
+                                    </el-button>
                                 </div>
                                 <div class="label">昵称</div>
                                 <el-input v-model="username"/>
@@ -60,7 +62,7 @@ import {navTo} from "../../api/util";
 import Header from "../../components/other/cmp/Header.vue";
 import JhCard from "../../components/other/cmp/JhCard.vue";
 import {ref} from "vue";
-import {login, register} from "../../api/user";
+import {login, register, user_sendCode} from "../../api/user";
 import {ElMessage} from "element-plus";
 
 let account = ref("");
@@ -83,11 +85,19 @@ function userRegister() {
     }
     register(user).then(res => {
         if (res.data.code === 200) {
-            ElMessage.info("注册成功");
+            ElMessage.success("注册成功，去登录吧！");
         }
     })
-
 }
+
+function sendVerifyCode() {
+    user_sendCode(account.value).then(res => {
+        if (res.data.code === 200) {
+            ElMessage.success("验证码发送成功");
+        }
+    });
+}
+
 
 </script>
 

@@ -2,7 +2,7 @@
     <div class="component-frame">
         <!--操作栏-->
         <div class="operation-frame" v-if="notHeadComponent">
-            <el-tag style="margin-right: auto;margin-left: 0" v-if="notHeadComponent">单选</el-tag>
+            <el-tag style="margin-right: auto;margin-left: 0" v-if="notHeadComponent">{{ model.tag }}</el-tag>
 
             <div>
                 <slot name="extend"></slot>

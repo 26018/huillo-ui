@@ -5,5 +5,10 @@
 
 @font-face {
     font-family: 'siyuan';
-    src: url("/src/font/SourceHanSansSC-Normal.otf");
+    src: url("/src/font/SourceHanSansCN-Medium.ttf");
+}
+
+@font-face {
+    font-family: 'huawen';
+    src: url("/src/font/STXINGKA.TTF");
 }

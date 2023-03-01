@@ -10,7 +10,7 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import 'element-plus/dist/index.css';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import * as echarts from 'echarts';
-import "./config/axiosConfig.js";
+import axios from "./config/axiosConfig.js";
 
 import {createPinia} from "pinia";
 import piniaPersist from 'pinia-plugin-persist';
@@ -31,5 +31,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 app.config.globalProperties.$echarts = echarts;
-app.config.globalProperties.$local_host = "http://localhost:3000"
+// app.config.globalProperties.$local_host = "http://fixyou.top";
+app.config.globalProperties.$local_host = "http://localhost:3000";
 app.mount('#app')

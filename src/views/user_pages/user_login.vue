@@ -66,10 +66,8 @@ function userLogin() {
                 duration: 2000,
             })
             setTimeout(() => {
-                navTo('/create')
+                navTo('/survey')
             }, 2000)
-        } else {
-            ElMessage.error(res.data.message)
         }
     })
 }

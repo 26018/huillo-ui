@@ -1,7 +1,13 @@
 <template>
     <div>
-        <div v-show="!status">正在加入群组....</div>
-        <div v-show="status">3秒后返回</div>
+        <div style="max-width: 400px;margin: 0 auto">
+            <div v-if="status">
+                <div style="font-size: 32px;margin-top: 32px;font-weight: 600">您已成功加入群组</div>
+                <div><img style="margin-top: 16px" src="/src/assets/success.png"></div>
+            </div>
+            <div v-else style="font-size: 32px;margin-top: 32px;font-weight: 600;color: red">加入群组失败</div>
+            <el-button style="margin-top: 32px" type="primary" @click="navTo('/management/groups')">点击返回</el-button>
+        </div>
     </div>
 </template>
 
@@ -20,11 +26,10 @@ onMounted(() => {
     group_add_member(groupId).then(res => {
         if (res.data.code === 200) {
             ElMessage.success("成功加入群组");
+            status.value = true;
+        }else{
+            status.value = false;
         }
-        status.value = true;
-        setTimeout(() => {
-            navTo(-1);
-        }, 3000);
     }).catch(() => {
         status.value = true;
     });

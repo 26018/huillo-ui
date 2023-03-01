@@ -122,7 +122,7 @@ onMounted(() => {
 
 .title {
     font-size: 24px;
-    font-family: siyuan, serif;
+    font-family: '微软雅黑', serif;
     margin-bottom: 28px;
     margin-top: 32px;
 }
@@ -130,7 +130,7 @@ onMounted(() => {
 .content {
     margin-top: 8px;
     margin-bottom: 16px;
-    font-family: siyuan, serif;
+    font-family: '微软雅黑', serif;
     display: flex;
     color: rgb(51, 51, 51);
     width: 600px;

@@ -81,7 +81,7 @@ export default {
             let jsonAndFile = addJsonAndFile(submitDTO, 'submitSurvey', userFile.uploadFileList, 'uploadFiles');
             questionnaire_submit(jsonAndFile).then(res => {
                 if (res.data.code === 200) {
-                    navTo('/submit-success');
+                    navTo('/surveys/'+this.questionnaireId+'/submit-success');
                 }
             });
             userFile.uploadFileList = []

@@ -2,11 +2,14 @@
   {
     "cname": "jh-upload-file",
     "title": "文件上传",
-    "description": ""
+    "description": "",
+    "tag": "文件"
   },
   {
     "cname": "jh-download-file",
     "title": "文件下载",
-    "description": "请下载以下文件"
+    "description": "请下载以下文件",
+    "tag": "文件"
+
   }
 ]

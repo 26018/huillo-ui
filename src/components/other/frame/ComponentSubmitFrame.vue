@@ -1,6 +1,7 @@
 <template>
     <div class="component-frame">
         <div>
+            <el-tag v-if="notHeadComponent" style="float: right">{{data.tag}}</el-tag>
             <text-read :pre="true" :text="data.title" :font-size="fontSize_title">
                 <template #prefix>
                     <div>{{ componentSequence }}</div>

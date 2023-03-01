@@ -4,7 +4,7 @@
             <div style="padding-top: 100px;">
                 <div>您已成功提交问卷</div>
                 <div>非常感谢您参与此次调查</div>
-                <el-button type="primary" link @click="navTo('/create')">点击返回</el-button>
+                <el-button type="primary" style="margin-top: 16px" link @click="navTo('/survey')">点击返回</el-button>
             </div>
         </div>
     </div>

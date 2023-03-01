@@ -1,27 +1,36 @@
 [
   {
     "cname": "jh-text-input",
-    "title": "年龄"
+    "title": "年龄",
+    "tag": "问答"
   },
   {
-    "cname": "jh-text-input",
-    "title": "性别"
+    "cname": "jh-radio",
+    "title": "性别",
+    "options": [
+      "男",
+      "女"
+    ],
+    "tag": "单选"
   },
   {
     "cname": "jh-text-input",
     "title": "身份证",
-    "description": ""
+    "description": "",
+    "tag": "问答"
   },
   {
     "cname": "jh-text-input",
     "title": "家庭住址",
     "description": "",
-    "preselectedAnswer": []
+    "preselectedAnswer": [],
+    "tag": "问答"
   },
   {
     "cname": "jh-upload-file",
     "title": "文件上传",
     "options": [],
-    "preselectedAnswer": []
+    "preselectedAnswer": [],
+    "tag": "文件"
   }
 ]
