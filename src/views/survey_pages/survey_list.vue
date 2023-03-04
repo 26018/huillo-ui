@@ -15,8 +15,7 @@
                     <div style="display: flex;width: 100%;justify-content: center">
                         <el-button type="success" size="small" @click="()=>{
                             currentOperateData.value = scope.row
-                            share(scope.row,shareView)
-                        }">分享
+                            ViewOpen(shareView)  }">分享
                         </el-button>
                         <el-button type="primary" size="small" @click="analysis(scope.row)">分析</el-button>
                         <el-button type="warning" size="small"
@@ -32,8 +31,8 @@
         <!--弹窗-->
         <!--分享问卷-->
         <jh-dialog title="分享问卷" :show="shareView" @close="ViewClose(shareView)">
-            <share-card :title="SurveyShareInfo.title" :link="proxy.$local_host+'/surveys/'+currentOperateData.value.id"
-                        :base64="SurveyShareInfo.image"></share-card>
+            <share-card :title="currentOperateData.value.title"
+                        :link="proxy.$LOCALHOST_PREFIX+'/surveys/'+currentOperateData.value.id"></share-card>
         </jh-dialog>
         <!--关闭问卷-->
         <jh-dialog title="结束问卷" :show="closeView" @close="ViewClose(closeView)">
@@ -67,10 +66,7 @@ import {ElMessage} from "element-plus";
 import ShareCard from "../../components/other/cmp/ShareCard.vue";
 
 
-let {
-    search, tableData, showDetail, SurveyShareInfo,
-    shareView, closeView, deleteView, share, analysis
-} = useCollections();
+let {search, tableData, showDetail, shareView, closeView, deleteView, analysis} = useCollections();
 
 let currentOperateData = ref({});
 let {proxy} = getCurrentInstance();
@@ -130,4 +126,14 @@ watch(search, (o, n) => {
     cursor: pointer;
 }
 
+:deep(.el-scrollbar__view) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:deep(.el-scrollbar__thumb) {
+    max-width: 0;
+    margin-left: auto;
+}
 </style>

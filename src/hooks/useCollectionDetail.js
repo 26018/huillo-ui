@@ -1,5 +1,4 @@
 import {reactive, ref} from "vue";
-import {questionnaire_share} from "../api/questionnaire";
 
 export default function () {
     let tableData = ref([]);
@@ -24,13 +23,6 @@ export default function () {
     // 个人提交详细列表
     let personalSubmitDetailView = reactive({data: false})
 
-    const share = (data, viewControl) => {
-        viewControl.data = true;
-        questionnaire_share(data.id).then(res => {
-            questionnaireShare.value = res.data.data;
-        })
-        shareView.value = true;
-    }
 
     return {
         tableData, title, endTime, startTime, filesCount, questionnaireShare,

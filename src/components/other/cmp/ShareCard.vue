@@ -13,11 +13,15 @@
         </el-button>
     </div>
     <div class="image-container">
-        <div style="color: white;align-items: center;justify-content: center;">
-            <div style="font-size: 22px;max-width: 250px">{{ title }}</div>
-            <div style="margin-top: 12px">手机扫描二维码填写内容</div>
+        <div>
+            <div style="color: white;align-items: center;justify-content: center;margin-left: 8px">
+                <div style="font-size: 22px;max-width: 250px">{{ title }}</div>
+                <div style="margin-top: 12px">手机扫描二维码填写内容</div>
+            </div>
+            <div style="margin: 4px;padding: 8px;background: white;border-radius: 8px">
+                <div id="qrcode"></div>
+            </div>
         </div>
-        <el-image style="border-radius: 4px" :src="'data:image/png;base64,'+base64"/>
     </div>
 
 </template>
@@ -26,12 +30,14 @@
 
 import ClipboardJS from "clipboard";
 import {ElMessage} from "element-plus";
-import {onUnmounted} from "vue";
+import {onMounted, onUnmounted} from "vue";
 import {navTo} from "../../../api/util";
+import QRCode from 'qrcodejs2-fix'
 
-let props = defineProps(['title', 'link', 'base64']);
+let props = defineProps(['title', 'link']);
 
 let clipboard = new ClipboardJS('.btn');
+
 clipboard.on('success', function (e) {
     ElMessage.success({message: "复制成功", showClose: true})
     e.clearSelection();
@@ -42,26 +48,46 @@ clipboard.on('error', function (e) {
     console.error('Trigger:', e.trigger);
 });
 
+let qrcode;
+
+onMounted(() => {
+    let size = 100;
+    qrcode = new QRCode(document.getElementById('qrcode'), {
+        width: size,
+        height: size,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+    })
+    qrcode.makeCode(props.link);
+})
+
 onUnmounted(() => {
     clipboard.destroy();
+    qrcode.clear()
 })
 
 </script>
 
 <style scoped>
 .image-container {
-    background-image: url('/src/assets/sea.jpg');
+    background-image: url('/src/assets/image_back.png');
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: cover;
     background-position: center;
-    border-radius: 4px;
-    padding: 4px 8px;
-    display: flex;
+    border-radius: 8px;
+    padding: 0;
     width: 100%;
-    max-width: 400px;
+    height: 100%;
+    max-height: 160px;
     outline: none;
+}
+
+.image-container > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
     align-items: center;
-    justify-content: space-between
+    justify-content: space-between;
 }
 
 :deep(.el-table__row) {

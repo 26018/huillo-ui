@@ -100,4 +100,15 @@ const deleteSubmit = (id) => {
 :deep(.el-table__row) {
     cursor: pointer;
 }
+
+:deep(.el-scrollbar__view) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:deep(.el-scrollbar__thumb) {
+    max-width: 0;
+    margin-left: auto;
+}
 </style>

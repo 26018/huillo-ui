@@ -49,8 +49,8 @@
             </div>
 
             <jh-card style="flex: 1;min-width: 500px">
-                <div v-show="!emptySet" id="data" style="height: 100%;width: 100%"></div>
-                <div v-show="emptySet"
+                <div v-if="!emptySet" id="data" style="height: 100%;width: 100%"></div>
+                <div v-else
                      style="font-size: 18px;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center">
                     暂无统计数据
                 </div>

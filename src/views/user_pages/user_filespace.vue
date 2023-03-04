@@ -211,4 +211,15 @@ function deleteUserFile(id) {
     display: none;
 }
 
+:deep(.el-scrollbar__view) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:deep(.el-scrollbar__thumb) {
+    max-width: 0;
+    margin-left: auto;
+}
+
 </style>

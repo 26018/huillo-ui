@@ -1,12 +1,15 @@
 <template>
     <div>
-        <div :id="props.data.id" style="height: 200px;width: 100%;"/>
+        <chart-analysis-frame :chart-id="data.id" :chart-data="option" :table-data="tableData">
+
+        </chart-analysis-frame>
     </div>
 </template>
 
 <script setup>
 // data是柱状图的数据，desc是柱状图的描述
-import {getCurrentInstance, onMounted} from "vue";
+import {onBeforeMount, reactive} from "vue";
+import ChartAnalysisFrame from "../other/frame/ChartAnalysisFrame.vue";
 
 let props = defineProps({
     data: {
@@ -17,11 +20,10 @@ let props = defineProps({
     }
 });
 
-onMounted(() => {
-    let {proxy} = getCurrentInstance();
-    let myChart = proxy.$echarts.init(document.getElementById(props.data.id));
-
-    let option = {
+let option = reactive({});
+let tableData = reactive([]);
+onBeforeMount(() => {
+    option = {
         tooltip: {},
         legend: {},
         xAxis: {
@@ -37,15 +39,23 @@ onMounted(() => {
     };
     option.xAxis.data = props.data.options;
     option.xAxis.data.sort();
-    option.xAxis.data.forEach(d=>{
+    option.xAxis.data.forEach(d => {
         option.series[0].data.push(props.data.map[d]);
     })
-    // option.series[0].data = props.data.countArr;
     option.series[0].name = props.data.name;
-    myChart.setOption(option)
 
-    window.addEventListener('resize',myChart.resize)
-
+    let total = 0;
+    Object.keys(props.data.map).forEach(key => {
+        total += props.data.map[key];
+    })
+    Object.keys(props.data.map).forEach(key => {
+        let value = props.data.map[key];
+        tableData.push({
+            options: key,
+            count: value,
+            percentage: value / total,
+        })
+    });
 });
 
 

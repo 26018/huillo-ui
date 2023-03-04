@@ -1,12 +1,13 @@
 <template>
     <div>
-        <div :id="props.data.id" style="height: 200px;width: 100%;"/>
+        <chart-analysis-frame :chart-id="data.id" :chart-data="option" :table-data="tableData"/>
     </div>
 </template>
 
 <script setup>
 
-import {getCurrentInstance, onMounted} from "vue";
+import {onBeforeMount, reactive, ref} from "vue";
+import ChartAnalysisFrame from "../other/frame/ChartAnalysisFrame.vue";
 
 let props = defineProps({
     data: {
@@ -17,33 +18,29 @@ let props = defineProps({
     }
 })
 
-onMounted(() => {
-    let {proxy} = getCurrentInstance();
-    let myChart = proxy.$echarts.init(document.getElementById(props.data.id));
+let option = ref({});
+let tableData = reactive([]);
 
-    let option = {
+// 在页面还未渲染时，计算数据
+onBeforeMount(() => {
+    option.value = {
+        title: {
+            text: 'Test',
+            left: 'center'
+        },
         tooltip: {
             trigger: 'item'
         },
         legend: {
             top: '5%',
-            left: 'center'
+            left: 'left',
+            orient: "vertical"
         },
         series: [
             {
                 name: '',
                 type: 'pie',
-                radius: ['40%', '70%'],
-                avoidLabelOverlap: false,
-                itemStyle: {
-                    borderRadius: 10,
-                    borderColor: '#fff',
-                    borderWidth: 2
-                },
-                label: {
-                    show: false,
-                    position: 'center'
-                },
+                radius: '50%',
                 emphasis: {
                     label: {
                         show: true,
@@ -51,24 +48,30 @@ onMounted(() => {
                         fontWeight: 'bold'
                     }
                 },
-                labelLine: {
-                    show: true
-                },
-                data: [
-
-                ]
+                data: []
             }
         ]
     };
-    option.series[0].name = props.data.name
+    option.value.series[0].name = props.data.name
     for (let i = 0; i < props.data.options.length; i++) {
-        option.series[0].data.push({
+        option.value.series[0].data.push({
             value: props.data.map[props.data.options[i]],
             name: props.data.options[i],
         })
     }
-    myChart.setOption(option)
-    window.addEventListener('resize',myChart.resize)
+
+    let total = 0;
+    Object.keys(props.data.map).forEach(key => {
+        total += props.data.map[key];
+    })
+    Object.keys(props.data.map).forEach(key => {
+        let value = props.data.map[key];
+        tableData.push({
+            options: key,
+            count: value,
+            percentage: value / total,
+        })
+    });
 })
 
 </script>

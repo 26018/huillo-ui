@@ -3,7 +3,7 @@
         <el-space wrap>
             <el-card style="min-width: 180px" v-show="groupData.length !==0" v-for="i in groupData">
                 <template #header>
-                    <div style="color: dodgerblue;cursor: pointer" @click="groupInfo(i.id)">{{ i.title }}</div>
+                    <div style="color: dodgerblue;cursor: pointer" @click="()=>{shareInfo = i;ViewOpen(shareView)}">{{ i.title }}</div>
                 </template>
                 <template #default>
                     <div style="display: flex;align-items: baseline">
@@ -39,8 +39,7 @@
             </template>
         </jh-dialog>
         <jh-dialog title="群组信息" :show="shareView" @close="ViewClose(shareView)">
-            <share-card :title="shareInfo.title" :link="proxy.$local_host+'/management/groups/'+ shareInfo.id+'/members'"
-                        :base64="shareInfo.image"></share-card>
+            <share-card :title="shareInfo.title" :link="proxy.$LOCALHOST_PREFIX+'/management/groups/'+ shareInfo.id+'/members'"></share-card>
             <template #footer>
                 <el-button type="danger">解散群组</el-button>
             </template>
@@ -53,10 +52,9 @@
 
 import {getCurrentInstance, onMounted, reactive, ref} from "vue";
 import useGroups from "../../hooks/useGroups";
-import {group_list, group_share} from "../../api/group";
+import {group_list} from "../../api/group";
 import {ViewClose, ViewOpen} from "../../api/util";
 import JhDialog from "../../components/other/cmp/JhDialog.vue";
-import axios from "axios";
 import ShareCard from "../../components/other/cmp/ShareCard.vue";
 
 let {
@@ -76,12 +74,6 @@ onMounted(() => {
     })
 })
 
-function groupInfo(groupId) {
-    ViewOpen(shareView)
-    group_share(groupId).then(res => {
-        shareInfo.value = res.data.data
-    });
-}
 
 const {proxy} = getCurrentInstance();
 

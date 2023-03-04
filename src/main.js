@@ -31,6 +31,13 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 app.config.globalProperties.$echarts = echarts;
-// app.config.globalProperties.$local_host = "http://fixyou.top";
-app.config.globalProperties.$local_host = "http://localhost:3000";
+
+// 前端地址
+// app.config.globalProperties.$LOCALHOST_PREFIX = 'http://localhost:3000'
+app.config.globalProperties.$LOCALHOST_PREFIX = 'http://survey.fixyou.top'
+
+// 接口地址
+axios.defaults.baseURL = "http://fixyou.top:8086";
+// axios.defaults.baseURL = "http://localhost:8086";
+
 app.mount('#app')

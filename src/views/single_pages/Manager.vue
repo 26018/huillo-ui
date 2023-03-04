@@ -18,6 +18,7 @@ import useManagerNav from "../../hooks/useManagerNav";
 import {onMounted} from "vue";
 
 let navData = useManagerNav()
+
 function ManagerNav(data, index) {
     data.action(data.args);
     let element = document.getElementById('Manager:' + index);
@@ -38,10 +39,7 @@ function recordCurrentNav(navId) {
 }
 
 onMounted(() => {
-    let currentNavId = localStorage.getItem('currentNav');
-    if (currentNavId == 0) {
-        currentNavId = 1;
-    }
+    let currentNavId = 1;
     let element = document.getElementById('Manager:' + currentNavId);
     element.style.color = '#409EFF'
 })
@@ -69,11 +67,11 @@ onMounted(() => {
     align-items: center;
     cursor: pointer;
     user-select: none;
-    font-family: siyuan,serif;
+    font-family: siyuan, serif;
 }
 
 .nav-item:hover {
-    background-color: rgb(245,249,255);
+    background-color: rgb(245, 249, 255);
     border-radius: 4px;
 }
 

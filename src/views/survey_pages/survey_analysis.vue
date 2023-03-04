@@ -1,5 +1,4 @@
 <template>
-    <div>
         <el-scrollbar>
             <el-space direction="vertical" :fill="true" style="width: 100%;">
                 <div style="display: flex;align-items: center">
@@ -19,7 +18,6 @@
                 </div>
             </el-space>
         </el-scrollbar>
-    </div>
 </template>
 
 <script>
@@ -81,4 +79,14 @@ export default defineComponent({
 
 <style scoped>
 
+:deep(.el-scrollbar__view) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:deep(.el-scrollbar__thumb) {
+    max-width: 2px;
+    margin-left: auto;
+}
 </style>

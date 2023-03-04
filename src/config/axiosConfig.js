@@ -3,10 +3,6 @@ import axios from "axios";
 import {ElMessage} from "element-plus";
 import {navTo} from "../api/util";
 
-// axios.defaults.baseURL = "http://fixyou.top:8086";
-axios.defaults.baseURL = "http://localhost:8086";
-
-
 axios.interceptors.request.use(function (config) {
     config.headers = {
         token: localStorage.getItem("token"),
@@ -25,8 +21,7 @@ axios.interceptors.response.use(function (response) {
             return;
         }
         ElMessage.error({
-            message: response.data.message,
-            showClose: true,
+            message: response.data.message, showClose: true,
         });
     }
     return response;

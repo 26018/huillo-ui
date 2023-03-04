@@ -51,8 +51,6 @@ export default function () {
     function publish() {
         const survey = useSurvey();
         const userfile = useUserFile()
-        console.log(survey)
-        console.log(userfile)
         publishSurvey(survey, userfile.downloadFileList);
         // 文件上传成功后，将其从列表中移除
         userfile.downloadFileList = []
