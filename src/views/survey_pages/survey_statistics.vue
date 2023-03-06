@@ -11,7 +11,7 @@
                         <Share/>
                     </el-icon>&nbsp;分享
                 </el-button>
-                <el-button text type="primary" @click="ViewOpen(collectionDetail.editView)">
+                <el-button text type="primary" @click="navTo('/survey')">
                     <el-icon>
                         <Edit/>
                     </el-icon>&nbsp;编辑
@@ -61,9 +61,8 @@
                 <div>
                     <div
                         style="width: 100%;text-align: center;color: cornflowerblue;white-space: nowrap;padding: 8px 0;border-bottom: 2px dashed gainsboro"
-                        v-for="group in questionnaire.selectedGroupList">{{
-                            group['title']
-                        }}
+                        v-for="group in questionnaire.selectedGroupList">
+                        {{ group['title'] }}
                     </div>
                 </div>
                 <div style="color: gray;display: flex;align-items: center;height: 100%"
@@ -76,9 +75,8 @@
                 <jh-card style="height: 50%">
                     <div style="display: flex;flex-direction: column;justify-content: center">
                         <div style="font-size: 18px;margin-bottom: 8px">开始时间</div>
-                        <div style="font-size: 30px;font-weight: 600;color: rgb(0,217,89)"> {{
-                                simpleFormatDate(new Date(questionnaire.startTime))
-                            }}
+                        <div style="font-size: 30px;font-weight: 600;color: rgb(0,217,89)">
+                            {{ survey_startTime }}
                         </div>
                     </div>
                 </jh-card>
@@ -86,9 +84,8 @@
                 <jh-card style="height: 50%">
                     <div style="display: flex;flex-direction: column;justify-content: center">
                         <div style="font-size: 18px;margin-bottom: 8px">截止时间</div>
-                        <div style="font-size: 30px;font-weight:600;color: orangered">{{
-                                simpleFormatDate(new Date(questionnaire.endTime))
-                            }}
+                        <div style="font-size: 30px;font-weight:600;color: orangered">
+                            {{ survey_endTime }}
                         </div>
                     </div>
                 </jh-card>
@@ -212,7 +209,7 @@
 import {download, navTo, simpleFormatDate, ViewClose, ViewOpen} from "../../api/util";
 import JhDialog from "../../components/other/cmp/JhDialog.vue";
 import useCollectionDetail from "../../hooks/useCollectionDetail";
-import {getCurrentInstance, onMounted, reactive, ref} from "vue";
+import {computed, getCurrentInstance, onBeforeMount, reactive, ref} from "vue";
 import {questionnaire_detail} from "../../api/questionnaire";
 import {group_notifyNotSubmitMember} from "../../api/group";
 import {ElMessage} from "element-plus";
@@ -233,13 +230,10 @@ let questionnaire = ref({
     selectedGroupList: [],
 });
 
-onMounted(() => {
-
+onBeforeMount(() => {
     let {proxy} = getCurrentInstance();
-
     questionnaire_detail(props.id).then(res => {
         if (res.data.code !== 200) {
-            ElMessage.error("获取详细信息失败");
             return
         }
         questionnaire.value = res.data.data;
@@ -308,6 +302,21 @@ onMounted(() => {
     });
 })
 
+let survey_endTime = computed(() => {
+    let endTime = questionnaire.value.endTime;
+    if (endTime == null) {
+        return;
+    }
+    return simpleFormatDate(endTime);
+});
+let survey_startTime = computed(() => {
+    let startTime = questionnaire.value.startTime;
+    if (startTime == null) {
+        return;
+    }
+    return simpleFormatDate(startTime);
+});
+
 function selectCurrentSubmitter(selectedCurrentSubmitter) {
     currentSubmitter.value = selectedCurrentSubmitter;
 }
@@ -341,6 +350,7 @@ function downloadFiles(fileList) {
         });
     })
 }
+
 
 
 </script>

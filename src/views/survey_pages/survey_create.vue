@@ -45,9 +45,14 @@ import JhDialog from "../../components/other/cmp/JhDialog.vue";
 import {ViewClose} from "../../api/util";
 import {storeToRefs} from "pinia";
 import {useSurvey} from "../../store/survey";
+import {onBeforeMount} from "vue";
 
 let {navData, groupList, publishAble, publish} = useCreateNav();
 let {selectedGroupList, endTime} = storeToRefs(useSurvey());
+
+onBeforeMount(()=>[
+
+])
 
 </script>
 

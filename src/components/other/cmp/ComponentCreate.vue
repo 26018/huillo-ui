@@ -31,6 +31,7 @@ import JhTextareaInput from "../../create/JhTextareaInput.vue";
 import {useSurvey} from "../../../store/survey";
 import {navTo, refreshComponentIndex} from "../../../api/util";
 import TextInput from "./TextInput.vue";
+import router from "../../../router";
 
 export default {
     components: {
@@ -59,8 +60,16 @@ export default {
         }
     },
 
+
     methods: {
         navTo,
+        // fromEditPage() {
+        //     let edit = localStorage.getItem('edit-template');
+        //     if (edit != null) {
+        //         return JSON.parse(edit);
+        //     }
+        //     return null;
+        // },
         removeItem(data) {
             for (let i = 0; i < this.questionnaire['components'].length; i++) {
                 const component = this.questionnaire['components'][i];
@@ -73,7 +82,6 @@ export default {
         moveEnd(data) {
             refreshComponentIndex(this.questionnaire['components'])
         },
-
         goToHome() {
             window.open('https://github.com/26018')
         },

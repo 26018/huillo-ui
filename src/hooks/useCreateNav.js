@@ -33,10 +33,6 @@ export default function () {
         },
     ]
 
-    function clear() {
-        ElMessage.success("清除成功!")
-    }
-
     function clearAll() {
         let survey = useSurvey();
         survey.$reset()
@@ -49,20 +45,25 @@ export default function () {
     }
 
     function publish() {
-        const survey = useSurvey();
-        const userfile = useUserFile()
-        publishSurvey(survey, userfile.downloadFileList);
-        // 文件上传成功后，将其从列表中移除
-        userfile.downloadFileList = []
+        let survey = useSurvey();
+        let userfile = useUserFile();
+        if (survey.endTime == null || survey.endTime.length === 0) {
+            ElMessage.error("请选择截止日期")
+            return;
+        }
+        publishSurvey(survey, userfile.downloadFileList).then(res => {
+            if (res.data.code === 200) {
+                ElMessage.success("发布成功");
+                // 文件上传成功后，将其从列表中移除
+                userfile.downloadFileList = []
+            }
+        });
     }
 
     function publishSurvey(survey, fileList) {
-        let jsonAndFile = addJsonAndFile(survey, 'survey', fileList, 'downloadFiles');
-        axios.post("/survey/create", jsonAndFile).then(res => {
-            if (res.data.code === 200) {
-                ElMessage.success("发布成功");
-            }
-        });
+
+        let jsonAndFile = addJsonAndFile(survey.$state, 'survey', fileList, 'downloadFiles');
+        return axios.post("/survey/create", jsonAndFile);
     }
 
 

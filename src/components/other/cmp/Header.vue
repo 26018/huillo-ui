@@ -152,6 +152,7 @@ function randomInt(biggest) {
     font-family: deyihei, serif;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-overflow: ellipsis;
     background-image: v-bind('poemBackgroundImage');
 }
 
